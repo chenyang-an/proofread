@@ -5,121 +5,141 @@
 - `\lnot` — logical negation ("not")
 - `\land` — conjunction ("and")
 - `\lor` — disjunction ("or")
-- `\limplies` — implication ("if ... then ..."), i.e., →
-- `\liff` — equivalence / biconditional ("if and only if"), i.e., ↔
-- `\True` — the Boolean value "True" (T)
-- `\False` — the Boolean value "False" (F)
-- `\vDash` — double turnstile; `\vDash A` means A is a tautology; `\Gamma \vDash A` means Γ tautologically implies A
-- `\nvDash` — negation of `\vDash`; `\Gamma \nvDash A` means Γ does not tautologically imply A
+- `\limplies` — implication ("if … then …", →)
+- `\liff` — biconditional / equivalence ("if and only if", ↔)
+- `\True` — the Boolean value "True"
+- `\False` — the Boolean value "False"
+- `\vDash` — double turnstile; `\vDash A` means A is a tautology; `Γ \vDash A` means Γ tautologically implies A
+- `\nvDash` — negation of `\vDash`; `Γ \nvDash A` means Γ does not tautologically imply A
 - `\tautEq` — tautological equivalence; `A \tautEq B` means A and B are tautologically equivalent
-- `\oplus` — parity / exclusive or (xor) connective
-- `|` — nand (Sheffer stroke); `A | B` equals `\lnot(A \land B)`
-- `\downarrow` — nor connective; `A \downarrow B` equals `\lnot(A \lor B)`
+- `\oplus` — parity / exclusive-or connective ("xor")
+- `|` — nand (Sheffer stroke); `A | B` has truth value of `\lnot(A \land B)`
+- `\downarrow` — nor connective; `A \downarrow B` has truth value of `\lnot(A \lor B)`
 - `\top` — nullary connective with truth value True
 - `\perp` — nullary connective with truth value False
-- `\TCase` — 3-ary "if-then-else" connective; `\TCase(A, B, C)` means "if A then B else C"
-- `\TMaj^k` — k-ary majority connective; true when ≥ k/2 of the arguments are true
+- `\TCase(A, B, C)` — 3-ary "if-then-else" connective; value is φ(B) if φ(A)=True, else φ(C)
+- `\TMaj^k` — k-ary majority connective; true when ≥ k/2 of arguments are true
 - `\PL` — the Hilbert-style proof system for propositional logic (defined in Chapter 2)
 - `\bigand` — "big and" notation for iterated conjunction
 - `\bigor` — "big or" notation for iterated disjunction
-- `A(B/p)` — result of substituting formula B for every occurrence of variable p in formula A
-- `A(B_1,...,B_k/p_{i_1},...,p_{i_k})` — parallel substitution of B_j for p_{i_j} in A
-- `f_A` — the Boolean function represented by formula A (Definition \ref{def:defineBooleanFunction})
 - `\Ptime` — polynomial time complexity class (P)
 - `\NP` — nondeterministic polynomial time complexity class
+- `A(B/p)` — result of substituting formula B for every occurrence of variable p in formula A
+- `A(B₁,…,Bₖ/p_{i₁},…,p_{iₖ})` — parallel substitution of Bⱼ for p_{iⱼ} in A
+- `f_A` — the Boolean function represented by formula A (Definition \ref{def:defineBooleanFunction})
 
 ## Definitions (in order of appearance)
 
-1. [sec1] **Negation (¬)** — "not" operator; true when operand is false (inline, informal)
-2. [sec1] **Conjunction (∧)** — "and" operator; true when both operands are true (inline, informal)
-3. [sec1] **Disjunction (∨)** — "or" operator (inclusive or); true when at least one operand is true (inline, informal)
-4. [sec1] **Implication (→)** — "if...then..." operator; false only when antecedent is true and consequent is false (inline, informal)
-5. [sec1] **Equivalence (↔)** — "if and only if" operator; true when both operands have the same truth value (inline, informal)
-6. [sec1] **Truth functional** — connectives whose values depend solely on the truth values of their arguments (inline)
-7. [sec2] **Propositional formula** \label{def:propositionalFmla} — inductively defined: (a) each p_i is a formula; (b) if A is a formula then ¬A is a formula; (c) if A, B are formulas then (A∨B), (A∧B), (A→B), (A↔B) are formulas
-8. [sec2] **Unique readability** — the property that every propositional formula can be uniquely parsed into one of the forms of Definition \ref{def:propositionalFmla} (inline)
-9. [sec2] **Precedence of connectives** — ¬ highest, then ∧ and ∨, then → and ↔ lowest; same-precedence associates right to left (inline)
-10. [sec3] **Truth assignment** \label{def:truthAssignment} — a mapping φ : {p_1, p_2, ...} → {T, F} from propositional variables to truth values
-11. [sec3] **Definition of Truth for Propositional Formulas** \label{def:truthProp} — recursive extension of a truth assignment to all formulas via the semantics of each connective
-12. [sec3] **Truth table** — a table listing all possible truth assignments and the resulting truth values of a formula (inline, informal)
-13. [sec3] **Tautology** — a formula true under all truth assignments (inline, informal; formalized in sec4)
-14. [sec3] **Satisfiable** — a formula for which there exists at least one truth assignment making it true (inline, informal; formalized in sec4)
-15. [sec4] **Tautology / tautologically valid** — A is a tautology iff φ(A) = T for all truth assignments φ (formal, in unnamed definition block)
-16. [sec4] **Satisfiable (formula)** — A is satisfiable iff there exists φ with φ(A) = T; φ is a satisfying assignment; if no such φ exists, A is unsatisfiable (formal, in unnamed definition block)
-17. [sec4] **Satisfiable (set of formulas)** \label{def:satisfiableProp} — Γ is satisfiable iff there exists φ with φ(A) = T for every A ∈ Γ
-18. [sec4] **Tautological implication** \label{def:vDash} — (a) A ⊨ B iff every φ satisfying A also satisfies B; (b) Γ ⊨ B iff every φ satisfying Γ also satisfies B; ⊨ A means A is a tautology
-19. [sec4] **Tautologically equivalent** — A ≡_t B iff both A ⊨ B and B ⊨ A, i.e., φ(A) = φ(B) for all φ (unnamed definition block)
-20. [sec5] **Partial truth assignment** — an assignment of truth values to some subset of variables appearing in a formula (inline)
-21. [sec5] **Compact truth table** — a truth table where subformula values are written below their principal connective rather than in separate columns (inline)
-22. [sec5] **Reduced truth table** — a truth table with fewer than 2^k lines, using partial truth assignments that cover all possible full assignments (inline)
-23. [sec5] **Decision tree (binary)** — a tree procedure querying variable truth values one at a time, branching on T/F, with leaves giving formula's value (inline)
-24. [sec6] **Substitution instance** — a formula obtained by substituting formulas for variables in an axiom (inline)
-25. [sec7] **Boolean function** \label{def:BooleanFunction} — a k-ary function f : {T,F}^k → {T,F}
-26. [sec7] **Represents (a Boolean function)** \label{def:defineBooleanFunction} — formula A represents k-ary Boolean function f_A where f_A(x_1,...,x_k) = φ(A) with φ(p_i) = x_i
-27. [sec7] **Literal** \label{def:literalProp} — a formula of the form p_i or ¬p_i
-28. [sec7] **Disjunction** — a formula A_1 ∨ A_2 ∨ ... ∨ A_k (with arbitrary parenthesization); each A_i is a disjunct (inline)
-29. [sec7] **Conjunction** — a formula B_1 ∧ B_2 ∧ ... ∧ B_k (with arbitrary parenthesization); each B_i is a conjunct (inline)
-30. [sec7] **Conjunction of literals / DNF** \label{def:DNF} — a conjunction of literals is L_1 ∧ ... ∧ L_k; a DNF formula is C_1 ∨ ... ∨ C_ℓ where each C_i is a conjunction of literals
-31. [sec7] **Clause / CNF** \label{def:clauseAndCNF} — a clause is a disjunction of literals L_1 ∨ ... ∨ L_k; a CNF formula is C_1 ∧ ... ∧ C_ℓ where each C_i is a clause
-32. [sec8] **Language (propositional)** — a set L of propositional connectives (inline)
-33. [sec8] **L-formula** \label{def:LformulaProp} — a propositional formula using only connectives from language L
-34. [sec8] **Adequate (language)** \label{def:adequate} — a language L is adequate if every Boolean function is represented by some L-formula
-35. [sec8] **Parity connective (⊕)** — A ⊕ B is true iff exactly one of A, B is true; also called "exclusive or" / xor (inline)
-36. [sec8] **Nand / Sheffer stroke (|)** — A | B has truth value ¬(A ∧ B) (inline)
-37. [sec8] **Nor (↓)** — A ↓ B has truth value ¬(A ∨ B) (exercises)
-38. [sec8] **Nullary connectives ⊤, ⊥** — φ(⊤) = T and φ(⊥) = F; 0-ary connectives (inline)
-39. [sec8] **TCase (if-then-else)** — 3-ary connective: TCase(A,B,C) = φ(B) if φ(A)=T, else φ(C) (inline)
-40. [sec8] **Majority connective (Maj^k)** — k-ary connective true when ≥ k/2 arguments are true (inline)
-41. [sec10] **Propositional substitution** \label{def:substitutionProp} — A(B_1,...,B_k/p_{i_1},...,p_{i_k}) is defined recursively: replace each p_{i_j} with B_j, recurse through ¬ and binary connectives
-42. [sec10] **Instance (of a formula)** \label{def:instanceProp} — any formula of the form A(B/p_i)
-43. [sec10] **p_ℓ-variant** — a truth assignment φ' that agrees with φ on all variables except possibly p_ℓ (inline)
-44. [sec11] **Feasible algorithm** — an algorithm efficient enough to be carried out in practice (inline, informal)
-45. [sec11] **Effective algorithm** — an algorithm that can be computed by a specific procedure and gives the correct answer (inline, informal)
+1. [sec1] **Negation (¬)** — "not" operator; true when operand is false
+2. [sec1] **Conjunction (∧)** — "and" operator; true when both operands are true
+3. [sec1] **Disjunction (∨)** — "or" operator (inclusive or); true when at least one operand is true
+4. [sec1] **Implication (→)** — "if … then …" operator; false only when antecedent is true and consequent is false
+5. [sec1] **Equivalence (↔)** — "if and only if" operator; true when both operands have the same truth value
+6. [sec1] **Truth functional** — connective values determined solely by truth values of arguments
+7. [sec2] **Propositional formula** \label{def:propositionalFmla} — inductively defined: (a) pᵢ is a formula; (b) if A is a formula then ¬A is; (c) if A,B are formulas then (A∧B), (A∨B), (A→B), (A↔B) are formulas
+8. [sec2] **Precedence of connectives** — ¬ highest, then ∧ and ∨, then → and ↔ lowest; same-precedence associates right to left
+9. [sec2] **Unique readability** — every propositional formula can be uniquely parsed into one of the forms pᵢ, ¬A, or (A∘B)
+10. [sec3] **Truth assignment** \label{def:truthAssignment} — a mapping φ: {p₁,p₂,…} → {True, False}
+11. [sec3] **Definition of truth for propositional formulas** \label{def:truthProp} — recursive extension of a truth assignment to all formulas via the connective truth tables
+12. [sec3] **Truth table** — tabulation of all possible truth assignments and the resulting formula values
+13. [sec3] **Tautology** (informal, in example) — a formula true under all truth assignments
+14. [sec3] **Satisfiable** (informal, in example) — a formula true under some truth assignment
+15. [sec4] **Tautology / tautologically valid** (formal) — A is a tautology if φ(A)=True for all truth assignments φ
+16. [sec4] **Satisfiable (formula)** — there exists some φ with φ(A)=True
+17. [sec4] **Satisfying assignment** — a truth assignment φ such that φ(A)=True
+18. [sec4] **Unsatisfiable** — no satisfying assignment exists
+19. [sec4] **Satisfiable (set of formulas)** \label{def:satisfiableProp} — a set Γ is satisfiable if some φ makes every formula in Γ true
+20. [sec4] **Tautological implication** \label{def:vDash} — A⊨B means every satisfying assignment of A also satisfies B; Γ⊨B means every satisfying assignment of Γ also satisfies B
+21. [sec4] **Tautologically equivalent** — A≡B iff both A⊨B and B⊨A, equivalently φ(A)=φ(B) for all φ
+22. [sec5] **Partial truth assignment** — an assignment of truth values to some subset of the propositional variables appearing in a formula
+23. [sec5] **Decision tree (binary)** — a procedure querying variable truth values one at a time, branching on True/False, until the formula value is determined at a leaf
+24. [sec7] **Boolean function** \label{def:BooleanFunction} — a k-ary mapping f: {True,False}^k → {True,False}
+25. [sec7] **Represents (a Boolean function)** \label{def:defineBooleanFunction} — formula A represents f_A if f_A(x₁,…,xₖ) = φ(A) where φ(pᵢ)=xᵢ
+26. [sec7] **Literal** \label{def:literalProp} — a formula of the form pᵢ or ¬pᵢ
+27. [sec7] **Conjunction of literals** — L₁∧L₂∧…∧Lₖ where each Lᵢ is a literal
+28. [sec7] **Disjunctive Normal Form (DNF)** \label{def:DNF} — a disjunction of conjunctions of literals
+29. [sec7] **Clause** \label{def:clauseAndCNF} — a disjunction of literals L₁∨L₂∨…∨Lₖ
+30. [sec7] **Conjunctive Normal Form (CNF)** \label{def:clauseAndCNF} — a conjunction of clauses
+31. [sec7] **Disjunction** — a formula A₁∨A₂∨…∨Aₖ; each Aᵢ is a disjunct
+32. [sec7] **Conjunction** — a formula B₁∧B₂∧…∧Bₖ; each Bᵢ is a conjunct
+33. [sec8] **Language (propositional)** — a set L of propositional connectives
+34. [sec8] **L-formula** \label{def:LformulaProp} — a propositional formula using only connectives from L
+35. [sec8] **Adequate** \label{def:adequate} — a language L is adequate if every Boolean function is represented by some L-formula
+36. [sec8] **Parity connective (⊕)** — A⊕B is true iff exactly one of A, B is true; equivalently addition mod 2
+37. [sec8] **Exclusive or (xor)** — synonym for parity connective ⊕
+38. [sec8] **Nand / Sheffer stroke (|)** — A|B has truth value ¬(A∧B)
+39. [sec8] **Nor (↓)** — A↓B has truth value ¬(A∨B) (defined in exercises)
+40. [sec8] **Nullary connectives ⊤ and ⊥** — 0-ary connectives with φ(⊤)=True and φ(⊥)=False
+41. [sec8] **TCase (if-then-else connective)** — 3-ary connective: TCase(A,B,C) = φ(B) if φ(A)=True, else φ(C)
+42. [sec8] **Majority connective (Maj^k)** — k-ary connective true when ≥k/2 of arguments are true
+43. [sec10] **Substitution (propositional)** \label{def:substitutionProp} — A(B₁,…,Bₖ/p_{i₁},…,p_{iₖ}) is the result of simultaneously replacing each p_{iⱼ} in A with Bⱼ, defined recursively
+44. [sec10] **Instance** \label{def:instanceProp} — any formula of the form A(B/pᵢ) is an instance of A
+45. [sec10] **Variant (p_ℓ-variant)** — truth assignment φ' agreeing with φ on all variables except possibly p_ℓ
+46. [sec11] **Feasible algorithm** — an algorithm efficient enough to be carried out in practice
+47. [sec11] **Effective algorithm** — an algorithm that can be computed by a specific procedure and gives the correct answer
 
 ## Theorems, Lemmas, Corollaries (in order of appearance)
 
-1. [sec4] **Theorem** \label{thm:subsetGammaDelta} — If Γ ⊆ Δ, then: (1) any φ satisfying Δ satisfies Γ; (2) if Δ is satisfiable then Γ is satisfiable; (3) if Γ ⊨ A then Δ ⊨ A
-2. [sec4] **Theorem** \label{thm:AandNotA} — (a) A, ¬A ⊨ B for any A, B; (b) if Γ is unsatisfiable, then Γ ⊨ B for any B
-3. [sec4] **Theorem (Semantic Deduction Theorem)** \label{thm:deductionSemanticProp} — (a) A ⊨ B iff ⊨ A → B; (b) Γ, A ⊨ B iff Γ ⊨ A → B
-4. [sec4] **Theorem** (unnamed) — If Γ = {A_1,...,A_k} is finite, then Γ ⊨ B iff A_1 ∧ ... ∧ A_k ⊨ B
-5. [sec4] **Theorem** \label{thm:pqrEquivPqr} — A ≡_t B if and only if ⊨ A ↔ B
-6. [sec4] **Theorem** \label{thm:dualSatTaut} — A is a tautology iff ¬A is not satisfiable
-7. [sec4] **Theorem** \label{thm:ContradictionSemantic} — Γ ⊨ A iff Γ ∪ {¬A} is unsatisfiable
-8. [sec7] **Theorem (Adequacy of ¬, ∨, ∧, →, ↔)** \label{thm:adequateStd} — every k-ary Boolean function is represented by some propositional formula
-9. [sec7] **Theorem (Adequacy of DNF Formulas)** \label{thm:adequateStdDNF} — every k-ary Boolean function is represented by some DNF formula
-10. [sec7] **Theorem (Adequacy of CNF Formulas)** \label{thm:adequateStdCNF} — every k-ary Boolean function is represented by some CNF formula
-11. [sec7] **Corollary** \label{coro:DNFCNF} — any propositional formula is tautologically equivalent to some DNF formula and to some CNF formula
-12. [sec8] **Theorem** \label{thm:adequateRecap} — {¬, ∨, ∧, →, ↔} and {¬, ∨, ∧} are both adequate
-13. [sec8] **Theorem** \label{thm:adequateRecapBis} — {¬, ∨} and {¬, ∧} are both adequate
-14. [sec8] **Theorem** \label{thm:notImpliesAdequate} — {¬, →} is adequate
-15. [sec8] **Theorem** \label{thm:notAdequate2} — (a) {¬} is not adequate; (b) {∧, ∨} is not adequate
+1. [sec4] **Theorem** \label{thm:subsetGammaDelta} — If Γ⊆Δ: (1) φ satisfies Δ implies φ satisfies Γ; (2) Δ satisfiable implies Γ satisfiable; (3) Γ⊨A implies Δ⊨A
+2. [sec4] **Theorem** \label{thm:AandNotA} — (a) A, ¬A ⊨ B for any B; (b) if Γ is unsatisfiable then Γ⊨B for any B
+3. [sec4] **Theorem (Semantic Deduction Theorem)** \label{thm:deductionSemanticProp} — (a) A⊨B iff ⊨A→B; (b) Γ,A⊨B iff Γ⊨A→B
+4. [sec4] **Theorem** (unnamed) — If Γ={A₁,…,Aₖ} is finite, then Γ⊨B iff A₁∧…∧Aₖ⊨B
+5. [sec4] **Theorem** \label{thm:pqrEquivPqr} — A≡B iff ⊨A↔B
+6. [sec4] **Theorem (Duality: satisfiability vs. validity)** \label{thm:dualSatTaut} — A is a tautology iff ¬A is not satisfiable
+7. [sec4] **Theorem** \label{thm:ContradictionSemantic} — Γ⊨A iff Γ∪{¬A} is unsatisfiable
+8. [sec7] **Theorem (Adequacy of ¬,∨,∧,→,↔)** \label{thm:adequateStd} — Every k-ary Boolean function is represented by some propositional formula
+9. [sec7] **Theorem (Adequacy of DNF)** \label{thm:adequateStdDNF} — Every Boolean function is represented by some DNF formula
+10. [sec7] **Theorem (Adequacy of CNF)** \label{thm:adequateStdCNF} — Every Boolean function is represented by some CNF formula
+11. [sec7] **Corollary** \label{coro:DNFCNF} — Any propositional formula is tautologically equivalent to some DNF formula and to some CNF formula
+12. [sec8] **Theorem** \label{thm:adequateRecap} — {¬,∨,∧,→,↔} and {¬,∨,∧} are both adequate
+13. [sec8] **Theorem** \label{thm:adequateRecapBis} — {¬,∨} and {¬,∧} are both adequate
+14. [sec8] **Theorem** \label{thm:notImpliesAdequate} — {¬,→} is adequate
+15. [sec8] **Theorem** \label{thm:notAdequate2} — (a) {¬} is not adequate; (b) {∧,∨} is not adequate
 16. [sec8] **Theorem** \label{thm:nandAdequate} — {|} (nand alone) is adequate
-17. [sec8] **Theorem** \label{thm:topLimplies} — {⊥, →} is adequate
-18. [sec9] **Theorem** \label{thm:varsDependOnProp} — if φ and φ' agree on all variables in A, then φ(A) = φ'(A)
-19. [sec9] **Theorem** \label{thm:equalParens} — any formula has equal numbers of open and close parentheses
-20. [sec9] **Theorem** \label{thm:moreOpensCloses} — if A starts with '(' and B is a nonempty proper initial subexpression of A, then B has more open than close parentheses (hence B is not a formula)
-21. [sec9] **Theorem** \label{thm:numVars} — if A has m occurrences of binary connectives and n occurrences of variables, then n = m + 1
-22. [sec10] **Theorem** \label{thm:substituteProp1} — if φ(B) = φ(C), then φ(A(B/p_i)) = φ(A(C/p_i))
-23. [sec10] **Corollary** \label{coro:substituteTaut} — if B ≡_t C, then A(B/p_i) ≡_t A(C/p_i)
-24. [sec10] **Theorem** \label{thm:substituteProp2} — if B ≡_t C, then B(A/p_i) ≡_t C(A/p_i)
-25. [sec10] **Corollary** \label{coro:instanceTaut} — (a) any instance of a tautology is a tautology; (b) if A ⊨ B then A(C/p_i) ⊨ B(C/p_i); (c) if A_1,...,A_k ⊨ B then A_1(C/p_i),...,A_k(C/p_i) ⊨ B(C/p_i)
+17. [sec8] **Theorem** \label{thm:topLimplies} — {⊥,→} is adequate
+18. [sec9] **Theorem** \label{thm:varsDependOnProp} — Truth of a formula depends only on the truth values of variables appearing in it
+19. [sec9] **Theorem** \label{thm:equalParens} — In any formula, the number of open parentheses equals the number of close parentheses
+20. [sec9] **Theorem** \label{thm:moreOpensCloses} — If A starts with '(', any nonempty proper initial subexpression of A has more open than close parentheses, hence is not a formula
+21. [sec9] **Theorem** \label{thm:numVars} — If a formula has m binary connective occurrences and n variable occurrences, then n=m+1
+22. [sec10] **Theorem** \label{thm:substituteProp1} — If φ(B)=φ(C), then φ(A(B/pᵢ))=φ(A(C/pᵢ))
+23. [sec10] **Corollary** \label{coro:substituteTaut} — If B≡C then A(B/pᵢ)≡A(C/pᵢ)
+24. [sec10] **Theorem** \label{thm:substituteProp2} — If B≡C then B(A/pᵢ)≡C(A/pᵢ)
+25. [sec10] **Corollary** \label{coro:instanceTaut} — (a) Any instance of a tautology is a tautology; (b) if A⊨B then A(C/pᵢ)⊨B(C/pᵢ); (c) if A₁,…,Aₖ⊨B then A₁(C/pᵢ),…,Aₖ(C/pᵢ)⊨B(C/pᵢ)
 
 ## Key Conventions
 
+- Propositional variables are formally p₁, p₂, p₃, …; informally also p, q, r, …
 - Uppercase Roman letters (A, B, C, D, E) denote propositional formulas
 - Uppercase Greek letters (Γ, Δ) denote sets of propositional formulas
-- Lowercase Roman letters (p, q, r) are used informally for propositional variables; formally, variables are p_1, p_2, p_3, ...
-- φ (lowercase phi) denotes a truth assignment
-- "Formula" in Chapter 1 means {¬, ∨, ∧, →, ↔}-formula (Chapter 2 will use a different convention)
-- Parentheses may be informally omitted following precedence rules: ¬ > ∧,∨ > →,↔; right-to-left association for same-precedence
-- Notation liberties: "A, B ⊨ C" for "{A,B} ⊨ C"; "Γ, A ⊨ B" for "Γ ∪ {A} ⊨ B"; "⊨ A" for "∅ ⊨ A"
-- Modus Ponens is written as an inference rule with A and A → B above the line and B below
-- L_{i,j} denotes a literal (p_j or ¬p_j) determined by truth assignment φ_i
-- C_i denotes a conjunction of literals corresponding to truth assignment φ_i (in proof of adequacy)
+- φ (lowercase Greek phi) denotes a truth assignment
+- Parentheses are part of the formal syntax; informally omitted following precedence rules
+- `Γ, A ⊨ B` is shorthand for `Γ ∪ {A} ⊨ B`; `A, B ⊨ C` is shorthand for `{A, B} ⊨ C`
+- `⊨ A` (with nothing left of ⊨) means A is a tautology (i.e., ∅ ⊨ A)
+- Right-to-left association is used when parentheses are omitted among same-precedence connectives
+- The "double turnstile" ⊨ is a semantic notion (truth under all assignments), not a syntactic proof relation
+- `L_{i,j}` stands for "literal" in the proof of adequacy of DNF
+
+## Named Tautologies and Equivalences (Section 6)
+
+- [sec6] Law of the Excluded Middle: p ∨ ¬p
+- [sec6] Noncontradiction: ¬(p ∧ ¬p)
+- [sec6] Double Negation: ¬¬p ↔ p
+- [sec6] De Morgan's Laws: ¬(p∨q) ≡ (¬p∧¬q); ¬(p∧q) ≡ (¬p∨¬q)
+- [sec6] Idempotency: p∨p ≡ p; p∧p ≡ p
+- [sec6] Commutativity of ∧, ∨, ↔
+- [sec6] Associativity of ∧, ∨, ↔
+- [sec6] Distributivity: ∧ over ∨ and ∨ over ∧
+- [sec6] Contrapositive: p→q ≡ ¬q→¬p
+- [sec6] Exportation: p→(q→r) ≡ (p∧q)→r
+- [sec6] Definitions of ∨, ∧, ↔ in terms of ¬ and →: p∨q ≡ ¬p→q; p∧q ≡ ¬(p→¬q); p↔q ≡ (p→q)∧(q→p)
+- [sec6] Modus Ponens: p, p→q ⊨ q
+- [sec6] Modus Tollens: ¬q, p→q ⊨ ¬p
+- [sec6] Hypothetical Syllogism: p→q, q→r ⊨ p→r
+- [sec6] Pierce's Law: ((p→q)→p)→p
+- [sec6] PL axioms listed: p→(q→p); (p→q→r)→(p→q)→(p→r); ¬p→(p→q); (¬p→p)→p
 
 ## Cross-Chapter References
 
-- References Chapter 2 (Propositional Logic: Proofs): proof system PL (Definition \ref{def:PLproof}), axioms of PL, Modus Ponens as sole inference rule, derived rules (Corollaries \ref{coro:HypSyl} and \ref{coro:modustollens}), Deduction Theorem (Section \ref{sec:propDeductionThm}), proof by contradiction (Theorems \ref{thm:proofbyContra1} and \ref{thm:proofbyContra2})
-- References Chapter 5 (Algorithms, Informally): informal definition of algorithms (Section \ref{sec:AlgorithmInformal})
-- References forward to Section \ref{sec:booleanFunctions} (within Ch1) for adequate sets of connectives
-- References forward to Section \ref{sec:proofsByInduction} (within Ch1) for proof by induction examples
+- References Chapter 2 (Propositional Logic: Proofs): proof system PL, Definition \ref{def:PLproof}, Modus Ponens as sole inference rule, Hilbert-style axioms, derived rules (Corollaries \ref{coro:HypSyl} and \ref{coro:modustollens}), Deduction Theorem (Section \ref{sec:propDeductionThm}), proof by contradiction (Theorems \ref{thm:proofbyContra1} and \ref{thm:proofbyContra2})
+- References Chapter 5 (Algorithms, Informally): Section \ref{sec:AlgorithmInformal} on informal definition of algorithms and feasibility
+- Mentions complexity classes P and NP; notes the open question P =? NP in Section 11

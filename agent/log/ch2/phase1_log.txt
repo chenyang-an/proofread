@@ -1,0 +1,6 @@
+
+=== Phase 1: Building context index for Chapter 2 ===
+>>> Tool: Write
+<<< {"type":"create","filePath":"/home/cyanz/lean/proofread/proofread_material/context/ch2_context.md","content":"# Chapter 2 Context Index: Propositional Logic: Proofs\n\n## Notation\n\n- `\\PL` — the Hilbert-style proof system PL for propositional logic\n- `\\vdash` — single turnstile; denotes provability (e.g., `Γ ⊢ A` means A is provable from Γ)\n- `\\vDash` — double turnstile; denotes tautological validity/implication (from Chapter 1)\n- `\\limplies` — logical implication connec
+--- Stats: 1m12s | $1.3777865000000002 | in:4 out:4302 ---
+  -> Saved context index to /home/cyanz/lean/proofread/proofread_material/context/ch2_context.md

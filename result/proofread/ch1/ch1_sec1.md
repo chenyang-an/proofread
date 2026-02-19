@@ -6,56 +6,51 @@ Introduction to Propositional Logic
 ## Task A: Typos, Grammar, and LaTeX Issues
 
 ### A1. Spelling / Typos
-- **Line ~7**: "it  deals" (double space between "it" and "deals") → "it deals" — Source-level double space. LaTeX collapses this in rendered output, but it is a source typo.
-- **Line ~45**: "The $\land$~(``and'') operator is also called \idxem{conjunction}," — The line ends with a comma, but line 46 begins a new sentence ("The $\lor$~(``or'') operator..."). The comma should be a period.
+- **Line ~108**: "if and only if you are eighteen" → "if and only if you are **over** eighteen" — The variable $e$ is defined on line 94 as "You are over eighteen years old", but the footnote sentence on line 108 says "you are eighteen", dropping the word "over". This changes the meaning.
 
 ### A2. Grammar / Style
-- **Line ~19**: "it is assumed that $r$ will assume a definite truth value" — The words "assumed" and "assume" appear in close proximity, which is mildly redundant. [Uncertain] — Not grammatically wrong; the author may wish to rephrase, e.g., "it is assumed that $r$ will take on a definite truth value".
-- **Line ~55**: "\idxem{implication}; and the $\liff$ operator" — The semicolon immediately before "and" is an unusual punctuation combination. Standard usage would be either a semicolon alone (replacing "and" with a new clause) or a comma before "and". [Uncertain] — Very minor style issue.
-- **Line ~108**: "you may buy a ticket if and only if you are eighteen" — The variable $e$ is defined on line 94 as "You are over eighteen years old", but the footnote text on line 108 says "you are eighteen" (missing "over"). This is a genuine inconsistency between the variable definition and its later use in the footnote.
+- **Line ~45**: "The $\land$~(``and'') operator is also called \idxem{conjunction}," — This line ends with a comma, but the following line 46 ("The $\lor$~... \idxem{disjunction}.") and the preceding line 44 ("... \idxem{negation}.") both end with periods. The comma should be a period for consistency, since the next line begins a new statement about a different operator.
 
 ### A3. LaTeX Issues
-- **Line ~47**: `\idxnm{inclusive or}` — Most other indexing entries in this section use `\idxem` (e.g., lines 44, 45, 46, 55, 56), but this one uses `\idxnm`. Flag for consistency review; the author may intend a distinction between the two commands, but the pattern is inconsistent within this section.
-- **Line ~68**: `\idxnm{natural language}` — Same `\idxnm` vs `\idxem` inconsistency as above.
-- **Line ~104**: `\label{table:concertEighteen}` is placed inside a bare `center` environment (line 98: `\begin{center}`, line 105: `\end{center}`), not inside a `table` float. The `table:` prefix in the label name is misleading because `\ref{table:concertEighteen}` would resolve to the enclosing section number, not a table number. Suggested fix: either wrap in a `table` environment with a `\caption`, or rename the label to remove the `table:` prefix. (See also A5.1 for the reference/label perspective of this same issue.)
-- **Line ~118**: `\idxnm{truth functional}` — Same `\idxnm` vs `\idxem` inconsistency as lines 47 and 68.
+- **Line ~7**: "it  deals" — Double space between "it" and "deals" in the source. While LaTeX collapses multiple spaces in output, this is likely an unintentional artifact in the source.
+- **Line ~104**: `\label{table:concertEighteen}` is placed inside a bare `center` environment (line 98: `\begin{center}`, line 105: `\end{center}`), not inside a `table` float. The label prefix `table:` suggests it should be in a `table` environment. As written, any `\ref{table:concertEighteen}` will resolve to the enclosing section number rather than a table number. Consider wrapping in a `table` environment or removing/renaming the label if unused.
 
 ### A4. Notation Inconsistencies
-- None found.
+None found.
 
 ### A5. Reference / Label Issues
-- **Line ~104**: `\label{table:concertEighteen}` — The `table:` prefix suggests this labels a `table` float, but it is inside a `center` environment (not a float). Any `\ref{table:concertEighteen}` would produce the section number rather than a table number. No `\ref` to this label appears in this section, but if referenced elsewhere, it would be misleading. (Cross-reference: this is the same underlying issue as the A3 item at line ~104; listed here for completeness from the reference/label perspective. Not double-counted in the summary.)
+None found. (The `\label{table:concertEighteen}` issue is covered in A3 above.)
 
 ## Task B: Mathematical Correctness
 
 ### B1. Definitions
-- None found. The section introduces negation, conjunction, disjunction, implication, and equivalence informally via truth tables and examples. These are consistent with the chapter context index entries for sec1.
+None found.
 
 ### B2. Theorem Statements
-- None found. This section does not state any theorems.
+None found.
 
 ### B3. Proof Steps
-- None found. This section contains no proofs.
+None found.
 
 ### B4. Formulas and Symbolic Expressions
-- **Line ~83**: "The latter can also translate to $(\lnot A) \limplies B$" — The referent of "the latter" is slightly ambiguous: it could refer to the English phrase "$A$ unless $B$" or to the formula "$A \lor B$" from the same sentence. The mathematical content is correct ($A \lor B \equiv \lnot A \to B$), and the intended reading is clear in context, but the prose could be marginally clearer. [Uncertain]
-- **Line ~87**: "``If $A$, then~$B$'' means the same thing in propositional logic as $(\lnot A) \lor B$." — Verified as mathematically correct: $A \limplies B \equiv \lnot A \lor B$ per the truth table at lines 137–141.
-- **Line ~192**: "$\forall x (P(x)\limplies O(x))$" — This uses the first-order quantifier $\forall x$ in a chapter on propositional logic. The usage is illustrative, motivating why the truth table for implication is defined the way it is, and is pedagogically appropriate. However, $\forall$ has not been formally introduced at this point in the text (it is a first-order logic concept from later chapters). [Uncertain] — The author may wish to add a brief note that this notation is informal here, or this may be intentional as a preview.
+- **Line ~83**: "``$A$ unless~$B$'' may translate to $A \lor B$" — Verified correct. "$A$ unless $B$" means "if B is not true then A is true", i.e., $\lnot B \limplies A$, which is equivalent to $A \lor B$. The text also states this can translate to $(\lnot A) \limplies B$, which is also equivalent to $A \lor B$. The specific example on lines 78–79 ("The grass is not wet unless it is raining" with $A = \lnot w$ and $B = r$) gives $(\lnot w) \lor r$, which checks out: $\lnot r \limplies \lnot w \equiv w \limplies r \equiv (\lnot w) \lor r$. All correct.
+- **Line ~87**: "``If $A$, then~$B$'' means the same thing in propositional logic as $(\lnot A) \lor B$." — Verified correct: $A \limplies B \equiv \lnot A \lor B$ is a standard equivalence.
+- **Line ~192**: [Uncertain] The text uses $\forall x$ quantifier notation ($\forall x (P(x)\limplies O(x))$) in a chapter about propositional logic where quantifiers have not yet been formally introduced. This is likely an intentional pedagogical choice — an informal motivating example appealing to the reader's mathematical intuition before first-order logic is covered in a later chapter. Probably fine, but worth noting.
 
 ### B5. Examples and Counterexamples
-- **Lines ~128–142** (Figure `fig:propTruthDefn`): Truth table for propositional connectives. Independently verified all 14 truth-value entries:
-  - $\lnot$: T→F, F→T. Correct.
-  - $\lor$: TT→T, TF→T, FT→T, FF→F. Correct.
-  - $\land$: TT→T, TF→F, FT→F, FF→F. Correct.
-  - $\limplies$: TT→T, TF→F, FT→T, FF→T. Correct.
-  - $\liff$: TT→T, TF→F, FT→F, FF→T. Correct.
-- **Lines ~207–213** (Figure `fig:primeIfThen`): Truth table for $P(x) \limplies O(x)$ with $x=1,2,3$. Independently verified all 9 entries:
-  - $x=1$: P(1)=F (1 is not a prime >2), O(1)=T (1 is odd), F→T=T. Correct.
-  - $x=2$: P(2)=F (2 is not a prime >2), O(2)=F (2 is even), F→F=T. Correct.
-  - $x=3$: P(3)=T (3 is a prime >2), O(3)=T (3 is odd), T→T=T. Correct.
+- **Lines ~128–141 (Figure 1, truth table for connectives)**: Verified all 16 entries in the truth table for $\lnot$, $\lor$, $\land$, $\limplies$, and $\liff$:
+  - $\lnot$: $\lnot\True = \False$, $\lnot\False = \True$. Correct.
+  - $\True \lor \True = \True$, $\True \lor \False = \True$, $\False \lor \True = \True$, $\False \lor \False = \False$. Correct.
+  - $\True \land \True = \True$, $\True \land \False = \False$, $\False \land \True = \False$, $\False \land \False = \False$. Correct.
+  - $\True \limplies \True = \True$, $\True \limplies \False = \False$, $\False \limplies \True = \True$, $\False \limplies \False = \True$. Correct.
+  - $\True \liff \True = \True$, $\True \liff \False = \False$, $\False \liff \True = \False$, $\False \liff \False = \True$. Correct.
+- **Lines ~208–212 (Figure 2, $P(x) \limplies O(x)$ table)**: Verified all 3 rows:
+  - $x=1$: $P(1)=\False$ (1 is not a prime greater than 2), $O(1)=\True$ (1 is odd), $\False \limplies \True = \True$. Correct.
+  - $x=2$: $P(2)=\False$ (2 is not a prime greater than 2), $O(2)=\False$ (2 is even), $\False \limplies \False = \True$. Correct.
+  - $x=3$: $P(3)=\True$ (3 is a prime greater than 2), $O(3)=\True$ (3 is odd), $\True \limplies \True = \True$. Correct.
 
 ## Summary
 
-- **Typos/Grammar/LaTeX issues found**: 10 (A1: 2, A2: 3, A3: 4, A5: 1 cross-referencing A3 — not double-counted, so 9 unique issues plus 1 cross-reference)
-- **Mathematical issues found**: 3 flagged for review (all [Uncertain]; 0 confirmed errors; 2 truth tables verified correct)
-- **Confidence**: High — This is an introductory section with informal definitions and motivational examples. The chapter context index provided sufficient context to verify all claims. No proofs are present in this section. All truth table entries were independently verified and are correct.
+- **Typos/Grammar/LaTeX issues found**: 4 (A1.1, A2.1, A3.1, A3.2)
+- **Mathematical issues found**: 0 (B4.3 is an uncertain observation about a pedagogical choice, not an error)
+- **Confidence**: High — This is an introductory section with no proofs or complex definitions. The main content is motivational examples and truth tables, all of which were verified. The chapter context index was sufficient to check notation consistency.

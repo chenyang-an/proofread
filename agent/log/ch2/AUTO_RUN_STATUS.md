@@ -1,0 +1,119 @@
+# Proofread Pipeline - Auto Status
+
+| Field | Value |
+|-------|-------|
+| **Status** | RUNNING |
+| **Section** | ch2_exercises |
+| **Current Iteration** | 2 / 3 |
+| **Current Step** | 3/3 Verdict |
+| **Started At** | 2026-02-19 14:24:25 |
+| **Last Updated** | 2026-02-19 16:48:16 |
+| **PID** | 8205 |
+
+## Current Activity
+Checking verdict for ch2_exercises...
+
+## Progress History
+
+- [15:54:06] Chapter 2 started: Propositional Logic: Proofs
+- [15:54:06] Chapter 2: Context index build started
+- [15:55:22] Chapter 2: Context index build completed
+- [15:55:22] ch2_sec1: Started
+- [15:55:22] ch2_sec1: Iteration 1 started
+- [15:55:22] ch2_sec1: Iteration 1: Proofreading started
+- [15:56:21] ch2_sec1: Iteration 1: Proofreading completed
+- [15:56:21] ch2_sec1: Iteration 1: Verification started
+- [15:58:30] ch2_sec1: Iteration 1: Verification completed
+- [15:58:30] ch2_sec1: Iteration 1: Checking verdict
+- [15:58:39] ch2_sec1: Iteration 1: Decision = CONTINUE
+- [15:58:41] ch2_sec1: Iteration 2 started
+- [15:58:41] ch2_sec1: Iteration 2: Proofreading started
+- [15:59:38] ch2_sec1: Iteration 2: Proofreading completed
+- [15:59:38] ch2_sec1: Iteration 2: Verification started
+- [16:01:27] ch2_sec1: Iteration 2: Verification completed
+- [16:01:27] ch2_sec1: Iteration 2: Checking verdict
+- [16:01:37] ch2_sec1: Iteration 2: Decision = DONE
+- [16:01:37] ch2_sec1: SUCCESS - Proofread verified
+- [16:01:37] ch2_sec2: Started
+- [16:01:37] ch2_sec2: Iteration 1 started
+- [16:01:37] ch2_sec2: Iteration 1: Proofreading started
+- [16:03:43] ch2_sec2: Iteration 1: Proofreading completed
+- [16:03:43] ch2_sec2: Iteration 1: Verification started
+- [16:06:53] ch2_sec2: Iteration 1: Verification completed
+- [16:06:53] ch2_sec2: Iteration 1: Checking verdict
+- [16:07:03] ch2_sec2: Iteration 1: Decision = DONE
+- [16:07:03] ch2_sec2: SUCCESS - Proofread verified
+- [16:07:03] ch2_sec3: Started
+- [16:07:03] ch2_sec3: Iteration 1 started
+- [16:07:03] ch2_sec3: Iteration 1: Proofreading started
+- [16:08:31] ch2_sec3: Iteration 1: Proofreading completed
+- [16:08:31] ch2_sec3: Iteration 1: Verification started
+- [16:11:34] ch2_sec3: Iteration 1: Verification completed
+- [16:11:34] ch2_sec3: Iteration 1: Checking verdict
+- [16:11:43] ch2_sec3: Iteration 1: Decision = DONE
+- [16:11:43] ch2_sec3: SUCCESS - Proofread verified
+- [16:11:43] ch2_sec4: Started
+- [16:11:43] ch2_sec4: Iteration 1 started
+- [16:11:43] ch2_sec4: Iteration 1: Proofreading started
+- [16:13:07] ch2_sec4: Iteration 1: Proofreading completed
+- [16:13:07] ch2_sec4: Iteration 1: Verification started
+- [16:15:16] ch2_sec4: Iteration 1: Verification completed
+- [16:15:16] ch2_sec4: Iteration 1: Checking verdict
+- [16:15:26] ch2_sec4: Iteration 1: Decision = DONE
+- [16:15:26] ch2_sec4: SUCCESS - Proofread verified
+- [16:15:26] ch2_sec5: Started
+- [16:15:26] ch2_sec5: Iteration 1 started
+- [16:15:26] ch2_sec5: Iteration 1: Proofreading started
+- [16:17:05] ch2_sec5: Iteration 1: Proofreading completed
+- [16:17:05] ch2_sec5: Iteration 1: Verification started
+- [16:20:06] ch2_sec5: Iteration 1: Verification completed
+- [16:20:06] ch2_sec5: Iteration 1: Checking verdict
+- [16:20:16] ch2_sec5: Iteration 1: Decision = CONTINUE
+- [16:20:18] ch2_sec5: Iteration 2 started
+- [16:20:18] ch2_sec5: Iteration 2: Proofreading started
+- [16:21:52] ch2_sec5: Iteration 2: Proofreading completed
+- [16:21:52] ch2_sec5: Iteration 2: Verification started
+- [16:25:09] ch2_sec5: Iteration 2: Verification completed
+- [16:25:09] ch2_sec5: Iteration 2: Checking verdict
+- [16:25:18] ch2_sec5: Iteration 2: Decision = DONE
+- [16:25:18] ch2_sec5: SUCCESS - Proofread verified
+- [16:25:18] ch2_sec6: Started
+- [16:25:18] ch2_sec6: Iteration 1 started
+- [16:25:18] ch2_sec6: Iteration 1: Proofreading started
+- [16:26:09] ch2_sec6: Iteration 1: Proofreading completed
+- [16:26:09] ch2_sec6: Iteration 1: Verification started
+- [16:28:32] ch2_sec6: Iteration 1: Verification completed
+- [16:28:32] ch2_sec6: Iteration 1: Checking verdict
+- [16:28:42] ch2_sec6: Iteration 1: Decision = DONE
+- [16:28:42] ch2_sec6: SUCCESS - Proofread verified
+- [16:28:42] ch2_sec7: Started
+- [16:28:42] ch2_sec7: Iteration 1 started
+- [16:28:42] ch2_sec7: Iteration 1: Proofreading started
+- [16:29:50] ch2_sec7: Iteration 1: Proofreading completed
+- [16:29:50] ch2_sec7: Iteration 1: Verification started
+- [16:32:12] ch2_sec7: Iteration 1: Verification completed
+- [16:32:12] ch2_sec7: Iteration 1: Checking verdict
+- [16:32:21] ch2_sec7: Iteration 1: Decision = DONE
+- [16:32:21] ch2_sec7: SUCCESS - Proofread verified
+- [16:32:21] ch2_sec8: Started
+- [16:32:21] ch2_sec8: Iteration 1 started
+- [16:32:21] ch2_sec8: Iteration 1: Proofreading started
+- [16:32:58] ch2_sec8: Iteration 1: Proofreading completed
+- [16:32:58] ch2_sec8: Iteration 1: Verification started
+- [16:34:54] ch2_sec8: Iteration 1: Verification completed
+- [16:34:54] ch2_sec8: Iteration 1: Checking verdict
+- [16:35:03] ch2_sec8: Iteration 1: Decision = DONE
+- [16:35:03] ch2_sec8: SUCCESS - Proofread verified
+- [16:35:03] ch2_exercises: Started
+- [16:35:03] ch2_exercises: Iteration 1 started
+- [16:35:04] ch2_exercises: Iteration 1: Proofreading started
+- [16:38:35] ch2_exercises: Iteration 1: Proofreading completed
+- [16:38:35] ch2_exercises: Iteration 1: Verification started
+- [16:42:07] ch2_exercises: Iteration 1: Verification completed
+- [16:42:07] ch2_exercises: Iteration 1: Checking verdict
+- [16:42:16] ch2_exercises: Iteration 1: Decision = CONTINUE
+- [16:42:18] ch2_exercises: Iteration 2 started
+- [16:42:18] ch2_exercises: Iteration 2: Proofreading started
+- [16:44:25] ch2_exercises: Iteration 2: Proofreading completed
+- [16:44:25] ch2_exercises: Iteration 2: Verification started
+- [16:48:16] ch2_exercises: Iteration 2: Verification completed

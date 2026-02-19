@@ -8,14 +8,14 @@ Output naming: ch{N}_sec{M}.txt for numbered sections,
 import os
 import re
 
-RAW_DIR = os.path.join(os.path.dirname(__file__), "raw_data")
-OUT_DIR = os.path.join(os.path.dirname(__file__), "unit")
+DEFAULT_RAW_DIR = os.path.join(os.path.dirname(__file__), "raw_data")
+DEFAULT_OUT_DIR = os.path.join(os.path.dirname(__file__), "unit")
 
 # Matches both \section{...} and \section*{...}
 SECTION_RE = re.compile(r"^\\section\*?\s*[\[{]")
 
 
-def split_chapter(chapter_path, chapter_num):
+def split_chapter(chapter_path, chapter_num, out_dir):
     with open(chapter_path, "r") as f:
         lines = f.readlines()
 
@@ -45,7 +45,7 @@ def split_chapter(chapter_path, chapter_num):
             numbered += 1
             fname = f"ch{chapter_num}_sec{numbered}.txt"
 
-        out_path = os.path.join(OUT_DIR, fname)
+        out_path = os.path.join(out_dir, fname)
         with open(out_path, "w") as f:
             f.write(section_text)
         files_written.append(fname)
@@ -54,15 +54,19 @@ def split_chapter(chapter_path, chapter_num):
 
 
 def main():
-    os.makedirs(OUT_DIR, exist_ok=True)
+    import sys
+    raw_dir = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_RAW_DIR
+    out_dir = sys.argv[2] if len(sys.argv) > 2 else DEFAULT_OUT_DIR
 
-    for ch_file in sorted(os.listdir(RAW_DIR)):
+    os.makedirs(out_dir, exist_ok=True)
+
+    for ch_file in sorted(os.listdir(raw_dir)):
         m = re.match(r"ch(\d+)\.txt$", ch_file)
         if not m:
             continue
         chapter_num = int(m.group(1))
         print(f"Processing {ch_file} ...")
-        split_chapter(os.path.join(RAW_DIR, ch_file), chapter_num)
+        split_chapter(os.path.join(raw_dir, ch_file), chapter_num, out_dir)
 
     print("\nDone.")
 
