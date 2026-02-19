@@ -1,0 +1,229 @@
+\section{\texorpdfstring{$\TQ$}{TQ} implies \texorpdfstring{$\TR$}{TR}}\label{sec:QextendsR}
+
+This section is devoted to proving that $\TQ \vDash \TR$, i.e.,
+$\TQ \supset \TR$. Consequently, the First Incompleteness Theorems
+apply to the theory~$\TQ$.
+
+\begin{theorem}\label{thm:QimpliesR}
+$\TQ\vDash \TR$.
+\end{theorem}
+
+The theorem is proved with a sequence of simple lemmas.
+The first states that $\TQ$ proves the $\TR_{\textstyle +}$ axioms:
+
+\begin{lemma}\label{lem:QgraphAdd}
+Let $m, n \in \mathbb N$.  Then $\TQ\vDash \underline m + \underline n = \underline{m+n}$. Equivalently,
+$\TQ\vDash S^m 0 + S^n 0 = S^{m+n} 0$.
+\end{lemma}
+
+\begin{proof}
+Fix $m \in \mathbb N$.  We prove that
+$\TQ\vDash \underline m + \underline n = \underline{m+n}$
+by induction on~$n$.  The base case, where $n=0$, is that
+$\TQ \vDash \underline m + 0 = \underline m$.  This is an immediate
+consequence of axiom~$\TQ_4$. (See page~\pageref{fig:QRaxioms} for the axioms
+of~$\TQ$.)
+
+For the induction step, let $n\ge 0$ and note that $\TQ$ can prove the 
+following equalities:
+\begin{threecolproof}
+$\underline m + \underline {n{+}1} =$~& $\underline m + S(\underline n)$ &
+        \hbox{$\underline {n{+}1}$ and $S(\underline n)$ are the same term} \\
+   $=$~&$S(\underline m + \underline n)$ & \hbox{By axiom~$\TQ_5$} \\
+   $=$~&$S(\underline {m+n})$ & \hbox{By the induction hypothesis} \\
+   $=$~&$\underline {m+n+1}$ & 
+      \hbox{$S(\underline {m+n})$ and $\underline {m+n+1}$ are the same term.}  \qedhere
+\end{threecolproof}
+\end{proof}
+
+The lemma was proved using induction. Of course, the induction axioms
+are not axioms of~$\TQ$; rather, the induction is carried out outside
+the theory~$\TQ$. 
+
+\begin{lemma}\label{lem:QgraphLe}
+Let $m \le n$. Then $\TQ \vDash \underline m \le \underline n$.
+\end{lemma}
+
+\begin{proof}
+This is immediate from the previous lemma, which states that
+$\TQ \vDash \underline {n-m} + \underline m = \underline n$
+and the fact that $m\le n$ is an abbreviation for the
+formula $\exists x\,( x+\penalty10000\underline m =\penalty10000 \underline n)$.
+\end{proof}
+
+The next lemma states that $\TQ$ proves the $\TR_\bullet$ axioms:
+
+\begin{lemma}\label{lem:QgraphMult}
+Let $m, n \in \mathbb N$.  Then $\TQ\vDash \underline m \cdot \underline n = \underline{m\cdot n}$. Equivalently,
+$\TQ\vDash S^m 0 \cdot S^n 0 = S^{m\cdot n} 0$.
+\end{lemma}
+
+\begin{proof}
+Fix $m \in \mathbb N$.  We prove that
+$\TQ\vDash \underline m \cdot \underline n = \underline{m\cdot n}$
+by induction on~$n$.  The base case, where $n=0$, is that
+$\TQ \vDash \underline m \cdot 0 = 0$.  This is an immediate
+consequence of axiom~$\TQ_6$.
+
+For the induction step, let $n\ge 0$ and note that $\TQ$ can prove the 
+following equalities:
+\begin{threecolproof}
+$\underline m \cdot \underline {n{+}1} =$~& $\underline m \cdot S(\underline n)$ &
+        \hbox{$\underline {n{+}1}$ and $S(\underline n)$ are the same term} \\
+   $=$~&$\underline m \cdot \underline n + \underline m$ & \hbox{By axiom~$\TQ_7$} \\
+   $=$~&$\underline {m\cdot n} + \underline m$ & \hbox{By the induction hypothesis} \\
+   $=$~&$\underline {m\cdot n +m}$ & \hbox{By Lemma~\ref{lem:QgraphAdd}} \\
+   $=$~&$\underline {m\cdot(n+1)}$ & 
+      \hbox{$\underline {m\cdot n +m}$ and $\underline {m\cdot(n+1)}$ are the same term.}  \qedhere
+\end{threecolproof}
+\end{proof}
+
+The next lemma states that $\TQ$ proves the $\TR_{\textstyle\neq}$ axioms:
+
+\begin{lemma}\label{lem:QgraphEqual}
+Fix $m \neq n$. Then $Q\vDash \underline m \neq \underline n$.
+\end{lemma}
+
+\begin{proof}
+Without loss of generality, $m>n$. We prove the lemma by induction
+on~$n$.  In the base case where $n=0$, $\underline m$~is the
+same as $S(\underline{m{-}1})$. And Axiom~$\TQ_2$
+implies $\underline m \neq 0$.  For the induction step,
+$n>0$. The terms $\underline m$ and $\underline n$ are
+the same as $S(\underline{m{-}1})$ and $S(\underline{n{-}1})$.
+Therefore, Axiom~$\TQ_1$ implies that
+$\underline m = \underline n \limplies \underline{m{-}1} = \underline{n{-}1}$
+The induction hypothesis states that
+$Q\vDash \underline{m{-}1} \neq \underline{n{-}1}$;
+hence $Q\vDash \underline m \neq \underline n$.
+\end{proof}
+
+The above lemmas have shown that $\TQ$ proves the axioms
+$\TR_{\textstyle\neq}$,
+$\TR_{\textstyle+}$, and
+$\TR_\bullet$.
+
+\begin{lemma}\label{lem:QgraphNotLE}
+Fix $m>n$. Then $Q\vDash m \not\le n$. Hence also $Q \vDash m \not< n$.
+\end{lemma}
+
+\begin{proof}
+Recall that $\underline m\not \le \underline n $ is an abbreviation
+for $\lnot \exists x\, ( x+\underline m = \underline n)$.
+Thus, since we can let $p=m-n-1$,
+we must prove that for all $n\ge 0$ and $p\ge 0$,
+$\TQ \vDash \lnot \exists x\, ( x + \underline {n+p+1} = \underline n)$.
+Since $S(\underline{n+p})$ is the same term as $\underline{n+p+1}$,
+we must prove 
+$\TQ \vDash \lnot \exists x\, ( x + S(\underline {n+p}) = \underline n)$.
+By axiom~$\TQ_5$, $x + S(\underline {n+p}) = S(x+\underline{n+p})$.
+Thus it suffices to show that 
+\[
+\TQ\vDash \lnot \exists x\, ( S(x+\underline{n+p}) = \underline n) . 
+\]
+This is proved by induction on~$n$.
+
+The base case, where $n=0$, is immediate by axiom~$\TQ_2$.
+For the induction step, we must show that
+$Q\vDash \lnot \exists x \,(S( x+ \underline{n+1+p}) = \underline{n{+}1})$.
+Axiom~$\TQ_5$ implies
+\[
+S(x+\underline{n+1+p}) ~=~ S(S(x+\underline{n+p})).
+\]
+Also, $\underline{n{+}1}$ is the same as $S(\underline n)$.
+Axiom~$\TQ_1$ implies that
+\[
+S(S(x+\underline{n+p}))=S(\underline n) ~\limplies~ S(x+\underline{n+p})=\underline n.
+\]
+From this,
+the induction step follows immediately from
+the induction hypothesis, which states
+that $Q \vDash \lnot \exists x\, ( S(x+\underline{n+p})=\underline n )$.
+\end{proof}
+
+The next two lemmas
+establish the axioms $\TR_{\textstyle\le}$ and
+$\TR_{\textstyle\le}^\prime$ in~$\TQ$.
+
+\begin{lemma}\label{lem:QleAxiom1}
+Let $n\in \mathbb N$.  Then
+$\TQ \vDash \forall x\, (x\le \underline n \lor \underline n < x)$.
+\end{lemma}
+
+Recall again that $x \le \underline n$ is 
+an abbreviation for $\exists z\, ( z + x = \underline n)$ and 
+further that $\underline n < x$ is an abbreviation
+for $\underline n\le x \land \underline n \neq x$.
+\begin{proof}
+First note that $\TQ$ proves $\underline n + 0 = \underline n$
+and thus $\TQ$ proves $x=0 \limplies x\le\penalty 10000 \underline n$.
+Therefore it suffices to prove that 
+\[
+\TQ ~\vDash~ \forall x \, ( x\neq 0 \limplies x\le \underline n \lor \underline n < x ).
+\]
+This is proved by induction on~$n$. 
+The base case is $n=0$. In this case, note that
+$x + 0 = x$ by axiom~$\TQ_3$, whence $\underline 0 \le x$.
+From $x\neq 0$, it follows that $0<\underline x$.
+
+For the induction step, let $n\ge 0$. We need
+to show
+$x\neq 0 \limplies x \le \underline {n{+}1} \lor\penalty10000 \underline {n{+}1}<\penalty10000 x$.
+We argue informally using reasoning that
+can be formalized in~$\TQ$. The assumption that $x\neq 0$ implies
+that there is a~$y$ such that $x = S(y)$ by axiom~$\TQ_3$.
+The induction hypothesis states that 
+$y \le \underline n \lor \underline n<y$.  (The induction hypothesis
+is needed only to handle the case $y\neq 0$.)
+If $y \le \underline n$, then $x = S(y) \le S(\underline n) = \underline{n{+}1}$
+by axiom~$\TQ_5$.
+On the other hand, if $\underline n < y$, then $\underline n\neq y$
+(since $\underline n \not< \underline n$)
+and there is a $z$ such that $z + \underline n = y$.  
+From $\underline n \neq y$, axiom~$\TQ_1$ gives $\underline{n{+}1}\neq S(y) = x$.
+From $z+\underline n = y$,
+axiom~$\TQ_5$ gives $z + \underline{n{+}1} = z+S(\underline n) = S(y) = x$,
+so $\underline {n{+}1} \le x$.
+From these $\underline {n{+}1} < x$ is immediate.
+\end{proof}
+
+\begin{lemma}\label{lem:QleAxiom2}
+Let $n\in \mathbb N$.  Then
+$\TQ$~proves
+\[
+\forall x \, [\, x\le \underline n \,\limplies\, x=\underline 0 \lor x = \underline 1 \lor
+       \,\cdots\, \lor x=\underline {n{-}1} \lor x = \underline n \,]
+\]
+\end{lemma}
+
+\begin{proof}
+This is proved by induction on~$n$. Again, we argue informally 
+in~$\TQ$, namely using reasoning that can be formalized by~$\TQ$.
+Note that we can always assume that $x\neq 0$, in which case, there is
+a~$y$ such that $S(y) = x$ by axiom~$\TQ_3$.
+For the base case, it will suffice to assume that $x = S(y) \neq 0$
+and prove that $x \not\le 0$. This follows as
+axioms $\TQ_4$ and~$\TQ_2$ imply that $z + S(y) = S(z+y) \neq 0$ and hence
+$z + x = 0$ cannot hold.
+
+For the induction step, we assume that $x\le \underline{n{+}1}$ and prove that
+\begin{equation}\label{eq:QaxiomLe2Lem}
+x=\underline 0 \lor x = \underline 1 \lor
+       \,\cdots\, \lor x=\underline n \lor x = \underline {n{+}1} .
+\end{equation}
+The assumption $x\le \underline{n{+}1}$ means that there is a $z$ so that $z+x = \underline{n{+}1}$.
+Using $x=S(y)$ and axiom~$\TQ_5$, we have $S(z+y) = S(\underline n)$.
+Then from axiom~$\TQ_1$, $z+y = \underline n$, so $y\le \underline n$.
+The induction hypothesis implies that
+\[
+y=\underline 0 \lor y = \underline 1 \lor
+       \,\cdots\, \lor y=\underline {n{-}1} \lor y = \underline n .
+\]
+If $y = \underline i$ for some $i\le n$, we
+get $x = S(y) = S(\underline i) = \underline {i{+}1}$.
+In other words, $x = \underline k$ for some $k\le n+1$ as desired.
+\end{proof}
+
+The above lemmas complete the proof of Theorem~\ref{thm:QimpliesR}. \hfill $\qed$
+
+

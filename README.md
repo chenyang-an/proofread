@@ -1,1 +1,0 @@
-This repo builds a proofreading agent for math textbook.

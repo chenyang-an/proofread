@@ -1,0 +1,225 @@
+\section{Algorithms for Propositional Logic}\label{sec:PropLogicAlgorithms}
+
+We now discuss an algorithm for
+validity and implication in propositional logic.
+The first main result will be that the set of tautologies
+is decidable. The second main result will be that
+if a set~$\Gamma$ of propositional formulas
+is decidable, or even c.e., then the set of its
+tautological consequences is c.e.  Our proofs
+will all be based on the method of truth tables.
+
+First, however, let's consider algorithms
+for recognizing syntactically correct formulas.
+To begin, we have to express formulas
+as strings (expressions) over a finite alphabet~$\Sigma$.
+The definition of propositional formulas in
+Definition~\ref{def:propositionalFmla} used an
+infinite set of symbols as each~$p_i$ is a distinct symbol.
+The informal notion of algorithm only allows strings over
+\emph{finite} alphabets. Accordingly, we
+will encode formulas as strings over the
+alphabet~$\Sigma^{\Tprop}$ with 17 symbols:
+\[
+\{ {\land},\, {\lor},\, {\limplies},\, {\liff},\, (,\, ),\, p,\, 0,\,1,\,2,\,3,\,4,\,5,\,6,\,7,\,8,\,9 \}.
+\]
+The digits 0-9 are used for writing out the subscripts
+of propositional variables as base~10 integers. For example, the formula
+$p_7 \lor p_{42} \limplies p_{747}$ will be represented
+by the $\Sigma^\Tprop$ string
+``$((p7{\lor} p42){\limplies}p747)$''. Note that we require that
+a formula be fully parenthesized when encoded
+as a $\Sigma^\Tprop$-expression.\footnote{The convention that
+the $\Sigma^\Tprop$ representations of formulas include
+full parenthesization is not crucial. There are certainly algorithms
+that can produce the fully parenthesized expression from a
+formula that is written without all of its parentheses according
+to the conventions of Section~\ref{sec:propFormulas}.}
+
+To simplify terminology in the sequel,
+we frequently conflate propositional formulas
+and their representations as $\Sigma^\Tprop$-strings.
+
+
+\begin{theorem}\label{thm:porpFmlasDecidable}
+The set of syntactically correct propositional formulas
+is decidable.
+\end{theorem}
+
+What this theorem means is that the set of $\Sigma^\Tprop$-strings
+that represent syntactically correct propositional formulas
+is decidable. Indeed, it is straightforward
+to write a parsing algorithm that decides this. The main difficulty
+for the parsing algorithm is tracking the counts of open parentheses and
+close parentheses; for this,
+see Theorems \ref{thm:equalParens} and~\ref{thm:moreOpensCloses}
+and Exercises \ref{exer:moreOpensCloses}-\ref{exer:uniqueReadability}
+on unique readability.
+For proving Theorem~\ref{thm:porpFmlasDecidable},
+the parsing algorithm
+only needs to accept or reject according to whether its input
+encodes a syntactically correct propositional formula. But in fact
+parsing algorithms can also effectively build a parse
+tree.
+
+\begin{theorem}\label{thm:tautologiesDecidable}
+The set of tautologies is decidable.
+\end{theorem}
+
+\begin{proof}
+The algorithm first checks whether its input
+codes a syntactically correct proposition
+formula. If so, it uses
+the method of truth tables to decide whether
+a given propositional formula is a tautology.
+\end{proof}
+
+The next theorem states that there is an algorithm
+that can decide whether a finite set~$\Gamma$ of sentences
+is satisfiable, and an algorithm that can decide
+whether $\Gamma\vDash A$. The idea
+is just that the method of truth tables can be used to algorithmically
+determine if $\Gamma$ is satisfiable.
+However, there is
+the complication that
+the definition of concepts such as ``decidable''
+are based on $k$-ary relations that take a fixed number
+of strings as input. Now we want an algorithm to take as
+input a set~$\Gamma$ whose size is not specified ahead of time.
+For this, the finite set~$\Gamma$ is encoded into a single string.
+
+This is straightforward. One way to do it is to enlarge the
+alphabet~$\Sigma^\Tprop$ by adding comma as an additional
+symbol; namely, define $\Sigma^{\Tprop+} = \Sigma^\Tprop \cup \{\,{,}\,\}$.
+Then an arbitrary finite set~$\Gamma$ of formulas can be
+encoded as a string over the alphabet~$\Sigma^{\Tprop+}$ by
+just concatenating formulas separated with commas.  That is,
+if $\Gamma = \{A_,\ldots, A_k\}$, then $\Gamma$~is encoded
+by the string that consists of the encodings of the $A_i$'s
+as $\Sigma^\Tprop$-strings separated by commas. For instance,
+if $\Gamma = \{ p_1, \lnot p_3{\lor}p_{17} \}$, then $\Gamma$~can be
+encoded by the string ``$p1{,}{\lnot}(p3{\lor}p17)$''.\footnote{In fact,
+the commas could be omitted, and the breaks between formulas can still be detected.
+The use of commas makes the breaks between formulas explicit and does not
+depend on the details of how formulas are defined.}
+
+This encoding of a finite, variable-length set into a
+single string is an example of the use of ``\idxnm{sequence coding}''
+to encode multiple strings into a single string.
+We will see more examples of this later on when sequence
+coding is used to let a single integer encode a finite length
+sequence of integers.
+
+\begin{theorem}\label{thm:decidableTauts}
+Work in propositional logic.
+\begin{itemize}
+\item[(a)] The unary relation
+\[
+\{ \Gamma : \hbox{$\Gamma$ is a finite satisfiable set of formulas} \}
+\] is decidable.
+\item[(b)] The binary relation
+\[
+\{ \langle \Gamma, A \rangle :
+       \hbox{$\Gamma$ is a finite set of formulas, $A$~is a formula, and $\Gamma \vDash A$} \}
+\] is decidable.
+\end{itemize}
+\end{theorem}
+\begin{proof}
+The algorithm for~(a) does the following: It first checks whether $\Gamma$
+correctly encodes a (finite) set of syntactically correct formulas.
+If not, it rejects. Otherwise, it uses the method of truth tables
+to determine whether $\Gamma$ is satisfiable.  The algorithm for~(b) is similar.
+\end{proof}
+
+Now we consider {\em infinite} sets~$\Gamma$ of sentences. We will consider
+the case where the set~$\Gamma$ is decidable or computably enumerable.
+However, unlike in the previous theorem, $\Gamma$~is now a fixed set (i.e.,
+$\Gamma$~is not given as part of the input).
+
+\begin{theorem}\label{thm:ceTautConseqs}
+Let $\Gamma$ be a computably enumerable set of propositional formulas.
+Then the set of tautological consequences of~$\Gamma$, namely
+$\TCn \Gamma = \{ A :\penalty10000 \Gamma\vDash\penalty10000 A \},$ is computably enumerable.
+\end{theorem}
+
+\begin{proof}
+Suppose $M$ is an algorithm that enumerates~$\Gamma$.
+By Theorem~\ref{thm:semidecideAndCE}, it suffices
+to prove that $\TCn \Gamma$ is semidecidable.  We claim the following
+algorithm~$N$ works:
+\begin{tabbing}
+\AlgFirstIn\=\Algin\=\Algin\=\Algin\=\Algin\=\kill
+\>\underline{Assumption:} $M$ enumerates~$\Gamma$. \\
+\>\underline{Input:} $A \in (\Sigma^\Tprop)^*$ \\
+\>\underline{Algorithm $N$:} \\
+\>If $A$ is not a syntactically correct formula, reject. \\
+\>For $i=0,\, 1,\, 2,\, 3, \ldots$ \\
+\>\>Run $M$ until (and if) it generates $i$ members of~$\Gamma$. \\
+\>\>Let $\Gamma_i$ be the first $i$ members enumerated by~$M$. \\
+\>\>If $\Gamma_i \vDash A$, then accept (and halt). \\
+\>End-for
+\end{tabbing}
+It is clear that the only way the algorithm~$N$ can accept~$A$ is
+if some finite subset~$\Gamma_i$ of~$\Gamma$ tautologically
+implies~$A$.  Conversely, if $\Gamma$ tautologically
+implies~$A$, then some finite subset~$\Pi$ of~$\Gamma$ tautologically
+implies~$A$. Eventually, $M$~will enumerate a subset~$\Gamma_i$ of~$\Gamma$
+such that $\Pi \subseteq \Gamma_i$. At that point, $N$~will accept~$A$.
+
+Therefore, the algorithm~$N$ correctly semidecides the tautological
+consequences of~$\Gamma$, and thus $\TCn \Gamma$~is computably enumerable.
+\end{proof}
+
+The algorithm~$N$ was written so as to work even in the case
+where $\Gamma$ is finite. It is even permitted that $\Gamma$~is
+empty: in this case, for-loop executes only for $i=0$ and uses
+$\Gamma_i = \varnothing$.  More generally, if $\Gamma$ is finite, the
+for-loop might execute only finitely many rounds and then, once
+all members of~$\Gamma$ have been enumerated, continue running $M$
+forever while waiting to see if $M$ will produce another member of~$\Gamma$.
+
+Note that, however, the fact Theorem~\ref{thm:ceTautConseqs} holds
+for finite~$\Gamma$ is also an immediate corollary of
+part~(b) of Theorem~\ref{thm:decidableTauts}.
+
+The obvious next question is what happens when $\Gamma$ is
+decidable instead of computably enumerable? A natural first
+thought is that the set $\{ A : \Gamma \vDash A \}$ might be
+decidable. But this is not the case.  To give a non-rigorous
+argument of how it can fail to be decidable, consider, for example,
+a decidable set $\Gamma$ that {\em might} contain the propositional
+formulas of the form $\bigor_{j=1}^k p_i$ for some $i,k$ (but definitely
+does not contain any other formulas).
+Since $\bigor_{j=1}^k p_i$ is the $k$-fold disjunction of~$p_i$
+with itself, it is tautologically equivalent to~$p_i$.
+Then $\Gamma \vDash p_i$
+holds if and only if one of the formulas $\bigor_{j=1}^k p_i$
+is in~$\Gamma$. Since $\Gamma$ is decidable, there is an algorithm,
+which given $i,k$ as input can determine
+whether $\bigor_{j=1}^k p_i$ is a member of~$\Gamma$.
+But, there may be no algorithm that, given just $i$ as input, 
+determines whether 
+there is some value~$k$ such that $\Gamma$ contains $\bigor_{j=1}^k p_i$.  
+That is to say, there may be no 
+algorithm that decides whether $\Gamma \vDash p_i$ when given $i$ as input.
+Informally, this is because,
+to determine that $\Gamma \nvDash p_i$, any such algorithm would have to test
+the (non)membership of the infinitely many formulas $\bigor_{j=1}^k p_i$
+in~$\Gamma$.
+
+On the other hand however, it turns out that if $\Gamma$ is a computably
+enumerable set of formulas, then there is a decidable set~$\Pi$
+of logically equivalent formulas.  That is, if $\Gamma$~is c.e.,
+there is a decidable~$\Pi$ such that $\Gamma \tautEq \Pi$. This
+is known as \idxnm{Craig's Theorem}, and you are
+asked to prove it in Exercise~\ref{exer:CraigThm}.
+
+Exercise~\ref{exer:undecidableConsequences} asks you to prove that there is
+a decidable~$\Gamma$ (equivalently, a computably enumerable~$\Gamma$)
+whose set of logical consequences is undecidable.
+That proof will depend on the methods that will be developed
+in Section~\ref{sec:UndecidableInformal}.
+
+
+
+

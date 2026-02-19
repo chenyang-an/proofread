@@ -1,0 +1,443 @@
+\section{First-Order Syntax}\label{sec:syntaxFO}
+
+This section defines the syntax of first-order formulas. The definition goes
+through a four-step process. First, we define the notion of a language~$L$.
+A language specifies which non-logical\index{non-logical symbol} symbols may be
+used in formulas. The symbols $\lnot$, $\land$, $\lor$, $\limplies$, $\liff$,
+$\forall$, $\exists$ and~$=$ are considered to be \emph{logical symbols}\index{logical symbol}
+since they have a prescribed meaning in all settings. The non-logical\index{non-logical symbol}
+symbols however, can have different meanings in different settings. For example, $\cdot$~can
+mean different things in different groups and yet another thing in the integers.
+Once a language~$L$ is fixed, we define the notions of $L$-terms,
+atomic $L$-formulas, and finally $L$-formulas. Figure~\ref{fig:fmlaDefn}
+shows examples of these four concepts.
+
+\begin{figure}
+\centering
+\begin{tabular}{rcc}
+& Theory of the integers & Group theory \\
+\hline
+Language~$L$:\tallerEvenMore & $0,~S,~+,~\cdot,~=$ & $1,~\cdot,~()^{-1},~=$ \\[1ex]
+\hline
+$L$-Terms:\tallerEvenMore & $x_1 + 0$ and $S(x_1\cdot x_2)$  & $x_1 \cdot x_2$ and $(x_1 \cdot 1)^{-1}$\\[1ex]
+\hline
+\parbox{0.8in}{\raggedright
+\hfill Atomic$\taller$ \\ \hfill $L$-formulas:} & $x_1 + 0 = S(x_1\cdot x_2)$ & $x_1 \cdot x_2 = (x_1 \cdot 1)^{-1}$ \\[1.8ex]
+\hline
+$L$-formulas:\tallerEvenMore & $\forall x_1\,\exists x_2\,(x_1 + 0 = S(x_1\cdot x_2))$ & $\exists x_1\, \forall x_2\,( x_1 \cdot x_2 = (x_1 \cdot 1)^{-1})$ \\[1ex]
+\hline
+\end{tabular}
+\caption{Examples of the components of the definition of first-order formulas}
+\label{fig:fmlaDefn}
+\end{figure}
+
+First-order formulas are \emph{expressions}\index{expression}, i.e.~strings of
+symbols, that are built from logical symbols, the equality sign, non-logical symbols,
+variables, and parentheses.  The logical symbols include propositional
+connectives, the existential quantifier~$\exists$, and the universal
+quantifier~$\forall$. Variables~$x_i$ are intended to range over a
+domain of ``objects'' or ``individuals''.
+The non-logical symbols are specified by a first-order language.
+For example, for the theory of groups, we might take the
+language to consist of $\cdot$, $^{-1}$, $1$, and~$=$.
+Or for the theory of the integers, we might use the language
+$0$, $S$, $+$, $\cdot$ and~$=$.  The specification of the
+non-logical symbols and their attributes is called a language:\footnote{A language
+is sometimes called a ``signature''.}\index{language}
+
+\begin{definition}
+A \idxem{language}~$L$ is a set of symbols along with information about
+what kind of symbols they are and their arities. (The ``\idxnm{arity}'' of a function
+or predicate is the number of arguments it takes and must be a positive integer.) 
+The following kinds of symbols can be constituents of a language.
+\begin{enumerateLoose}
+\item {\bfseries \em Constant\index{constant symbol} symbols}. These are intended to denote particular objects in
+the domain of discourse. (A constant symbol has arity zero.)
+\item {\bfseries \em Function symbols\index{function symbol}}, along their arities.
+\item {\bfseries \em Predicate symbols\index{predicate symbol}}, along with their arities.
+These are often called ``relation symbols''.
+\item {\bfseries \em The equality sign~$=$}\index{equality sign ($=$)}. This is included
+in a language as a special binary predicate symbol unless it is explicitly
+excluded as a symbol.
+\end{enumerateLoose}
+\end{definition}
+
+\begin{example}\label{example:languagePA}
+The language of the theory of the integers\index{integers, theory of}
+described in the
+previous section had the following constituents:
+\begin{enumerateLoose}
+\item The constant symbol~$0$.
+\item The unary function symbol~$S$ and the two binary
+function symbols $+$ and~$\cdot$.
+\item Apart from equality, no predicate symbols.
+\item The binary predicate symbol for equality,~$=$.
+\end{enumerateLoose}
+This language is denoted $L_\PA$. The subscript ``$\PA$'' stands for
+``\idxnm{Peano Arithmetic}'', which will be defined later
+in Section~\ref{sec:fourTheoriesArith}.
+
+The predicates $\le$ and $\TPrime(-)$ were discussed
+above. These are not part of~$L_\PA$. They can instead
+be expressed by $L_\PA$-formulas.
+\end{example}
+
+Once a language $L$ has been fixed, we can define
+the notion of a first-order formula over the
+language~$L$. For this, we shall define first ``terms'',
+then ``atomic formulas'', and finally ``formulas''.
+Terms and formulas are expressions, namely strings of symbols.
+The symbols that may appear in an $L$-term or
+an $L$-formula include:
+\begin{enumerateLoose}
+\item The symbols of~$L$,
+\item The propositional connectives $\lnot$, $\lor$, $\land$, $\limplies$ and~$\liff$.
+\item The quantifier symbols $\forall$ and~$\exists$.
+\item Variables $x_1, x_2, x_3, \ldots$.
+\item Parentheses and commas. Parentheses show precedence and delimit
+the scope of functions and predicates; commas separate
+the arguments of functions and predicates.
+\end{enumerateLoose}
+Predicate symbols and quantifier symbols do not appear in terms.
+
+\begin{definition}
+Let $L$ be a language. The \emph{$L$-terms}\index{term} are inductively defined
+by
+\begin{enumerateLoose}
+\item For $i\ge 1$, the variable~$x_i$ is a term.
+\item If $c$ is a constant symbol of~$L$, then $c$ is a term.
+\item If $f$ is a $k$-ary function symbol of~$L$ where $k\ge 1$, and if
+$t_1, t_2, \ldots, t_k$ are $L$-terms, then
+\[
+f(t_1, t_2, \ldots, t_k)
+\]
+is an $L$-term.\footnote{The use of parentheses and commas
+in the term $f(t_1, t_2, \ldots, t_k)$ is redundant. The redundancy comes
+from the fact that
+functions have a fixed, constant arity, and since we use prefix (Polish) notation for terms,
+and there is a simple parsing algorithm that could uniquely recover the underlying formula
+even if parentheses and commas were omitted. Nonetheless, in practice, parentheses and commas
+make it much easier to read and comprehend terms, so we choose to include them.}
+\end{enumerateLoose}
+\end{definition}
+
+As examples of infix notation,
+$+(0,S(x_1))$ and $\cdot(S(S(x_2)),+(S(x_3),S(x_4)))$ are
+$L_\PA$-terms. Their intended meanings, in more readable notation, are
+$0+\penalty 10000 (x_1+\penalty 10000 1)$ and 
+$(x_2+\penalty 10000 2)\cdot\penalty 10000 ((x_3+\penalty 10000 1)+\penalty 10000 (x_4+\penalty 10000 1))$.
+These terms will denote
+objects in the domain of individuals, depending on what objects the
+variables~$x_i$ are equal to.
+
+\begin{definition}
+A term is \emph{closed}\index{closed term} if it does not contain any variables. In other words,
+a closed term is a term that is built from only constant symbols
+and function symbols.
+\end{definition}
+
+The simplest type of formulas is the atomic formulas.
+
+\begin{definition}
+Let $L$ be a language. There are two ways of forming an
+\emph{atomic $L$-formula}\index{atomic formula}.
+\begin{itemizeLoose}
+\item[(a)] If $P$ is a $k$-ary predicate symbol of~$L$ and
+$t_1,\ldots,t_k$ are $L$-terms, then $P(t_1,\ldots, t_k)$ is
+an atomic $L$-formula.
+\item[(b)] If $L$ contains the symbol~$=$\index{equality sign ($=$)}
+and $t_1$ and~$t_2$
+are $L$-terms, then $t_1 = t_2$ is an atomic $L$-formula.
+\end{itemizeLoose}
+\end{definition}
+
+For example, $+(0,S(x_1)) = \cdot(S(S(x_2)),+(S(x_3),S(x_4)))$
+is an atomic $L_\PA$-formula.  If we add $\le$ as a
+binary predicate symbol, then
+\[
+\le (+(0,S(x_1)),\,\cdot(S(S(x_2)),+(S(x_3),S(x_4))) )
+\]
+is an atomic $L_{\PA}\cup\{\le\}$-formula.
+These two formulas could be either true or false, depending on what
+objects the variables~$x_i$ are equal to, and on how the
+symbols $\le,\, S,\, +,\, \cdot$ are interpreted.
+
+Finally, we can define $L$-formulas.
+
+\begin{definition}
+Let $L$ be a language. The $L$-formulas\index{formula} are inductively defined
+as follows.
+\nopagebreak
+\begin{itemizeLoose}
+\item[(a)] Any atomic $L$-formula is an $L$-formula.
+\item[(b)] If $A$ is an $L$-formula, then $\lnot A$ is an $L$-formula.
+\item[(c)] If $A$ and~$B$ are $L$-formulas, then $(A\lor B)$, $(A\land B)$,
+$(A \limplies B)$ and $(A \liff B)$ are $L$-formulas.
+\item[(d)] If $A$ is an $L$-formula and $x_i$ is a variable,
+then $\forall x_i A$ and $\exists x_i A$ are $L$-formulas.
+\end{itemizeLoose}
+\end{definition}
+When the language $L$ is understood, we generally refer to $L$-terms and $L$-formulas
+as just ``terms'' and ``formulas''.
+
+\paragraph*{Abbreviations for formulas.}
+It is often convenient to use informal notations for formulas
+that are easier to read but do not fully obey the above definition of formulas.
+As an example, $\TPrime(x)$ as defined in~(\ref{eq:xPrime}) does not
+fit the formal definition for an $L_\PA$-formula; instead it is meant to
+be the readable transcription of an $L_\PA$-formula. To write the actual formula,
+we must add parentheses and
+we need to replace $x,y,z$ with some choice of variables~$x_i$. If we, say, use
+$x_1, x_2, x_3$ for $x,y,z$, then the formula (\ref{eq:xPrime}) becomes
+\begin{equation}\label{eq:xPrimeFormula}
+\lnot x_1 = S(0) \land \forall x_2\, (\exists x_3 \,( x_2\cdot x_3=x_1) \limplies (x_2=S(0) \lor x_2=x_1)).
+\end{equation}
+The actual
+formula, with all parentheses and in prefix notation, is
+\begin{equation}\label{eq:xPrimeFormulaBis}
+( \lnot  x_1 = S(0) \land \forall x_2\, (\exists x_3 \, \cdot(x_2, x_3) = x_1 \limplies (x_2 = S(0) \lor x_2=x_1))).
+\end{equation}
+The formula (\ref{eq:xPrime}) is an informal way of writing this.
+
+This is an example of the conventions for writing formulas in more readable form,
+similarly to what was done for propositional logic earlier in Section~\ref{sec:propFormulas}.
+\begin{itemizeDot}
+\item First of all, we often omit parentheses. The order of
+precedence\index{precedence of connectives} of operations is
+similar to propositional logic:
+\begin{enumerateLoose}
+\item Negation $\lnot$ and quantifiers $\forall$ and $\exists$ have the
+highest precedence.
+\item $\land$ and $\lor$ have the second highest precedence.
+\item $\limplies$ and $\liff$ have the lowest precedence.
+\item Binary connectives of the same precedence associate from right to left.
+\end{enumerateLoose}
+\item Second, we often use variable names such as $x, y, z,\ldots$ instead of $x_1, x_2, x_3, \ldots$.
+\item Third, when it helps with readability, we often use infix notation to write binary
+functions (such as $+$ and~$\cdot$) and binary predicates
+(such as $\le$ and~$<$). E.g., we write $s+t$ and $s\le t$ as
+abbreviations of $+(s,t)$ and ${\le}(s,t)$.  We also use $s \neq t$\index{inequality ($\neq$)} as a
+shorthand notation for $\lnot s = t$.
+\item Fourth, we often add parentheses to make formulas more readable.
+A common example is when writing quantifiers with formulas that use infix notation.
+For instance, we might write $\forall x (0\le x)$ instead of
+$\forall x\,0\le x$, just to make the formula more readable.
+In the same vein, we will generally write $\forall x ( S(x) \neq x )$
+instead of the more correct $\forall x S(x) \neq x$.
+\item Other conventions are used in the literature. For instance,
+parentheses are often used around quantifiers, to write $(\forall x)$ and
+$(\exists x)$ instead of just $\forall z$ and~$\exists x$. Sometimes
+dots are used instead of parentheses; for example, by writing
+$\exists x. x=0 \lor S(x)=0$ instead of $\exists x (x=0\lor S(x)=0)$.
+We will avoid these conventions in this book however.
+\end{itemizeDot}
+
+The use of variables such as $x,y,z$ to informally denote $x_1, x_2, x_3$
+brings up a technical complication. Namely, how did we decide to
+use $x_1, x_2, x_3$ instead of other~$x_i$'s? To illustrate this, consider
+the following three formulas, all of which are versions of~(\ref{eq:xPrime}):
+\begin{eqnarray}
+\label{eq:xPrime123}
+x_1\neq S(0) \land \forall x_2\, (\exists x_3\, (x_2\cdot x_3 = x_1) \limplies x_2=S(0) \lor x_2=x_1)
+\\
+\label{eq:xPrime156}
+x_1\neq S(0) \land \forall x_5\, (\exists x_6\, (x_5\cdot x_6 = x_1) \limplies x_5=S(0) \lor x_5=x_1)
+\\
+\label{eq:xPrime456}
+x_4\neq S(0) \land \forall x_5\, (\exists x_6\, (x_5\cdot x_6 = x_4) \limplies x_5=S(0) \lor x_5=x_4)
+\end{eqnarray}
+The first two formulas have used $x_1$ for the variable~$x$, and thus assert that $x_1$ is prime.
+The difference between these two formulas is that one uses $x_2, x_3$ for $y, z$ and
+the other uses $x_5,x_6$ for~$y,z$. But these are quantified variables, usually
+called ``bound\index{bound variable}'' variables.
+Thus the formulas (\ref{eq:xPrime123}) and~(\ref{eq:xPrime156}) have
+the same meaning; they both say that $x_1$ is prime, and they both equally well
+can serve as the formula $\TPrime(x_1)$.
+
+On the other hand, (\ref{eq:xPrime456}) uses $x_4$ for~$x$, and thus can serve
+as the formula $\TPrime(x_4)$ asserting that $x_4$ is prime, not that $x_1$ is prime.
+Therefore, (\ref{eq:xPrime456})~is not
+equivalent to the first two formulas! The variable~$x$ in~(\ref{eq:xPrime}) is called a ``free\index{free variable}'' variable.
+Likewise, $x_1$ in (\ref{eq:xPrime123}) and~(\ref{eq:xPrime156}), and $x_4$ in~(\ref{eq:xPrime456})
+are ``free'' variables. These formulas assert that their \idxnm{free variable} is a prime.
+
+This topic of free variables will be revisited in
+Sections \ref{sec:truthFO} and~\ref{sec:substitution}. For now, we just
+formally define what it means for an occurrence of a variable to be free or bound.
+But first, consider the formula
+\[
+\forall x_1 \, ( x_1=0 \lor P(x_1)) \land x_1=x_1 .
+\]
+as an example. The two occurrences of~$x_1$ in the subformula $(x_1=0 \lor P(x_1))$
+are bound\index{bound variable} occurrences; they are ``\idxnm{bound by}''
+the quantifier $\forall x_1$.  The two occurrences of $x_1$ in the
+subformula $x_1 = x_1$ are free occurrences.  The symbol~$x_1$ in
+the quantifier~$\forall x_i$ is neither a free nor bound occurrence.
+
+\begin{definition}\label{def:freeBound}
+Let $A$ be a formula, and let $x_i$ be an occurrence of a variable in~$A$
+that does not immediately follow a $\forall$ or~$\exists$ symbol.
+The notions of $x_i$ being a \emph{free}\index{free variable}
+or \emph{bound}\index{bound variable} are defined recursively
+as follows. At the same time, for $x_i$ a bound occurrence, we define which
+quantifier $x_i$ is \idxem{bound by}.
+In all cases, the occurrence of~$x_i$ is either free or bound, but not both.
+\begin{enumerate}
+\item If $A$ is an atomic formula, then the occurrence~$x_i$ is free in~$A$.
+\item If $A$ is $\lnot B$ or $B\circ C$ for $\circ$ a propositional connective,
+then the occurrence of~$x_i$ is free or bound in~$A$ according to whether the corresponding
+occurrence in~$B$ or in~$C$ is free or bound. If the occurrence of~$x_i$ is bound, then it is \emph{bound by}
+the same quantifier in~$A$ that it is bound by in $B$ or~$C$.
+\item If $A$ is $\exists x_i B$ or $\forall x_i B$, then every occurrence of $x_i$ is
+bound in~$A$ (and is not free in~$A$). 
+If an occurrence of~$x_i$is free in~$B$, then we say that that
+occurrence in~$A$ is \emph{bound by} the quantifier $\exists x_i$ or $\forall x_i$ at the start of~$A$.
+Otherwise, the occurrence of~$x_i$ is bound by the same quantifier in~$A$ that it is bound by in~$B$.
+\item If $j\neq i$ and $A$ is $\exists x_j B$ or $\forall x_j B$,
+then the occurrence of~$x_i$ is free or bound in~$A$ according to whether the corresponding
+occurrence in~$B$ is free or bound. If the occurrence of~$x_i$ is bound, then it is \emph{bound by}
+the same quantifier in~$A$ that it is bound by in~$B$.
+\end{enumerate}
+\end{definition}
+
+It is also possible to give a characterization of what it means for
+a variable to be free or bound in terms of the ``\idxnm{scope}'' of a quantifier.
+\begin{definition}\label{def:scopeQuantifier}
+Let $\forall x B$ or $\exists x B$ be a subformula occurring in~$A$.
+The \idxem{scope} of the quantifier $\forall x$ or $\exists x$ is the
+subformula~$B$. (The scope does not include the quantifier itself.)
+\end{definition}
+
+Then, an occurrence of~$x_i$ that does not immediately follow
+a quantifier symbol $\forall$ or~$\exists$ is bound in~$A$ if and only if it is in the
+scope of a quantifier $\exists x_i$ or $\forall x_i$ in~$A$.
+It is \idxnm{bound by} the leading quantifier of $\forall x_i B$ or $\exists x_i B$
+if and only if it is not within the \idxnm{scope} of
+any other occurrence of $\forall x_i$ or $\exists x_i$
+in the subformula~$B$.
+
+\begin{example}\label{example:boundAndFree}
+Let $A$ be the formula
+$\exists x_2 ( x_2 + x_2 = x_1 ) \lor x_3=0$, which asserts that $x_1$ is even
+or $x_3$ is equal to~0. The occurrences of $x_1$ and~$x_3$ are free in~$A$.
+The two occurrences of~$x_2$ in the term $x_2+x_2$ are bound occurrences.
+The formula $A$ might also be (informally) written as $A(x_1, x_3)$ to indicate
+it is asserting properties of $x_1$ and~$x_3$.
+
+On the other hand, let $B$ be $\exists x_3 ( x_3 + x_3 = x_1 ) \lor x_3=0$. In
+this formula, there are two bound occurrences of~$x_3$ and one free occurrence of~$x_3$.
+It still asserts, like~$A$, that $x_1$~is even or $x_3$ equals~$0$. Here $x_3$ is
+being used in two completely different, independent ways.
+\end{example}
+
+\begin{example}\label{example:freeBoundfig}
+Figure~\ref{fig:freeBoundExample} shows an example of
+free and bound occurrences of variables in a formula 
+the variable~$x_1$ is used in two different ways as a quantified variable
+and once as a free variable.    
+\end{example}
+
+\begin{figure}
+\centering
+\begin{tabular}{c}
+\tikzmarknode{free}{free} \\[1ex]
+$\forall \tikzmarknode{x1a}{x_1}\,
+   (\exists \tikzmarknode{x2a}{x_2}\,
+    (\tikzmarknode{x3}{x_3} = \tikzmarknode{x2b}{x_2}+\tikzmarknode{x1c}{x_1} 
+    \land \exists \tikzmarknode{x1d}{x_1}\,(\tikzmarknode{x1e}{x_1}+\tikzmarknode{x1f}{x_1} = \tikzmarknode{x2c}{x_2}))) 
+    \lor \tikzmarknode{x1g}{x_1}=0.$
+\end{tabular}
+\vspace*{7.0ex}  %Leave room for the edges in the tikzpicture
+\begin{tikzpicture}[remember picture, overlay]
+\draw[<-,solid,line width=0.8pt,rounded corners=1.4ex] ([shift={(0ex,1.5ex)}]pic cs:x3) |- ([shift={(-2.5ex,0.8ex)}]pic cs:free);
+\draw[<-,solid,line width=0.8pt,rounded corners=1.4ex] ([shift={(0ex,1.5ex)}]pic cs:x1g) |- ([shift={(2.5ex,0.8ex)}]pic cs:free);
+\draw[->,solid,line width=0.8pt,rounded corners=1.4ex] 
+    ([shift={(0ex,-1.3ex)}]pic cs:x1c) -- ([shift={(0ex,-5.5ex)}]pic cs:x1c)
+    -- ([shift={(0ex,-5.5ex)}]pic cs:x1a) -- ([shift={(0ex,-1.3ex)}]pic cs:x1a); 
+\draw[->,solid,line width=0.8pt,rounded corners=1.4ex] 
+    ([shift={(0ex,-1.3ex)}]pic cs:x1e) -- ([shift={(0ex,-3.8ex)}]pic cs:x1e)
+    -- ([shift={(0ex,-3.8ex)}]pic cs:x1d) -- ([shift={(0ex,-1.3ex)}]pic cs:x1d); 
+\draw[->,solid,line width=0.8pt,rounded corners=1.4ex] 
+    ([shift={(0ex,-1.3ex)}]pic cs:x1f) -- ([shift={(0ex,-5.5ex)}]pic cs:x1f)
+    -- ([shift={(0ex,-5.5ex)}]pic cs:x1d) -- ([shift={(0ex,-1.3ex)}]pic cs:x1d); 
+\draw[->,solid,line width=0.8pt,rounded corners=1.4ex] 
+    ([shift={(0ex,-1.3ex)}]pic cs:x2b) -- ([shift={(0ex,-3.8ex)}]pic cs:x2b)
+    -- ([shift={(0ex,-3.8ex)}]pic cs:x2a) -- ([shift={(0ex,-1.3ex)}]pic cs:x2a); 
+\draw[->,solid,line width=0.8pt,rounded corners=1.4ex] 
+    ([shift={(0ex,-1.3ex)}]pic cs:x2c) -- ([shift={(0ex,-7.2ex)}]pic cs:x2c)
+    -- ([shift={(0ex,-7.2ex)}]pic cs:x2a) -- ([shift={(0ex,-1.3ex)}]pic cs:x2a); 
+\end{tikzpicture}
+\caption{The first occurrence of~$x_1$ is bound by the first quantifier~$\forall x_1$.
+The second and third occurrences of~$x_1$ are bound by the final quantifier~$\exists x_1$.
+The fourth occurrence of~$x_1$ is free.}
+\label{fig:freeBoundExample}
+\end{figure}
+
+Admittedly, it is bad
+form to use variables in multiple ways in the same formula like in
+Figure~\ref{fig:freeBoundExample}, if for
+no other reason than that
+it is confusing to a reader. But it is {\em permitted} by the syntax of first-order
+formulas and will need to be dealt with in the next section when giving the
+definition of truth. 
+
+Another complication is that if we want to adapt the formula$A$ 
+of Example~\ref{example:boundAndFree} to say
+that ``$x_2$ is even or $x_3=0$'', 
+we cannot just replace the $x_1$ in~$A$ with~$x_2$ because this
+would create a new bound occurrence of~$x_2$.  This problem will be addressed in
+Section~\ref{sec:substitution} on substitution by renaming the bound
+variable~$x_2$ before substituting $x_2$ for~$x_1$.
+
+\begin{definition}\label{def:sentenceFO}
+A first-order formula with no free occurrences of variables is
+called a \idxem{sentence}.
+\end{definition}
+
+Sentences are also called ``closed formulas''.
+
+For example, $\forall x (0\le x)$ is a sentence, whereas $0 \le x$
+is not. The second formula asserts something about its free variable~$x$,
+namely that it is greater than or equal to zero. The first formula
+does not have any free variables, so it asserts something about truth
+in the domain of discourse.
+
+\paragraph*{Unique readability and induction on formulas.}
+Similarly to the situation for propositional formulas, first-order terms
+and first-order formulas satisfy the \idxem{unique readability} property.
+Namely, every term can be {\em uniquely} written in one of the forms
+\begin{enumerateLoose}
+\item A constant symbol~$c$,
+\item A variable symbol~$x_i$, or
+\item A compound term $f(t_1,\ldots, t_k)$ 
+for $f$ a function symbol and $t_1, \ldots, t_k$ terms.
+\end{enumerateLoose}
+In addition, every atomic subformula can be uniquely written as $t_1 = t_2$ or
+$P(t_1,\ldots, t_k)$ where $P$ is a $k$-ary predicate and the~$t_i$'s are terms.
+Finally, every formula can be written uniquely in one of the form
+\begin{enumerateLoose}
+\item As an atomic formula,
+\item As $\lnot B$, or $B \land C$, or $B \lor C$, or $B\limplies C$, or $B \liff C$,
+\item As $\forall x_i B$ or $\exists x_i B$.
+\end{enumerateLoose}
+
+The inductive definitions of terms and formulas mean that we
+can use induction on the complexity of terms or formulas. The
+unique readability properties mean that we can also give recursive
+definitions of new functions based on the complexity of terms and
+formulas. In fact, Definition~\ref{def:freeBound} already used
+recursion on the complexity of formulas to define the notions
+of free and bound variables, and Definition~\ref{def:scopeQuantifier}
+implicitly used the unique readability of formulas.
+
+The unique readability properties can be proved by induction
+on the complexity of formulas. As with propositional formulas
+(see Exercise~\ref{exer:uniqueReadability}), the basic idea is that there are
+sufficient parentheses included to make the order of precedence of
+operations unambiguous.
+
+Almost as important as unique readability is that there are efficient algorithms
+to parse terms and formulas. These algorithms can decide which
+of the forms (a)-(c) above apply to a term or a formula, and can even
+express the term or formula as a parse tree.
+

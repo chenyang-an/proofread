@@ -1,0 +1,297 @@
+\section{Algorithms for First-Order Logic}\label{sec:AlgorithmsFO}
+We now discuss validity and implication for first-order logic.
+The first main result in this section is that the set of logically valid formulas
+is computably enumerable. The second main result is that the
+set of logical consequences of a computably enumerable set
+of sentences is also computably enumerable.
+
+It is assumed
+that we are working with a fixed language~$L$ of nonlogical
+symbols. First-order $L$-formulas can be expressed as strings
+of symbols over the alphabet $\Sigma^{\Tfo-L}$ defined as
+\[
+\Sigma^{\Tfo-L} ~=~
+   L \cup \{ {=}, {\lnot}, {\limplies}, \forall, (, ), x, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 \} .
+\]
+This is an alphabet of cardinality $|L|+17$.
+For example, the formula 
+\[
+\forall x_{17}\, (f(x_{17})=\penalty10000 x_{17} \limplies\penalty10000 R(x_{17}))
+\]
+will be encoded with the $\Sigma^{\Tfo-L}$-string
+``${\forall}x17{(}f{(} x17{)}{=}x17{\limplies}R{(}x17{)}{)}$''.
+Sets of first-order formulas, and
+first-order proofs ($\FO$-proofs), will be expressed as strings of symbols
+over the alphabet
+\[
+\Sigma^{\Tfo-L+} = \Sigma^{\Tfo-L} \cup \{ {,} \} .
+\]
+The additional symbol is a comma; it serves to separate
+formulas that appear in a set of formulas or in an $\FO$-proof.
+For example, the sequence consisting of
+the two formulas $x_1=x_1$ and $\lnot x_{12}=x_{12}$ would be encoded by the
+string ``$x 1{=} x 1 {,} {\lnot} x12{=}x12$'' of length~14.
+
+We often conflate formulas and proofs with the strings
+that encode them. For instance, part~(c) of the next theorem
+states that the set of syntactically correct $L$-formulas
+is decidable; strictly speaking, this means that the set
+of $\Sigma^{\Tfo-L}$-strings that encode syntactically correct
+$L$-formulas is decidable.
+
+\begin{theorem}\label{thm:SyntaxDecidable}
+Let $L$ be a finite language. Consider the following function
+and relations which take inputs in~$(\Sigma^{\Tfo-L})^*$.
+\relax \ ~
+\begin{enumerate}
+\item The set of syntactically correct $L$-terms is decidable.
+\item The set of syntactically correct atomic $L$-formulas is decidable.
+\item The set of syntactically correct $L$-formulas is decidable.
+\item \index{substitution} Let $\TSubst(A, x, t)$ be the 3-ary relation
+on $(\Sigma^{\Tfo-L})^*$
+which is true for exactly the $L$-formulas~$A$ such that the $L$-term~$t$
+is substitutable for the variable~$x$ in~$A$.
+The relation $\TSubst$ is decidable.
+\item \index{substitution} Let $\TSub(A, x, t)$ be the 3-ary function
+which, for inputs $A$~an $L$-formula, $t$~an $L$-term, and $x$~a
+variable produces the $L$-formula $A(t/x)$. For all other inputs,
+$\TSub(A,x,t)$ is the empty string (denoting an error condition).
+The function $\TSub$ is computable.
+\item The set $L$-formulas which are valid $\FO$ axioms is decidable.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+There are straightforward algorithms for all of these.
+\end{proof}
+
+\begin{theorem}
+Let $L$ be a finite language.
+The set of pairs $\langle \Pi, P \rangle$ such that $P$~is
+a valid $\FO$-proof from the hypotheses~$\Pi$ is decidable.
+\end{theorem}
+
+\begin{proof}
+The input is a pair $v, w$ of strings in $(\Sigma^{\Tfo-L})^*$.
+The algorithm works as follows. First,
+if $v$ is not an encoding of a set of formulas~$\Pi$ or
+if $w$ is not an encoding of a sequence~$P$ of formulas,
+then reject. Otherwise, check that each formula in~$P$
+is a valid $\FO$-axiom, is a member of~$\Pi$, is inferred
+by Modus Ponens from two earlier formulas in~$P$, or is inferred
+by the Generalization Rule from an earlier formula in~$P$.
+If this holds for every formula in~$P$ accept.  Otherwise, reject.
+
+It is clear that an algorithm can be designed to carry
+out these checks.
+\end{proof}
+
+Part~(a) of the next theorem states that the set of valid first-order
+formulas is computably enumerable. This is a fairly remarkable
+fact because the validity of a formula means that the formula
+is true in all possible structures and object assignments.
+Its proof is based on the fact that a first-order
+formula is valid if and only if it has an $\FO$-proof,
+namely, on the fact that Completeness and Soundness Theorems
+hold.
+
+\begin{theorem}\label{thm:validFOareCE}
+Let $L$ be a finite language.
+\begin{itemize}
+\item[(a)] The set of valid $L$-formulas is computably enumerable.
+\item[(b)] The binary relation
+\[
+\{ \langle \Gamma, A \rangle : \hbox{$\Gamma$ is a finite set of formulas and $\Gamma \vDash A$} \}
+\]
+is computably enumerable.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+The idea of the proof is that the algorithm can enumerate all
+possible $\FO$-proofs, seeking an $\FO$-proof of~$A$ (from the hypotheses~$\Gamma$).
+If $\vDash A$ holds (or $\Gamma \vDash A$ holds), then there does exist
+such an $\FO$-proof and it will eventually be found.  In more detail,
+to prove~(b), it will suffice to give an algorithm that
+semidecides the binary relation
+$\{ \langle \Gamma, A \rangle : \Gamma \vDash A \}$. The following
+algorithm can be used. It uses the computable enumeration
+of strings in $(\Sigma^{\Tfo-L+})^*$
+from Definition~\ref{example:SigmaStarCE} to enumerate
+all members of $(\Sigma^{\Tfo-L+})^*$ as $v_1,v_2, v_3, \ldots$.
+
+\begin{tabbing}
+\AlgFirstIn\=\Algin\=\Algin\=\Algin\=\Algin\=\kill
+\>\underline{Input:} $A \in (\Sigma^\Tfo)^*$ and $\Gamma \in (\Sigma^{\Tfo-L+})^*$. \\
+\>\underline{Algorithm $N$:} \\
+\>If $A$ is not a syntactically correct formula, reject. \\
+\>If $\Gamma$ is not a finite set of syntactically correct formulas, reject. \\
+\>For $i=1,\, 2,\, 3, \ldots$ \\
+\>\>Let $v_i$ be the $i$-th member of a computable enumeration of $(\Sigma^{\Tfo-L+})^*$. \\
+\>\>If $v_i$ encodes a syntactically correct $\FO$-proof of~$A$ from~$\Gamma$, \\
+\>\>\>accept (and halt). \\
+\>End-for
+\end{tabbing}
+That proves part~(b). The proof of~(a) is similar but
+uses $\Gamma = \varnothing$.
+\end{proof}
+
+Note how the above algorithm is very simple-minded and \index{proof search}
+very inefficient. It makes no attempt to analyze the
+logical structure of~$A$ or formulas in~$\Gamma$. It definitely
+makes no attempt to ``understand'' why $\Gamma$ might logically
+imply~$A$. It will, of course, find a shortest $\FO$-proof of~$A$ from~$\Gamma$
+(where length is measured by the length of the encoded $\FO$-proof). But this
+is done by a blind, brute-force search for an $\FO$-proof.
+
+Theorem~\ref{thm:validFOareCE}(b) was stated for a finite
+set of hypotheses~$\Gamma$.
+A similar result holds $\Gamma$ is a computably enumerable set:
+
+\begin{theorem}\label{thm:ceLogicalConseqs}
+Let $L$ be a finite language. Suppose $\Gamma$ is a
+computably enumerable set of $L$-formulas. Then the
+set of $L$-formulas~$A$ such that $\Gamma \vDash A$ is
+computably enumerable.
+\end{theorem}
+
+\begin{proof}
+The idea for this proof is to simultaneously enumerate
+members of~$\Gamma$ and use a brute-force search
+through all possible $\FO$-proofs of~$A$. If $\Gamma \vDash A$ holds,
+then eventually a sufficiently large finite subset~$\Gamma_i$ of~$\Gamma$
+will have been found such that $\Gamma_i \vDash A$. Eventually, the
+brute-force search for $\FO$-proofs will succeed in finding an
+$\FO$-proof of~$A$ from~$\Gamma_i$.
+
+To make this argument precise,
+it suffices to show that the set of $L$-formulas~$A$ such
+that $\Gamma\vDash A$ is semidecidable. The following algorithm~$N$
+semidecides this:
+
+\vbox{
+\begin{tabbing}
+\AlgFirstIn\=\Algin\=\Algin\=\Algin\=\Algin\=\kill
+\>\underline{Assumption:} $M$ enumerates~$\Gamma$. \\
+\>\underline{Input:} $A \in (\Sigma^{\Tfo-L})^*$ \\
+\>\underline{Algorithm $N$:} \\
+\>If $A$ is not a syntactically correct formula, reject. \\
+\>For $i=0,\, 1,\, 2,\, 3, \ldots$ \\
+\>\>Run $M$ for a total of $i$ steps. \\
+\>\>Let $\Gamma_i$ be the subset of~$\Gamma$ enumerated by~$M$ within $i$ steps. \\
+\>\>For $j = 1,2,3,\ldots, i$, \\
+\>\>\>Let $v_j$ be the $j$-th member of a computable enumeration of $(\Sigma^{\Tfo-L+})^*$. \\
+\>\>\>If $v_j$ encodes a syntactically correct $\FO$-proof of~$A$ from~$\Gamma_i$, \\
+\>\>\>\>accept (and halt). \\
+\>\>End-for \\
+\>End-for
+\end{tabbing}
+}
+
+\noindent
+It is clear that the only way the algorithm~$N$ can accept~$A$ is
+if some finite subset~$\Gamma_i$ of~$\Gamma$ logically
+implies~$A$.  Conversely, if $\Gamma$ logically
+implies~$A$, then some finite subset~$\Pi$ of~$\Gamma$ logically
+implies~$A$. Eventually, $M$~will enumerate a subset~$\Gamma_{i_0}$ of~$\Gamma$
+such that $\Pi \subseteq \Gamma_{i_0}$.
+By construction, $\Pi \subseteq \Gamma_i$
+for all $i \ge {i_0}$.  There is a proof of $\Pi\vDash A$;
+this is also an $\FO$-proof of $\Gamma_i\vDash A$. Such an $\FO$-proof
+is encoded by some $v_{j_0}$. Hence, once $i\ge \min\{i_0,j_0\}$,
+the algorithm~$N$ will accept and halt.
+
+It follows that the algorithm~$N$ correctly semidecides the logical
+consequences of~$\Gamma$. Thus $A$~is computably enumerable.
+\end{proof}
+
+It is interesting to compare the above algorithm
+to the algorithm of Theorem~\ref{thm:ceTautConseqs}
+for propositional logic. The main
+difference is that the earlier algorithm could use the method
+of truth tables, whereas the new algorithm dovetails the enumeration
+of~$\Gamma$ with brute-force $\FO$-proof search. The second difference
+is that the set~$\Gamma_i$ in the proof of Theorem~\ref{thm:ceTautConseqs}
+was the first $i$ elements output by~$M$ in the enumeration of~$\Gamma$.
+For Theorem~\ref{thm:ceLogicalConseqs}, it was important
+that $\Gamma_i$ is instead the elements enumerated in the
+first $i$~steps of~$M$.\footnote{More precisely, it is important
+that $\Gamma_i$ is defined in this way if the algorithm is
+to work for finite sets~$\Gamma$ as well as infinite sets~$\Gamma$.}
+
+\begin{theorem}\label{thm:completeDecidable}
+Let $L$ be a finite language and
+$\Gamma$ be a set of $L$-sentences. Let $T = \TCn \Gamma$ be
+the set of logical consequences of $\Gamma$.
+Suppose that $T$ is complete and that $\Gamma$ is c.e.
+Then $T$ is decidable.
+\end{theorem}
+
+\begin{proof}
+If $T$ is inconsistent, then $T$~is the set of all $L$-sentences
+and is certainly decidable. So, suppose $T$ is consistent.
+In this case, $A\in T$ if and only if $\lnot A \notin T$.
+
+Theorem~\ref{thm:ceLogicalConseqs} states that $T$~is c.e.
+Let $\Pi$ be the set of sentences~$A$ such
+that $T\vDash \lnot A$. 
+Since $T$ is c.e., there is an algorithm~$M$
+that enumerates~$T$. 
+
+By modifying~$M$ to add
+a negation sign~$\lnot$ to the front of each output,
+we obtain an algorithm~$N$ that enumerates~$\Pi$; 
+hence $\Pi$ is c.e.
+The complement~$\overline T$ of~$T$ is the union
+of~$\Pi$ with the set of strings that do not encode
+valid $L$-sentences. Thus $\overline T$ is the
+union of a c.e.\ set and a decidable set, and hence (by
+Exercise~\ref{exer:booleanCombos}), $\overline T$~is also c.e.
+Since $T$ and $\overline T$ are both c.e., $T$~is
+decidable.
+\end{proof}
+
+For a more direct proof of Theorem~\ref{thm:completeDecidable}
+consider the following algorithm which decides~$T$, assuming $T$ is consistent:
+\begin{tabbing}
+\AlgFirstIn\=\Algin\=\Algin\=\Algin\=\Algin\=\kill
+\>\underline{Assumption:} $M$ enumerates~$T$. \\
+\>\underline{Input:} $A \in (\Sigma^{\Tfo-L})^*$ \\
+\>\underline{Algorithm $N$:} \\
+\>If $A$ is not a syntactically correct sentence, reject. \\
+\>Run $M$ and watch the sentences enumerated as $M$ runs. \\
+\>If $A$ is output by~$M$, accept (and halt). \\
+\>If $\lnot A$ is output by~$M$, reject (and halt). \\
+\>End-for
+\end{tabbing}
+
+This algorithm works since $T$ is consistent and complete; consequently
+either $A\in T$ or $\lnot A \in T$, and in either case $M$~eventually
+outputs one of $A$ and~$\lnot A$ and halts.
+
+\begin{example}
+The theory of dense linear order (DLO) without endpoints is
+complete and has a finite set of axioms. Therefore,
+the theory DLO without endpoints is decidable.
+\end{example}
+
+\begin{example}
+Let $L$ be the language with equality~($=$) but no non-logical symbol.
+Let $\Gamma$ be $\{\TAtLeast_k : k\ge 2 \}$. By Exercise~\ref{exer:aleph0categorials},
+the set $\TCn \Gamma$ is complete. Clearly, $\Gamma$~is decidable.
+It follows that $\TCn \Gamma$ is decidable.
+\end{example}
+
+\begin{definition}
+A theory~$T$ is \idxem{axiomatizable} if there is a decidable set
+of sentences~$\Gamma$ such that $T = \TCn \Gamma$.
+\end{definition}
+
+It follows from \idxnm{Craig's Theorem} (which is stated in Exercise~\ref{exer:CraigThm})
+that if $T$~has a c.e.\ set of axioms~$\Gamma$, then $T$~is axiomatizable.
+In light of this, we can restate Theorem~\ref{thm:completeDecidable} as:
+\begin{theorem}\label{thm:completeDecidable2}
+If $T$ is axiomatizable and complete, then $T$~is decidable.
+\end{theorem}
+
+

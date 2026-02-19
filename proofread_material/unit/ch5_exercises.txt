@@ -1,0 +1,504 @@
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+\nonumSectionmark{Exercises}
+
+\begin{exercise}\label{exer:booleanCombos}
+Prove the following. Let $R$ and~$S$ be subsets of $\Sigma^*$
+where $\Sigma^* = \{0,1\}$. 
+Let $f, g : \Sigma^* \rightarrow \Sigma^*$.
+(Alternatively, let $R$ and~$S$ be subsets of~$\mathbb N$, 
+and let $f,g : \mathbb N \rightarrow \mathbb N$.)
+\begin{enumerate}
+\item If $R$ and $S$ are decidable, then $R \cup S$ is decidable.
+\item If $R$ and $S$ are c.e.\ (computably enumerable), then $R \cup S$ is c.e.
+\item If $R$ and $S$ are decidable, then $R \cap S$ is decidable.
+\item If $R$ and $S$ are c.e., then $R \cap S$ is c.e.
+\item If $f$ and $g$ are computable, then $f\circ g $ is computable.
+\item If $f$ and $g$ are partial computable, then $f\circ g $ is partial computable.
+\item If $f$ is computable and $R$ is decidable, then $\{ w : R(f(w)) \}$ is decidable.
+\item If $f$ is computable and $R$ is c.e., then $\{ w : R(f(w)) \}$ is c.e.
+\item If $f$ is partial computable and $R$ is c.e.,
+then $\{ w : \hbox{$f(w)\converges$ and $R(f(w))$} \}$ is c.e.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Suppose $R$ is a finite relation (i.e., $R$~is true for only finitely
+many inputs).  Prove that $R$ is decidable. The relation~$R$
+is called \idxem{cofinite} if $\overline R$~is finite. Also
+prove that if $R$~is cofinite, then $R$ is decidable.
+\end{exercise}
+
+\begin{exercise}
+Suppose $R$ and $S$ are $k$-relations on $\Sigma^*$. Define the
+\idxem{symmetric difference} $R\triangle S$ of $R$ and~$S$
+to equal $(R\setminus S) \cup (S\setminus R)$.
+Suppose that $R\triangle S$ is finite.
+Prove that $R$ is decidable if and only if $S$ is decidable.
+Prove that $R$ is c.e.\ if and only if $S$ is c.e.
+\end{exercise}
+
+\begin{exercise}
+Let $\Sigma = \{a\}$.  Let $f : \Sigma^* \rightarrow \Sigma^*$
+be the unary function so that for all $w\in\Sigma^*$,
+\[
+f(w) ~=~ \left\{ \begin{array}{ll}
+\epsilon \quad & \hbox{if the Riemann hypothesis is true} \\[0.5ex]
+a & \hbox{if the Riemann hypothesis is false.}
+\end{array} \right.
+\]
+Prove that $f$ is computable.
+\end{exercise}
+
+\begin{exercise}
+Let $\Sigma=\{1\}$. Let $f$ be the unary function defined by
+\[
+f(1^n) ~=~ \left\{ \begin{array}{ll}
+\epsilon &\hbox{if there is a run of $n$ consecutive 7's in the decimal expanson of~$\pi$} \\
+1 & \hbox{otherwise.}
+\end{array} \right.
+\]
+Prove that $f$ is computable.
+\end{exercise}
+
+\begin{exercise}
+Let $R$ and $S$ be unary relations on $\Sigma^*$ (that is, subsets
+of~$\Sigma^*$). Define the \idxem{concatenation}~$R \circ S$ of $R$ and~$S$
+to be $\{ vw : \hbox{$v\in R$ and $w \in S$} \}$. For example,
+$\{0, 11\} \circ \{10,110\} = \{010,0110,1110,11110\}$.
+\begin{enumerate}
+\item Prove that if $R$ and~$S$ are decidable, then $R\circ S$ is decidable.
+\item Prove that if $R$ and~$S$ are c.e., then $R \circ S$ is c.e.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let $R$ be a unary relation on $\Sigma^*$.
+Define the \idxem{Kleene star}~$R^*$ of $R$
+to be the set
+\[
+R^* ~=~ \{ w_1 \circ w_2 \circ \cdots \circ w_k : \hbox{$k\ge 0$ and $w_1,\ldots w_k \in R$}\} .
+\]
+Thus $R^*$ is the set of strings formed by concatenating zero or more members of~$R$.
+For example, $\{ 0, 11 \}^* = \{\epsilon, 0, 00, 11, 000, 011, 110, \ldots \}$.
+\begin{enumerate}
+\item Prove that if $R$ is decidable, then $R^*$ is decidable.
+\item Prove that if $R$ is c.e., then $R^*$ is c.e.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exer:projectionCE}
+Let $R$ be a binary relation on~$\Sigma^*$. Define $S$ to
+be the set $\{ w\in \Sigma^* : \exists v \in \Sigma^*\, (\langle v,w\rangle \in R) \}$.
+We call $S$ the \idxem{projection} of~$R$ onto its second coordinate.
+Suppose that $R$ is c.e.  Prove that $S$ is c.e.
+\end{exercise}
+
+\begin{exercise}
+Suppose that $S$ is c.e.  Prove that there is a decidable
+binary relation~$R$ such that $S$~is the projection
+of~$R$ onto its second coordinate, namely that
+$S$~is equal to
+$\{ w\in \Sigma^* : \exists v \in \Sigma^*\, (\langle v,w\rangle \in R) \}$.
+(This is the converse to the previous exercise. Therefore, $S$~is c.e.\ if and only
+if it is the projection of a decidable set.)
+\end{exercise}
+
+\begin{exercise}
+Suppose that $R \subseteq \mathbb N$ is enumerated by an algorithm~$M$
+in increasing order. In other words, $M$~successively outputs $n_1,n_2,\ldots$
+so that $R = \{ n_1,n_2,n_3,\ldots \}$ and $n_i < n_{i+1}$ for each~$i$.
+Prove that $R$ is decidable.  What if the assumption is weakened
+to have the enumeration be in non-decreasing order, namely
+to the condition that $n_i \le n_{i+1}$? Must $R$ still be decidable?
+\end{exercise}
+
+\begin{exercise}
+Assume $R \subseteq \mathbb N$ is an infinite decidable set.
+Prove that
+there is an algorithm~$M$ that enumerates~$R$ in increasing
+order.  That is, there is an algorithm that
+enumerates~$R$ in as $n_1,n_2,\ldots,$ with each $n_i < n_{i+1}$.
+\end{exercise}
+
+\begin{exercise}
+The following assertions are all {\bfseries \em false} in general! Proving that they
+are false requires using a formal definition of algorithm. Instead of giving
+formal proofs, explain
+why the types of constructions used in Section~\ref{sec:computableInformalDefn}
+do not work to prove these assertions.  
+Here $R$, $S$, and the~$R_i$'s are unary relations.
+\begin{itemize}[leftmargin=10em]
+\item[False Assertion (a):] If $R$ is c.e.\, then $\overline R$ is c.e.
+\item[False Assertion (b):] If $R$ and $S$ are c.e., then $R \setminus S$ is c.e.
+\item[False Assertion (c):] If each $R_i$ is decidable, then $\bigcup_i \{i\}\times R_i$ is decidable.
+\item[False Assertion (d):] If each $R_i$ is decidable, then $\bigcup_i \{i\}\times R_i$ is c.e.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}\label{exer:domainPartFunc}
+Prove that a $k$-ary relation is computably enumerable if and only if it
+is the domain of a partial computable function.
+\end{exercise}
+
+\begin{exercise}\label{exer:rangePartFunc}
+Prove that a set is computably enumerable if and only if
+it is the range of a partial computable function.
+\end{exercise}
+
+\begin{exercise}\label{exer:rangeTotalFunc}
+Prove that a set is computably enumerable if and only if it
+is empty or is the range of a computable function.
+\end{exercise}
+
+\begin{exercise}\label{exer:rangeInjectiveFunc}
+Prove that a set is computably enumerable if and only if it
+is finite or is the range of an injective computable function.
+(A function is \idxem{injective} if and only if it is one-to-one.)
+\end{exercise}
+
+\begin{exercise}\label{exer:graphDecideCE}
+Let $f$ be a (total) $k$-ary function, $f : (\Sigma^*)^k \rightarrow \Sigma^*$.
+Prove the following are equivalent.
+\begin{enumerate}
+\item $f$ is computable.
+\item The graph~$G_f$ of~$f$ is decidable.
+\item The graph~$G_f$ of~$f$ is computably enumerable.
+\end{enumerate}
+(See also Exercises \ref{exer:graphCoCE} and~\ref{exer:graphCoCE2}.)
+\end{exercise}
+
+\begin{exercise}
+Let $R$ be a set (a unary relation) and $f$~be a unary function.
+The \idxem{preimage}~$f^{-1}[R]$ of~$R$ under~$f$ is the set
+$\{ x : f(x) \in R \}$.
+\begin{enumerate}
+\item Suppose $R$ is decidable and $f$~is computable.
+Prove that $f^{-1}[R]$ is decidable.
+\item Suppose $R$ is c.e.\ and $f$~is partial computable.
+Prove that $f^{-1}[R]$ is c.e.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Suppose that $f$ and~$g$ are (total) unary integer functions, that
+$g$~is computable, and that $f(n)\le g(n)$ for all~$n$.
+Let $G_f$ be the graph of~$f$.
+Prove that the following are equivalent:
+\begin{enumerate}
+\item $f$~is computable.
+\item $G_f$ is c.e.
+\item $G_f$ is co-c.e.
+\end{enumerate}
+(See also Exercise~\ref{exer:graphDecideCE}.)
+\end{exercise}
+
+\begin{exercise}\label{exer:ceCoCe}
+Suppose that $X$ is c.e., that $Y$~is co-c.e., and $X$~is many-one
+reducible to~$Y$. Prove that $X$ is decidable.
+\end{exercise}
+
+\begin{exercise}
+Prove that every infinite c.e.\ set~$R$ has an infinite decidable subset~$S$.
+\end{exercise}
+
+\begin{exercise}\label{exer:CraigThm}
+Prove \idxnm{Craig's Theorem}:
+\begin{enumerate}
+\item Suppose $\Gamma$ is c.e.\ set of propositional formulas.
+Prove there is a decidable set~$\Pi$ of propositional formulas such
+that $\Gamma \tautEq \Pi$.
+\item Suppose $\Gamma$ is c.e.\ set of first-order sentences.
+Prove there is a decidable set~$\Pi$ of first-order sentences such
+that $\Gamma \tautEq \Pi$.
+\end{enumerate}
+[Hint: The proofs for (a) and~(b) are identical!]
+\end{exercise}
+
+\begin{exercise}
+Characterize the following as being decidable, c.e., co-c.e., or partial computable,
+or that it apparently is not any of these. Justify
+your answers. For the last option, it is not necessary
+to give a proof that it does not fall into any of the four categories, just to observe
+that the techniques of this chapter do not put it into any of the four categories.
+By a ``{\em least} formula'' or ``{\em least} proof'', we mean that strings
+are ordered (a)~first by length, and (b)~second by lexicographic (dictionary) order
+according to some ordering of the underlying alphabet.
+\begin{enumerate}
+\item The set of propositional formulas that have a $\PL$-proof.
+\item The function that maps every propositional formula~$A$ to its least
+$\PL$-proof, or to $\epsilon$ if $A$ does not have a $\PL$-proof.
+\item The function that maps a propositional formula~$A$ to the least
+formula~$B$ which is tautologically equivalent to~$A$.
+\item The set of first-order sentences that have an $\FO$-proof.
+\item For a fixed first-order sentence~$A$, the set of
+sentences that are logically equivalent to~$A$.
+\item The set of finite sets~$\Pi$ of first-order sentences which
+are consistent.
+\item The set of finite sets~$\Pi$ of first-order sentences which
+are inconsistent.
+\item The function that maps every first-order sentence~$A$ to its least
+$\FO$-proof.
+\item The function that maps every first-order sentence~$A$ to the least
+sentence~$B$ which is logically equivalent to~$A$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Suppose that $T$ is a consistent, decidable theory.
+Prove that there is a complete, consistent, decidable
+theory~$S$ extending~$T$.  [Hint: Show that the
+proof of \idxnm{Lindenbaum's Theorem} can be made effective.]
+\end{exercise}
+
+{\em
+Exercises \ref{exer:firstSectUndecide}-\ref{exer:lastSectUndecide}
+require the techniques of
+Section~\ref{sec:UndecidableInformal} (or subsequent sections).
+In some cases, your answer will need
+to use a general form of the \idxnm{malleability} assumption. Be sure to
+indicate explicitly where your answers use the malleability assumption.
+(Basically, this is whenever a G{\"o}del number of an algorithm
+is being modified to produce a G{\"o}del number for another
+algorithm.)
+}
+
+\begin{exercise}\label{exer:firstSectUndecide}
+Prove that binary relation $\TAccept_1$ defined by
+\[
+\TAccept_1(\lgn M \rgn, w) ~~~\Leftrightarrow~~~ \hbox{$M(w)$ accepts}
+\]
+is undecidable.
+\end{exercise}
+
+\begin{exercise}\label{exer:undecidableConsequences}
+Prove there is a decidable set of propositional formulas~$\Gamma$
+such that the set $\{ i : \Gamma \vDash p_i \}$
+is undecidable.
+\end{exercise}
+
+\begin{exercise}
+Prove that there is a consistent, complete first-order theory~$T$ which
+is undecidable.  [Hint: You might find it easier to work
+with a countably infinite non-logical language.]
+\end{exercise}
+
+\begin{exercise}
+Prove that the following assertion is {\bfseries \em false} in general.
+\begin{itemizeLoose}[itemindent=7em]
+\item[False Assertion:]  If each $R_i$ is a decidable set, then $\bigcup_{i\in \mathbb N} (\{i\}\times R_i$) is c.e.
+\end{itemizeLoose}
+[Hint: Use the fact that there is an undecidable set.]
+\end{exercise}
+
+\begin{exercise}
+Let $R$ be a set and $f$~be a unary function.
+The \idxem{image}~$f[R]$ of~$R$ under~$f$ is the set
+$\{ f(x) : x \in R \}$.
+Prove that there are a decidable set~$R$ and a computable function~$f$
+such that the set~$f[R]$ is undecidable.
+\end{exercise}
+
+\begin{exercise}\label{exer:CEonly}
+For this exercise, you will need to use the assumption that there is
+a universal algorithm~$U$.
+\begin{enumerate}
+\item Prove that the sets $\THalt_0$, $\THalt_1$ and $\THalt_\TSelf$
+are c.e.  Conclude that these three sets are
+not co-c.e.
+\item Prove that the sets $\TAccept_0$ and $\TReject_0$ are c.e..
+Use this to prove
+that these two sets are
+not co-c.e.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exer:graphCoCE}
+Prove that there is a partial computable function~$f$ such
+that its graph~$G_f$ is not decidable.  Use this to prove
+that $G_f$ is not co-c.e.
+\end{exercise}
+
+\begin{exercise}\label{exer:graphCoCE2}
+Prove that there is a (total) function~$f$ such that
+the graph~$G_f$ of~$f$ is co-c.e., but $f$~is not
+computable. [Hint: Let $f(\lgn M \rgn)$ equal $i+1$
+if the algorithm~$M$ halts after making exactly $i$~steps,
+and equal~0 otherwise.]
+\end{exercise}
+
+\begin{exercise}
+Define the integer function $f:\mathbb N \rightarrow \mathbb N$
+by
+\[
+f(i) ~=~ | \{ \lgn M \rgn \in\Sigma^* : \hbox{$|\lgn M \rgn| = i$ and $\lgn M \rgn \in \THalt_0$} \} |.
+\]
+In other words, $f(i)$ is the number of strings~$w$ of length~$i$
+such that $w$~is the G{\"o}del number~$\lgn M \rgn$ of 
+an algorithm~$M$ that halts when run on
+the empty string.  Prove that $f$ is not computable.
+\end{exercise}
+
+\begin{exercise}
+Prove that $\THalt_1$ and $\THalt_\TSelf$ are
+many-reducible to $\THalt_0$.
+\end{exercise}
+
+\begin{exercise}
+Suppose that $R$ is a c.e.\ relation. Prove that $R$ is
+many-one reducible to~$\THalt_0$.  (Because of this property,
+and the fact that $\THalt_0$ is c.e.,
+$\THalt_0$ is said to be ``\idxnm{many-one complete}'' for the
+computably enumerable functions.)  [Hint: You might first show
+that $R$~is many-one reducible to $\THalt_1$.]
+\end{exercise}
+
+\begin{exercise}\label{exer:complexityTotal}\label{exer:lastSectUndecide}
+Define $\TTotal$ to be the set
+\[
+\TTotal ~=~ \{ \lgn M \rgn : \hbox{Algorithm $M$ halts on all inputs~$w$} \}.
+\]
+In other words, $\TTotal$ is the set of G{\"o}del numbers~ $\lgn M \rgn$
+such that $M$ computes a (total) function.
+\begin{enumerateLoose}
+\item Give a many-one reduction from $\THalt_0$ to $\TTotal$.
+\item Give a many-one reduction from $\overline{\THalt_0}$ to $\TTotal$.
+$\overline{\THalt_0}$ denotes the complement of~$\THalt_0$.
+\item Prove that $\TTotal$ is neither c.e.\ nor co-c.e.
+\end{enumerateLoose}
+\end{exercise}
+
+\begin{exercise}
+Let $X$ be the set $\{ \lgn M \rgn: \hbox{$L^e(M)$ is finite}\}$.
+\begin{enumerate}
+\item Prove that $X$ is not decidable.
+\item Prove that $X$ is not c.e.
+\item Prove that $X$ is not co-c.e.
+\end{enumerate}
+[Hint: Use Rice's Theorem and
+many-one reductions from $\overline{\THalt_0}$ and~$\THalt_0$.]
+\end{exercise}
+
+\begin{exercise}\label{exer:DiagParameter}
+Prove the following version of the
+Diagonal Theorem~\ref{thm:Diag}\index{diagonal theorem}
+which allows
+a self-referential program with an input~$v$:
+\begin{quote}
+Let $M$ be an algorithm that takes two inputs $u,v\in\Sigma^*$.
+There is an algorithm~$D_M$ with G{\"o}del number~$\lgn D_M\rgn$
+such that, for any input~$v\in\Sigma^*$, running $D_M(v)$ produces
+the same result as running $M(\lgn D_M\rgn, v)$.
+\end{quote}
+\end{exercise}
+
+\begin{exercise}\label{exer:RicePC}
+Prove a version of \idxnm{Rice's Theorem} for partial computable
+functions.
+\begin{enumerate}
+\item Formulate the definition of \emph{nontrivial property}
+of partial computable functions.
+\item Give two examples of nontrivial properties of
+partial computable functions.
+\item Suppose $\mathcal P$ is a nontrivial property of
+partial computable functions. Let $X$~be the set of
+G{\"o}del numbers~$\lgn M \rgn$ of algorithms~$M$ which
+partial compute a function in~$\mathcal P$. Prove that $X$ is
+undecidable.
+\end{enumerate}
+[Hint: It can be helpful to use the version of the Diagonal Theorem
+given in the previous exercise.]
+\end{exercise}
+
+\begin{exercise}\label{exer:NotRicesTheorem}
+Give an example of a non-trivial property~$P$
+of computably enumerable subsets of~$\mathbb N$ such that the set
+of G{\"o}del numbers $\lgn M \rgn$ of algorithms~$M$
+such that $L^e(M) \in P$ is computably enumerable.
+(This blocks one possible way of generalizing Rice's Theorem in that
+in some cases there exists a c.e.\ separating set.)
+\end{exercise}
+
+\begin{exercise}
+For each set $X$ and $Y$, state whether it is (i)~decidable, (ii)~computably
+enumerable, and (iii)~co-c.e.  Justify (prove) your answers.  It is OK
+to use the results of
+Exercises \ref{exer:ceCoCe}, \ref{exer:complexityTotal} or~\ref{exer:RicePC}
+to justify your answers. If you find some of the questions to be ambiguous, explain
+how they are ambiguous and what assumptions you have made to answer the question.
+\begin{enumerate}
+\item The set $X$ is the set of G{\"o}del numbers of algorithms
+which partial
+compute a function that has finite domain.
+\item The set~$Y$ is the set of G{\"o}del numbers of algorithms which
+semidecide a set.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{RogersfixedPt}
+(\idxnm{Roger's Fixed Point Theorem}.)
+Suppose $f$ is a (total) computable function on $\{0,1\}^*$.
+Prove that there is an algorithm~$M$ with G{\"o}del number~$\lgn M \rgn$,
+such that, letting $N$~be the algorithm with G{\"o}del number $\lgn N \rgn = f(\lgn M \rgn)$,
+the algorithms~$M$ and $N$ give the same results on all inputs.
+[Hint: You should use the Diagonal Theorem as extended in
+Exercise~\ref{exer:DiagParameter} to take a parameter~$v$. You should
+also use a universal algorithm~$U$.]
+\end{exercise}
+
+\begin{exercise}\label{exer:minimize1}\index{minimization ($\mu$)}
+Let $f(x,y)$ be a computable, binary function on~$\mathbb N$.
+Define $h(x)$~to be the unary partial function on~$\mathbb N$ such that,
+for all $x\in \mathbb N$,
+\[
+h(x) ~=~ \mu m\, (f(x,m)=0),
+\]
+i.e.,
+\[
+h(x) ~=~ \left\{ \begin{array}{l}
+\hbox{the least value~$m$ such that $f(x,m)=0$ if such an $m$ exists} \\[1ex]
+\hbox{undefined,  \qquad if no such $m$ exists.}
+\end{array}\right.
+\]
+(Saying ``$h(x) = \hbox{undefined}$'' means $h(x)\diverges$, i.e., $h(x)$~diverges.)
+Prove that $h$ is partial computable.
+\end{exercise}
+
+\begin{exercise}\label{exer:minimize2}\index{minimization ($\mu$)}
+Let $f(x,y)$ be a partial computable, binary function on~$\mathbb N$.
+Define $h(x)$~to be the unary partial function on~$\mathbb N$ such that,
+for all $n\in \mathbb N$,
+\[
+h(x) ~=~ \mu m\, (f(x,m)=0),
+\]
+i.e.,
+\[
+h(x) ~=~ \left\{ \begin{array}{ll}
+\multicolumn{2}{c}{\hbox{\parbox[t]{4.5in}{\raggedright the least value~$m$ such that $f(x,m)=0$ and such that for all $p<m$, \\ \hspace*{1.2in}$f(x,p)$ converges and is greater
+than zero}}} \\
+&\hbox{if such an $m$ exists} \\[1ex]
+\hbox{undefined}  \quad &\hbox{if no such $m$ exists.}
+\end{array}\right.
+\]
+Prove that $h$ is partial computable.
+\end{exercise}
+
+\begin{exercise}\label{exer:minimize3}
+Let $f(x,y)$ be a partial computable, binary function on~$\mathbb N$.
+Define $g(x)$~to be the unary partial function on~$\mathbb N$ such that,
+for all $x\in \mathbb N$,
+\[
+g(n) ~=~ \left\{ \begin{array}{ll}
+\multicolumn{2}{c}{\hbox{\parbox[t]{4.5in}{\raggedright the least value~$m$ such that $f(x,m)=0$ and such that for all $p<m$, \\ \hspace*{1.2in}$f(n,p)$ diverges or is greater
+than zero}}} \\
+&\hbox{if such an $m$ exists} \\[1ex]
+\hbox{undefined}  \quad &\hbox{if no such $m$ exists.}
+\end{array}\right.
+\]
+Give an example of partial computable~$f$ such that $g$ is not partial computable.
+(For this reason, the notation ``$\mu m\,(\cdots)$'' is
+used for functions~$h$ as defined
+in Exercises \ref{exer:minimize1} and~\ref{exer:minimize2},
+but is not used for the function~$g$.)
+\end{exercise}
+

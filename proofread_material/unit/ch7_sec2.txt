@@ -1,0 +1,309 @@
+\section{Four Theories of Arithmetic}\label{sec:fourTheoriesArith}
+
+We now define three axiomatizations for arithmetic.
+There are two quite weak theories, called $\TQ$ and~$\TR$. We
+also define the quite strong theory $\PA$ of Peano Arithmetic.
+These are all subtheories of~$\TTh {\mathcal N}$, so they
+give partial axiomatizations of truth over the integers.\footnote{By ``integer'',
+we continue to always mean ``nonnegative integer''.} This gives four theories
+$\TR$, $\TQ$, $\PA$ and~$\TTh {\mathcal N}$, in order of increasing strength.
+
+All four theories use the language $L_\PA = \{0, S, +, \cdot \}$.
+As usual, we write $+$ and~$\cdot$ in infix notation. We often omit
+parentheses when applying the successor function~$S$. For example
+$S0$ and $SSx$ are shorthand notations for $S(0)$ and $S(S(x))$;
+the intuition is that they denote $1$ and $x+2$.
+
+\begin{definition}\index{Q@{$\TQ$}}
+The theory~$\TQ$ is the theory with the following seven axioms
+\begin{itemizeLoose}
+\item[$\TQ_1$:] $\forall x\, \forall y\, ( Sx =Sy \limplies x=y )$
+\item[$\TQ_2$:] $\forall x\, ( Sx \neq 0 )$
+\item[$\TQ_3$:] $\forall x\, (x \neq 0 \limplies \exists y\, (Sy = x) )$
+\item[$\TQ_4$:] $\forall x \, ( x+0 = x ) $
+\item[$\TQ_5$:] $\forall x \, \forall y\, (x+Sy = S(x+y) )$
+\item[$\TQ_6$:] $\forall x \, ( x \cdot 0 = 0 ) $
+\item[$\TQ_7$:] $\forall x \, \forall y\, (x \cdot Sy = xy + x)$
+\end{itemizeLoose}
+\end{definition}
+The first three axioms give properties of the \idxnm{successor} function~$S$.
+Since $S$ is a function symbol, every object has a unique successor.
+Axioms $\TQ_1$ and~$\TQ_3$ state that every nonzero element
+has a unique \idxnm{predecessor}. Axiom~$\TQ_2$ states that
+0~has no predecessor; this reflects the fact that we are axiomatizing
+the nonnegative integers.
+
+Axioms $\TQ_4$ and~$\TQ_5$ give a kind of characterization of addition $x+y$
+based on induction on~$y$.
+Axioms $\TQ_6$ and~$\TQ_7$ give a similar characterization of multiplication.
+For instance, informally speaking, $\TQ_7$~states that $x\cdot (y+1) = xy + x$.
+
+As we shall see, $\TQ$~is strong enough to represent all Turing decidable
+sets and functions; nonetheless $\TQ$ is very weak. The much stronger
+theory of Peano Arithmetic~($\PA$) is obtained by adding induction axioms
+for every formula $A(x)$:
+\begin{definition}\label{induction axiom}
+Let $A=A(x)$ be a formula. The \idxnm{induction axiom} $\TInd_A$ is 
+the universal closure of the statement
+\[
+A(0) \land \forall x\, (A(x) \limplies A(Sx))  \limplies \forall x\, A(x).
+\]
+\end{definition}
+\begin{example}\label{example:Inds}
+Let $A(x)$ be the formula $0+x = x$. The induction
+axiom for~$A(x)$ is
+\begin{description}
+\item[$\TInd_A$:\hspace*{1em}] $0+0=0  \land \forall x\, (0+x=x \limplies 0+Sx = Sx)
+               \limplies \forall x\,(0+x =x)$.
+\end{description}
+For an example where there are free variables other than~$x$,
+let $B(x)$ be $x+\penalty10000 y =\penalty10000 y+\penalty10000 x$. Then the induction axiom
+for~$B(x)$ is the sentence
+\begin{description}
+\item[$\TInd_B$:\hspace*{1em}] $\forall y\, [ 0+y = y+0 \land
+       \forall x\, (x+y=y+x \limplies Sx+y = y+Sx)
+        \limplies \forall x\, (x+y = y+x) ]$.
+\end{description}
+\end{example}
+\begin{definition}
+The theory $\PA$ of Peano Arithmetic is axiomatized with
+the seven axioms of~$\TQ$ plus the induction
+axioms $\TInd_A$ for every $L_\PA$-formula~$A$.
+\end{definition}
+
+\begin{example}\label{example:PAzeroxx}
+We prove that the induction axioms enable $\PA$
+to prove $\forall x\, (0+x = x)$.
+Let $A$ be $0+x=x$, so that that
+$\TInd_A$ is the formula displayed above in
+Example~\ref{example:Inds}. It is obvious that $\PA \vdash 0=0$, since that is
+an instance of an equality axiom.  Second, we
+claim that $\PA$ proves $0+x=x \limplies 0+Sx =\penalty10000 Sx$.
+By the refined Deduction Theorem~\ref{thm:refinedDeductionSyntacticFO}(b)
+it will suffice to prove that $\PA, 0{+}x{=}x \vdash 0+Sx=Sx$
+without using generalization on the variable~$x$. This is easily proved
+by reasoning as follows:
+\begin{threecolproof}
+$0+Sx~=~$ & $S(0+x)$ & By axiom $\TQ_5$ \\
+$=~$ & $Sx$ & By the induction hypothesis that $0+x=x$ .
+\end{threecolproof}
+We have shown that $\PA$ proves the hypotheses
+of $\TInd_A$. Therefore, $\PA$~proves
+its conclusion, $\forall x\, (0+x= x)$.
+\end{example}
+
+The theory $\TQ$ is too weak even to prove that
+$0+x =x$. Exercise~\ref{exer:QzeroPlusx} asks for
+a proof of this.  Therefore, $\TQ$ is a proper subtheory
+of~$\PA$.
+
+The next definition is needed
+before we can define the third theory~$\TR$.
+\begin{definition}
+Let $n\ge 0$ be an integer. The notation $S^{(n)} t$ denotes the
+term $S(S(\cdots S(S(t))\cdots ))$ where there are $n$~many
+applications of~$S$.   For $n=0$, $S^{(n)}t$ is just the term~$t$.
+
+The \idxem{numeral}~$\underline n$ is the term $S^{(n)}0$.
+\end{definition}
+
+Thus, $S^{(3)}x$ is the term $S(S(S(x)))$, and $S^{(4)}0$ is
+the term $S(S(S(S(4))))$. These are often written
+as $SSSx$ and $SSSS0$ for short.  The numerals $\underline 0$,
+$\underline 1$, $\underline 2$ and~$\underline 3$ are equal to
+the terms $0$, $S0$, $SS0$ and $SSS0$, etc. Of course, in
+the standard model, these terms represent the integers $0,1,2,3,\ldots$.
+It is important to note that the notations $S^{(n)} t$ and
+$\underline n$ are used {\em only} if $n$~denotes a particular
+integer.  That is to say, the terms $S^{(n)} t$ and
+$\underline n$ do not involve~$n$ as a variable; instead, $n$~is hardcoded
+in these terms via $n$~many appearances of the unary function symbol~$S$.
+
+\begin{example}\label{ex:ThreePlusTwo}
+The atomic formula $\underline 3 + \underline 2$ is the same
+as $SSS0+SS0$. The theory~$\TQ$ can prove $\underline 3 + \underline 2 = \underline 5$
+by reasoning as follows:
+\begin{align*}
+SSS0 + SS0 &~=~ S(SSS0+S0) && \hbox{by Axiom~$\TQ_5$} \\
+&~=~ SS(SSS0+0) && \hbox{by Axiom~$\TQ_5$ again} \\
+&~=~ SSSSS0 && \hbox{by Axiom $\TQ_4$}
+\end{align*}
+Similar reasoning shows that $\TQ$ can prove $\underline m + \underline n = \underline{m+n}$
+for all $m,n \in \mathbb N$.
+For this, see Theorem~\ref{thm:QimpliesR}.  % XXX CHECK IF BEST REFERECNE
+\end{example}
+
+\begin{notation}\label{notate:le}
+For the rest of this chapter, the notation $s\le t$
+denotes the formula $\exists x\, (x+s = t)$
+where $x$ is a variable that does not appear in $s$ or~$t$.
+The notation $s < t$
+denotes the formula $s\le t \land s\neq t$,
+namely the formula
+$\exists x\, (x+\penalty10000 s =\penalty10000 t) \land\penalty10000  s\neq t$, where
+again $x$~does not appear in $s$ or~$t$.
+\end{notation}
+
+We can view $\le$ as being added to the language~$\PA$
+via an extension by definitions in the sense of
+Definition~\ref{def:extensionByDefinition}. From
+Theorem~\ref{thm:defPredSym}, it does not
+change the power of a theory to add~$\le$ as a defined symbol.
+
+The point of including~$\le$ as a defined symbol is that it
+makes the axioms of~$\TR$ much more natural to state. In this regard, it is
+important $\exists x\, (x+s= t)$ is used instead of
+$\exists x\,(s+x=t)$ as the definition
+of $s\le t$: this makes a difference because $\TQ$~cannot prove $x+s=s+x$.
+
+Now that we have defined the weak theory~$\TQ$, we also define
+the even weaker theory~$\TR$.
+
+\begin{definition}\index{R@{$\TR$}}
+The theory~$\TR$ uses the language $\{0, S, +, \cdot \}$
+and has the following infinite set of axioms.
+\begin{itemizeLoose}
+\item[$\TR_{\textstyle\neq}$:] For each $n \neq m \in \mathbb N$, the
+formula $\underline n \neq \underline m$ is
+an axiom of~$\TR$.
+\item[$\TR_{\textstyle+}$:] For each $n, m \in \mathbb N$, the formula
+$\underline n + \underline m = \underline {n+m}$ is
+an axiom of~$\TR$.
+\item[$\TR_\bullet$:]  For each $n, m \in \mathbb N$, the formula
+$\underline n \cdot \underline m = \underline {n\cdot m}$ is
+an axiom of~$\TR$.
+\item[$\TR_{\textstyle\le}$:] For each $n\in \mathbb N$,
+the formula $\forall x\, (x\le \underline n \lor \underline n < x)$
+is an axiom of~$\TR$.
+\item[$\TR_{\textstyle\le}^\prime$:] For each $n\in \mathbb N$,
+the formula
+\[
+\forall x \, [\, x\le \underline n \,\limplies\, x=\underline 0 \lor x = \underline 1 \lor
+       \,\cdots\, \lor x=\underline {n{-}1} \lor x = \underline n \,]
+\]
+is an axiom of~$\TR$.
+\end{itemizeLoose}
+Recall that $r \le s$ is an abbreviation for $\exists x(x+r=s)$ and that
+$r<s$ is an abbreviation for $r\le s \land r\neq s$.
+\end{definition}
+
+\begin{example}
+With $n=3$ and $m=2$, the following are axioms of~$\TR$:
+
+\vbox{
+\[
+SSS0 \neq SS0 \qquad SS0+SSS0=SSSSS0
+\]
+\[SS0 \cdot SSS0 = SSSSSS0
+\qquad \forall x\,(x\le SSS0 \lor SSS0\le x)
+\]
+\[
+\forall x\,(x\le SSS0 \limplies x=0 \lor x=S0 \lor x=SS0 \lor x=SSS0).
+\]
+}
+\end{example}
+The theory~$\TR$ is really very weak. Indeed, it does not
+prove any of the axioms of~$\TQ$.  As a small example of something
+that can be proved in~$\TR$, we have
+\begin{theorem}\label{thm:RleAndlt}
+\ ~ \hbox{\relax}
+\begin{itemizeLoose}
+\item[(a)] Let $m\le n \in \mathbb N$. Then $\TR \vdash \underline m \le \underline n$.
+\item[(b)] Let $n\in \mathbb N$. $\TR \vdash
+    \forall x\,(x\le \underline n \liff x=\underline 0 \lor x = \underline 1 \lor
+       \cdots \lor x=\underline {n{-}1} \lor x = \underline n)$.
+\item[(c)] Let $n\in \mathbb N$. $\TR \vdash
+    \forall x\,(x < \underline n \liff x=\underline 0 \lor x = \underline 1 \lor
+       \cdots \lor x=\underline {n{-}1})$.
+\item[(d)]  Let $n\in \mathbb N$. $\TR \vdash \forall x\,( x<\underline n \lor x=\underline n \lor \underline n < x )$.
+\end{itemizeLoose}
+\end{theorem}
+\begin{proof}
+To prove part~(a), let $m\le n$ and set $p = n-m \ge 0$. By
+the axiom~$\TR_{\textstyle+}$, the theory $\TR$~proves that
+$\underline p + \underline m = \underline n$.
+Therefore, by the definition of~$\le$ (see Notation~\ref{notate:le}),
+$\TR$ proves $\underline m \le \underline n$.
+
+The forward implication of~(b) is just Axiom~$\TR_{\textstyle\le}^\prime$. The reverse
+implication is immediate from part~(a).
+
+The forward implication of~(c) follows from part~(b)
+and the definition of~$<$
+in Notation~\ref{notate:le}. The reverse implication of~(c)
+follows from the definition of~$<$, part~(b), and from
+the fact that Axiom~$\TR_{\textstyle\neq}$ implies that
+$\TR\vdash \underline  m \neq \underline n$ for all $m<n$.
+
+Part~(d) follows directly from $\TR_{\textstyle{\le}}$
+and parts (b) and~(c).
+\end{proof}
+
+\begin{figure}[t]
+\begin{center}
+\setlength{\fboxrule}{1pt}
+\setlength{\fboxsep}{10pt}
+\fbox{\begin{minipage}{0.92\textwidth}
+\raggedright
+%\vspace*{0.0em}
+\begin{center}
+{\bf Axioms of $\TQ$}
+\end{center}
+
+%\begin{description}[font=\bf,nosep,itemsep=3pt]
+\begin{itemizeLoose}[itemindent=8em]
+\item[$\TQ_1$:] $\forall x\, \forall y\, ( Sx =Sy \limplies x=y )$
+\item[$\TQ_2$:] $\forall x\, ( Sx \neq 0 )$
+\item[$\TQ_3$:] $\forall x\, (x \neq 0 \limplies \exists y\, (Sy = x) )$
+\item[$\TQ_4$:] $\forall x \, ( x+0 = x ) $
+\item[$\TQ_5$:] $\forall x \, \forall y\, (x+Sy = S(x+y) )$
+\item[$\TQ_6$:] $\forall x \, ( x \cdot 0 = 0 ) $
+\item[$\TQ_7$:] $\forall x \, \forall y\, (x \cdot Sy = xy + x)$
+\end{itemizeLoose}
+%\end{description}
+
+\begin{center}
+{\bf Axioms of $\TR$}
+\end{center}
+
+\begin{itemizeLoose}
+\item[$\TR_{\textstyle\neq}$:] For each $n \neq m \in \mathbb N$, the
+formula $\underline n \neq \underline m$ is
+an axiom of~$\TR$.
+\item[$\TR_{\textstyle+}$:] For each $n, m \in \mathbb N$, the formula
+$\underline n + \underline m = \underline {n+m}$ is
+an axiom of~$\TR$.
+\item[$\TR_\bullet$:]  For each $n, m \in \mathbb N$, the formula
+$\underline n \cdot \underline m = \underline {n\cdot m}$ is
+an axiom of~$\TR$.
+\item[$\TR_{\textstyle\le}$:] For each $n\in \mathbb N$,
+the formula $\forall x\, (x\le \underline n \lor \underline n < x)$
+is an axiom of~$\TR$.
+\item[$\TR_{\textstyle\le}^\prime$:] For each $n\in \mathbb N$,
+the formula
+\[
+\forall x \, [\, x\le \underline n \,\limplies\, x=\underline 0 \lor x = \underline 1 \lor
+       \,\cdots\, \lor x=\underline {n{-}1} \lor x = \underline n \,]
+\]
+is an axiom of~$\TR$.
+\end{itemizeLoose}
+
+\noindent
+$s\le t$ is an abbreviation for $\exists x \, (x+s = t)$, where $x$ is a variable
+not appearing in $s$ or~$t$.
+
+\noindent
+$s < t$ is an abbreviation for $s \le t \land s \neq t$.
+\end{minipage}
+} % End of \fbox
+\end{center}
+\label{fig:QRaxioms}
+\end{figure}
+
+Section~\ref{sec:QextendsR} will show $\TR$ is a subtheory of~$\TQ$.
+Sections \ref{sec:representBasic}-\ref{sec:representTM} will show
+many more things that are provable
+in~$\TR$, most notably that all Turing decidable relations and Turing
+computable functions are representable in~$\TR$.
+
+

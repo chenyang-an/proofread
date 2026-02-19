@@ -1,0 +1,193 @@
+\section{Constructing \texorpdfstring{$\PL$}{PL}-Proofs}\label{sec:constructingPL}
+
+The previous two sections have given a large variety of tools
+for proving statements such as ``$\Gamma \vdash A$'' or
+``$\Gamma$~is inconsistent''.  The ones that tend to be the
+most useful in practice include the following (1)-(5) and (6)-(9).
+
+\begin{itemizeLoose}
+\item[(1)] To prove $\Gamma \vdash A\limplies B$, it suffices to
+prove $\Gamma, A \vdash B$.
+\item[(2)] To prove $\Gamma \vdash \lnot A$, it suffices to
+prove $\Gamma\cup\{A\}$ is inconsistent.
+\item[(3)] To prove $\Gamma \vdash p_i$, it suffices to
+prove that $\Gamma \cup \{ \lnot p_i \}$ is inconsistent.
+\item[(4)] To prove $\Gamma, \lnot A$ is inconsistent,
+it suffices to prove that $\Gamma \vdash A$.
+\item[(5)] To prove $\Gamma\cup\{A\limplies B\}$ is inconsistent,
+it suffices to prove first that $\Gamma \vdash A$
+and second that $\Gamma \cup \{B\}$ is inconsistent.
+\end{itemizeLoose}
+Item~(5) can be justified by Theorem~\ref{thm:casesAimpliesB}(b).
+
+It can be shown that repeatedly applying the reductions
+of items (1)-(5) is sufficient to generate a $\PL$-proof of any
+$\{\lnot, \limplies \}$-tautology.
+For this, see Exercise~\ref{exer:altProfCompletePL}.
+Some additional
+principles that are also very useful in practice include:
+
+\begin{itemizeLoose}
+\item[(6)] To prove $\Gamma \vdash A$, it suffices to
+prove that $\Gamma \cup \{ \lnot A \}$ is inconsistent. (This is
+a more general form of item~(3), the first version of proof by contradiction.)
+\item[(7)] To prove $\Gamma \vdash B$, it suffices to prove both
+that $\Gamma, A \vdash B$ and that $\Gamma, \lnot A \vdash\penalty10000 B$.
+(This is \idxnm{proof-by-cases}.)
+\item[(8)] Suppose $\Gamma$ contains the two formulas $A$ and $A\limplies B$.
+Let $\Gamma^*$ be $\Gamma \cup\{B\}$.
+To prove that $\Gamma$ is inconsistent,
+it suffices to prove that $\Gamma^*$~is inconsistent.
+To prove that $\Gamma\vdash C$,
+it suffices to prove that $\Gamma^*\vdash C$.
+(This is justified by Modus Ponens.)
+\item[(9)] Suppose $\Gamma$ contains the two formulas $\lnot B$ and $A\limplies B$.
+Let $\Gamma^*$ be $\Gamma \cup\{\lnot A\}$.
+To prove that $\Gamma$ is inconsistent,
+it suffices to prove that $\Gamma^*$~is inconsistent.
+To prove that $\Gamma\vdash C$,
+it suffices to prove that $\Gamma^*\vdash C$.
+(This is justified by \idxnm{Modus Tollens}.)
+\item[(10)] Suppose $\Gamma$ contains the two formulas $A\limplies B$ and $B\limplies C$.
+Let $\Gamma^*$ be $\Gamma \cup\{A\limplies C\}$.
+To prove that $\Gamma$ is inconsistent,
+it suffices to prove that $\Gamma^*$~is inconsistent.
+To prove that $\Gamma\vdash D$,
+it suffices to prove that $\Gamma^*\vdash D$.
+(This is justified by \idxnm{Hypothetical Syllogism}.)
+\end{itemizeLoose}
+
+Of course, the previous sections gave several other possible principles that can help with proving
+the existence of $\PL$-proofs. For example, a formula $\lnot\lnot A$ may be replaced
+with the formula~$A$.
+Nonetheless, items (1)-(10) are often (but not always) good strategies to follow.
+There will generally be multiple possibilities for which of (1)-(10) to apply;
+it can require some cleverness (or luck) to
+decide whether and how to best apply items (1)-(10), or other strategies.
+
+Item~(7) can be much harder to use than the other eight items
+since it requires choosing the formula~$A$. For this,
+it helps to have some intuition on what formula~$A$ could help with showing the existence
+of a $\PL$-proof.
+
+Items (8) and~(9) are still valid if $\Gamma^*$ is instead defined
+to omit the formula $A\limplies B$.
+
+A chart of the main definitions and theorems that can be used for
+proving the existence of $\PL$-proof is shown on page~\pageref{page:constructingPL}.
+
+\begin{figure}[t]
+\begin{center}
+\setlength{\fboxrule}{1pt}
+\setlength{\fboxsep}{10pt}
+\fbox{\begin{minipage}{0.92\textwidth}
+\raggedright
+%\vspace*{0.0em}
+\begin{center}
+{\bf Constructing $\PL$-proofs}
+\end{center}
+
+\vspace*{-0.5em}
+
+\begin{tabbing}
+{\bf Logical axioms:}
+\= PL1: \= $A \limplies (B \limplies A)$ \\
+\> PL2: \> $[A \limplies (B\limplies C)] \limplies [(A\limplies B) \limplies (A\limplies C)]$ \\
+\> PL3: \> $\lnot A \limplies (A \limplies B)$ \\
+\> PL4: \> $(\lnot A \limplies A) \limplies A$
+\end{tabbing}
+
+\vspace{-0.25em}
+
+{\bf Modus Ponens:}
+\AxiomC{$A\limplies B$}
+\AxiomC{$A$}
+\BinaryInfC{$B$}
+\DisplayProof
+
+\vspace*{0.75em}
+
+{\bf Abbreviations:}
+$A\lor B$, $A\land B$ and $A\liff B$ abbreviate, respectively,
+\newline \hspace*{1in}$\lnot A\limplies B$, $\lnot (A\limplies \lnot B)$ and $(A\limplies B)\land (B\limplies A)$.
+
+\vspace*{1.0em}
+
+{\bf \idxnm{Deduction Theorem}:} $\Gamma \vdash A\limplies B$ iff $\Gamma, A \vdash B$.
+\vspace*{0.5em}
+
+{\bf Proof by Contradiction:} \hfill \\[0.5em]
+\hspace*{5em} $\Gamma \vdash A$ iff $\Gamma \cup \{ \lnot A \}$ is inconsistent. \hfill \\[0.25em]
+\hspace*{5em} $\Gamma \vdash \lnot A$ iff $\Gamma \cup \{ A \}$ is inconsistent.
+
+\vspace*{0.5em}
+
+{\bf Proof by Cases:} If $\Gamma, A \vdash B$ and $\Gamma,\lnot A \vdash B$, then $\Gamma \vdash B$.
+
+\vspace*{0.5em}
+{\bf Derived (admissible) rules\index{derived rule} of inference:} \hfill \\[0.5em]
+\begin{description}[font=\bf,nosep,itemsep=0.5em,labelwidth=1.75in]
+\item[\parbox{1.75in}{\hfill Modus Tollens:}]
+\AxiomC{$A\limplies B$}
+\AxiomC{$\lnot B$}
+\BinaryInfC{$\lnot A$}
+\DisplayProof
+\item[\parbox{1.9in}{\hfill Hypothetical Syllogism:}]
+\AxiomC{$A\limplies B$}
+\AxiomC{$B\limplies C$}
+\BinaryInfC{$A \limplies C$}
+\DisplayProof
+\end{description}
+
+\end{minipage}
+} % End of \fbox
+\end{center}
+\label{page:constructingPL}
+\end{figure}
+
+\begin{example} We show that
+\[
+A\limplies B \lor C,\, B\limplies D,\, C\limplies D \vdash A\limplies D.
+\]
+Since $B\lor C$ is an abbreviation for $\lnot B \limplies C$, this is identical to
+\[
+A\limplies \lnot B \limplies C,\, B\limplies D,\, C\limplies D \vdash A\limplies D.
+\]
+By item (1), or the Deduction Theorem, it suffices to show
+\[
+A,\, A\limplies \lnot B \limplies C,\, B\limplies D,\, C\limplies D\vdash D.
+\]
+Using item (6), or proof by contradiction, it suffices to show that
+\[
+\hbox{$\{ A,\, A\limplies \lnot B \limplies C,\, B\limplies D,\, C\limplies D ,\, \lnot D \}$ is inconsistent.}
+\]
+Using item (9) twice, namely using Modus Tollens on the last three formulas, 
+it suffices to show that
+\[
+\hbox{$\{ A,\, A\limplies \lnot B \limplies C,\, \lnot B,\, \lnot C ,\, \lnot D \}$ is inconsistent.}
+\]
+Using item (8) twice, namely using Modus Ponens, it suffices to show that
+\[
+\hbox{$\{ A,\,C,\, \lnot B,\, \lnot C ,\, \lnot D \}$ is inconsistent.}
+\]
+This is inconsistent as it contains both $C$ and $\lnot C$ as members.
+\end{example}
+
+\begin{example} Now we show that $A \land B \vdash B \land A$.  By convention, $A\land B$ and $B\land A$
+are abbreviations for $\lnot(A\limplies \lnot B)$ and $\lnot(B\limplies \lnot A)$. So we wish 
+to show 
+\[
+\lnot(A\limplies \lnot B)\, \vdash\,\lnot(B\limplies \lnot A) .
+\]
+Writing ``STS'' for ``it suffices to show'', we can argue step-by-step as follows:
+\begin{itemize} 
+\item By proof by contradiction, STS:  $\{\lnot(A\limplies \lnot B),\, B\limplies \lnot A\}$ is inconsistent.
+\item By proof by contradiction, STS:  $B\limplies \lnot A \, \vdash A\limplies \lnot B $.
+\item By the Deduction Theorem, STS: $A,\, B\limplies \lnot A \, \vdash \lnot B $.
+\item By proof by contradiction, STS: $B, \, A,\, B\limplies \lnot A \}$ is inconsistent.
+\end{itemize}
+The last set is inconsistent, since it contains~$A$, and since it has proof of~$\lnot A$
+by Modus Ponens.
+\end{example}
+
+

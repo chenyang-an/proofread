@@ -1,0 +1,501 @@
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+\nonumSectionmark{Exercises}
+
+\begin{exercise}
+Using the
+predicates and function symbols from Section~\ref{sec:examplesFO},
+express the following statements in first-order logic.
+\begin{itemize}
+\item[(a)] ``{\em John} has not read any books.''
+\item[(b)] ``{\em John}'s mother has not read any books.''
+\item[(c)] ``Every book has been read by at least one person.''
+\item[(d)] ``There is a book that no one has read.''
+\item[(e)] ``No one likes every book they have read.''
+\item[(f)] ``{\em John} likes every book that his mother likes.''
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+Continuing to use the
+predicates and function symbols from Section~\ref{sec:examplesFO},
+express the following statements in first-order logic.
+\begin{itemize}
+\item[(a)] ``Everyone has read a book that no one else has.''
+\item[(b)] ``Someone has read a book that no one else has.''
+\item[(c)] ``{\em John} has read exactly one book.''
+\item[(d)] ``{\em John} has read exactly two books.''
+\item[(e)] ``{\em John} has read every book that has ever been read (by anybody).'' Equivalently,
+``If {\em John} hasn't read a book, then no one has read it.''
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+Express the following as first-order formulas.
+Use the first-order language with unary predicates $\TJazz(x)$ and $\TKpop(x)$, the binary predicates
+$\TLikes(x,y)$ and $\TKnows(x,y)$, the constant symbols \hbox{\em Joan} and \hbox{\em John},
+and the equality sign~$=$.
+$\TJazz(x)$ means ``$x$~is a jazz musician'',
+$\TKpop(x)$ means ``$x$~is a K-pop musician'', $\TLikes(x,y)$ means ``$x$ likes $y$'', and
+$\TKnows(x,y)$ means ``$x$ knows $y$''. Variables
+range over the universe of people.
+\begin{enumerate}[nosep]
+\item Jazz musicians do not like K-pop musicians.
+\item {\em Joan} knows a jazz musician who likes every K-pop musician.
+\item {\em John} likes everyone he knows.
+\item There is no one whom {\em John} and {\em Joan} both like.
+\item One of {\em John} and {\em Joan} is a jazz musician, and the other is
+a K-pop musician.
+\item Everyone that {\em John} likes knows a jazz musician.
+\item Every K-pop musician knows a jazz musician who does not like any K-pop musicians.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+A quote that is sometimes (mis?)attributed to Abraham Lincoln is:
+``You can fool some of the people all of the time. You can fool all
+of the people some of the time. But you cannot fool all of the people all
+of the time.''
+Let these three assertions be:
+\begin{itemize}
+\item[(a)] You can fool some of the people all of the time.
+\item[(b)] You can fool all of the people some of the time.
+\item[(c)] You cannot fool all of the people all of the time.
+\end{itemize}
+Express these three sentences in first-order logic. Let variables
+range over the universe that includes all people and all times.
+Let $\TPerson(x)$ mean $x$ is a person, and $\TTime(x)$ mean $x$ is a time.
+Let $F(x,t)$ mean you can fool person $x$ at time~$t$.
+
+Sentences (a) and (b) each have two possible translations to first-order
+logic that are not logically equivalent.
+Give both translations for these two. Explain how the two translations
+differ in meaning. Also, give a translation of~(c) to
+first-order logic.  (This exercise is taken from the textbooks
+of Enderton~\cite{Enderton:logicbook} and Mendelsohn~\cite{Mendelson:mathlogic}.)
+\end{exercise}
+
+
+\begin{exercise}
+Let $P$ be a unary predicate, $Q$ a binary predicate, $f$~a
+unary function, $g$~a binary function, and $c$~a constant symbol. Answer
+questions (i)-(iii) about the following expressions:
+\begin{multicols}{2}
+\begin{enumerateMultiCol}[nosep]
+\item $c$
+\item $x_3$
+\item $g(c, x_3)$
+\item $g(c, x_3) = $
+\item $c= g(f(x_2),x_3)$
+\item $g(f(x_1),c)=g(f(x_1))$
+\item $P(c= g(f(x_2),x_3))$
+\item $f(c)=\lnot g(x_1, x_1)$
+\item $Q(c,x_1)=P(c)$
+\item $\forall x_1\, (P(x_1) \limplies Q(x_1,x_1))$
+\item $\forall x_1 {\in} P(x_1)\,  Q(x_1,x_1)$
+\item $\forall x_1\, (Q(x_1,x_1) \land x_1=c)$
+\end{enumerateMultiCol}
+\end{multicols}
+\begin{itemize}
+\item[(i)] Which of these are syntactically correct terms?
+\item[(ii)] Which of these are syntactically correct atomic formulas?
+\item[(iii)] Which of these are syntactically correct formulas?
+(For the purposes of this exercise,
+a formula still counts as syntactically correct if some parentheses
+are omitted or extra parentheses are added.)
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+Express the following about least common multiples and greatest
+common divisors in $L_\PA$, over the nonnegative integers.
+\index{least common multiple}\index{greatest common divisor}%
+\begin{enumerate}
+\item If $x$ and $y$ are non-zero, there is a least non-zero value~$z$ which
+is a multiple of both $x$ and~$y$.
+\item If $x$ and $y$ are not both zero, there is a greatest common divisor~$z$
+of $x$ and~$y$ and this common divisor is $\ge 1$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let $c$ be a constant symbol and $f$~be a unary function symbol.
+Give an example of a structure~$\mathfrakA$ which
+satisfies
+\[
+\Gamma ~=~ \{\forall x\, \forall y\, ( x\neq y \limplies f(x) \neq f(y) ),  \, \forall x\, f(x) \neq c \}.
+\]
+In this and subsequent exercises,
+describe the universe of structure and the interpretations of the non-logical
+symbols explicitly using set notation.
+\end{exercise}
+
+\begin{exercise}
+Let $E$ be a binary predicate symbol. Give a structure~$\mathfrakB$
+such that $\mathfrakB \vDash \forall x\, \forall y \, (E(x,y) \limplies \lnot E(y,x))$.
+\end{exercise}
+
+\begin{exercise}
+Let $f$ be a unary function symbol. Give a structure~$\mathfrakC$ such
+that $\mathfrakC \vDash \forall x \, (x \neq f(x) \land x \neq f(f(x))$.
+\end{exercise}
+
+\begin{exercise}
+Let $\Gamma$ be the set of formulas $\{ x_1\neq x_2, P(x_1)\limplies \forall x_3\,P(x_3) \}$.
+Give an example of a structure $\mathfrakA$ and an object assignment~$\sigma$ that illustrates
+that $\Gamma \nvDash \lnot P(x_1)$.
+\end{exercise}
+
+\begin{exercise}
+Work in the language with a unary predicate~$P(x)$ and
+(as usual) the equality sign~$=$. Express the following as first-order sentences.
+\begin{enumerate}
+\item There is a unique $x$ satisfying $P(x)$.
+\item There are at least two objects~$x$ that satisfy $P(x)$.
+\item There are at least three objects~$x$ that satisfy $P(x)$.
+\item There are exactly two objects~$x$ that satisfy $P(x)$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exer:atleastK}
+Work in the same language as the previous exercise.
+For $k\ge 0$, let $\TAtMost_k$\index{at most ($\TAtMost_k)$},
+$\TAtLeast_k$\index{at least ($\TAtLeast_k)$}
+and $\TExactly_k$\index{exactly ($\TExactly_k)$}
+be the assertions that there are at most $k$,
+at least~$k$, and exactly~$k$ (respectively) many objects~$x$ satisfying
+property~$P(x)$.
+\begin{enumerate}
+\item Give general constructions, for arbitrary fixed~$k$,
+of first-order sentences that express the
+assertions $\TAtMost_k$, $\TAtLeast_k$ and $\TExactly_k$.
+\item Analyze the sizes of the sentences you constructed
+for $\TAtMost_k$, $\TAtLeast_k$
+and $\TExactly_k$. Do they
+use $O(k^2)$ many symbols? Do they use $O(k)$~many symbols?\footnote{$O(k)$
+and $O(k^2)$ are ``big-Oh notation''.  $O(k)$ means having
+size bounded by $c\cdot k$ for some constant~$c$. $O(k^2)$ means having
+size bounded by $c\cdot k^2$ for some constant~$c$.}\index{big-Oh notation}
+\end{enumerate}
+(The most
+straightforward constructions use $O(k^2)$ many symbols, but
+it is not too hard to express them using only $O(k)$ many symbols.
+To construct formulas that require only $O(k)$ many symbols,
+the suggestion is to start with $\TAtMost_k$.)
+\end{exercise}
+
+\begin{exercise}\label{exer:evenCardinality}
+Work in the language~$L$ with the symbol~$=$ and no non-logical symbols.
+$\Gamma$~said to have a model of \idxnm{cardinality}~$n$ if there
+is a structure~$\mathfrakA$ so that $\mathfrakA \vDash \Gamma$ and its universe~$|\mathfrakA|$ has size~$n$.
+Give an example of a set~$\Gamma$ of $L$-sentences which has models of cardinality $2n$
+for all integers $n>0$, but does not have any model of cardinality~$2n+1$
+for any integer~$n\ge 0$. Call this the ``\idxnm{even cardinality finite models}'' property.
+\end{exercise}
+
+\begin{exercise}\label{exer:evenCardinalityFinite}
+Give a
+language~$L^\prime$ and a finite set~$\Pi$ of $L^\prime$-sentences so that
+the ``even cardinality finite models'' property
+of the previous exercise holds for~$\Pi$.
+Explain why your example works.  (In contrast to the previous exercise,
+you can choose a language~$L^\prime$ but you must use a {\em finite} set~$\Pi$.)
+\end{exercise}
+
+\begin{exercise}\label{exer:EorEorEAandAandA}\label{exer:startQidentities}
+Let $A$ and $B$ be formulas.
+\begin{enumerate}
+\item Prove that $\exists x\, (A \lor B) \tautEq \exists x\, A \lor \exists x\, B$.
+\item Prove that $\forall x\, (A \land B) \tautEq \forall x\, A \land \forall x\, B$.
+\end{enumerate}
+[Hint: These are fairly easy to prove using
+the definition of truth. Part~(b) can be proved as a consequence of
+part~(a), or vice-versa; by expressing $\land$ in terms of~$\lor$, and $\forall$~in terms
+of~$\exists$. Part~(a) was used in the proof of Lemma~\ref{lem:prenexHelpers}.]
+\end{exercise}
+
+\begin{exercise}\label{exer:QxNotFree}
+Suppose $x$ does not have a free occurrence in the formula~$A$.
+Prove that $A \tautEq \exists x\, A$ and $A \tautEq \forall x\, A$.
+(The first part, $A \tautEq \exists x\, A$, was used in the proof of
+Lemma~\ref{lem:prenexHelpers}.)
+\end{exercise}
+
+\begin{exercise}\label{exer:endQidentities}
+Prove the following by using the definition of truth.
+\begin{enumerate}
+\item $\vDash \forall x\, (A \limplies B) \limplies \exists x\, A \limplies \exists x\, B$.
+\item $\vDash \forall x\, (A \limplies B) \limplies \forall x\, A \limplies \forall x\, B$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exer:QuantsOverIff}
+Prove (a)-(d).  $A$ and~$B$ are formulas; $P$ and~$Q$ are unary predicate symbols.
+Prove (a) using the definition of truth. Prove (b)-(d) by giving a structure that
+illustrates the non-implication.
+(Part~(a) was used in the proof of Theorem~\ref{thm:substitution}.)
+\begin{enumerate}
+\item $\forall x\, (A \liff B) \vDash \forall x\, A \liff \forall x\, B$.
+\item $\forall x\, P(x) \liff \forall x\, Q(x) \nvDash \forall x\, (P(x) \liff Q(x))$.
+\item $\exists x\, (P(x) \liff Q(x)) \nvDash \exists x\, P(x) \liff \exists x\, Q(x)$.
+\item $\exists x\, P(x) \liff \exists x\, Q(x) \nvDash \exists x\, (P(x) \liff Q(x))$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Suppose $x,y,z,u,v$ are distinct variables.
+Let $A$ be the formula
+\[
+\exists x \, [ x\le y \land \forall y\, ( P(y,z) \limplies \exists z( y\le z)) ] .
+\]
+\begin{enumerate}
+\item Write out the formula~$A$ and
+label which occurrences of variables are free occurrences and
+which are bound occurrences.
+\item What is $A(g(0,u)/z)$?
+\item What is $A(f(v), g(0,u)/ y, z)$?
+\item What is $A( g(w,0), f(v), g(0,u)/ x, y, z)$?
+\item Give an alphabetic variant~$B$ of~$A$ so that $h(x,y,z)$ is
+substitutable for $y$ in~$B$.  Rename as few bound variables
+as possible.
+\item Give an alphabetic variant~$C$ of~$A$ so that $h(x,y,z)$ is
+substitutable for $z$ in~$C$.  Rename as few bound variables
+as possible.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Carry out the following substitutions by giving the term or formula that results from the
+substitution.
+\begin{enumerate}
+\item Let $t$ be the term $f(g(g(0,z),y+z))$. What is $t(0/z)$?
+\item For the same term~$t$, what is $t(f(0),0/x,z)$?
+\item Let $A$ be $\forall x \, [ y=x \limplies \exists y\, (P(x,y) \limplies x=z \lor y=z ) ]$.
+What is $A(g(0,u)/z)$?
+\item For the same $A$, what is $A(f(v), g(0,u)/ y, z)$?
+\item For the same $A$, what is $A( g(w,0), f(v), g(0,u)/ x, y, z)$?
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let $A$ be the same formula as in the previous exercise.
+Give an example of an alphabetic variant~$B$ of~$A$
+such that $x+y+z$ is substitutable for~$z$ in~$B$.
+\end{exercise}
+
+\begin{exercise}
+For each of the following statements, state whether
+it is true for all formulas~$A$ or not. If not
+true, give a counterexample.
+\begin{enumerate}
+\item  The term~$0$ is substitutable for $x_1$ in~$A$. (0 is a constant symbol.)
+\item The term~$x_1$ is substitutable for $x_1$ in~$A$.
+\item The term~$x_2$ is substitutable for $x_1$ in~$A$.
+\item If the term $x_2$ is substitutable for $x_1$ in~$A$, then
+the term~$x_1$ is substitutable for $x_2$ in~$A(x_2/x_1)$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+For each of the following statements, state whether
+it is true for all formulas~$A$, terms~$t$, and variables~$x$. If not true,
+give a counterexample.
+\begin{enumerate}
+\item[(a)] If $t$ is a closed term, then $t$ is substitutable for~$x$ in~$A$.
+\item[(b)] The term $f(x,x)$ is substitutable for~$x$ in $A$.
+\item[(c)] The formula $x = x$ is substitutable for~$x$ in $A$.
+\item[(d)] If $t$ is substitutable for~$x$ in~$A$, then $A(t/x)$ is a formula.
+\item[(e)] If $t$ is not substitutable for~$x$ in~$A$, then $A(t/x)$ is a formula.
+\item[(f)] If $A(t/x)$ is a formula, then $t$ is substitutable for $x$ in~$A$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Show that the principle of \idxnm{universal instantiation} needs the
+assumption that $t$ is substitutable for~$x$ in~$A$.
+To do this,
+give an example of a formula~$A$ and a term~$t$ such that
+$\forall x\, A \limplies A(t/x)$ is {\em not} logically valid.
+\end{exercise}
+
+\begin{exercise}
+For each of the following, give a logically equivalent
+prenex formula.
+\begin{enumerate}
+\item $\exists x\, P(x) \limplies \exists x \, Q(x,x)$.
+\item $\exists x\, P(x) \liff \exists x \, Q(x,x)$.
+\item $\forall x\, \exists y\, P(x,y) \limplies \exists x\, \forall y\, P(x,y)$.
+\item $\lnot \forall y\, [ \exists u\, (g(u) \le y) \limplies \forall x\, (y<x \limplies \exists y \, (f(x) \le y)) ]$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Give an example of formulas $A$ and $B$ such that
+\begin{equation}\label{eq:prenexNot}
+\exists x A \land B \nvDash \exists x\, (A \land B).
+\end{equation}
+Justify your answer by giving a structure $\mathfrakA$ and an object assignment~$\sigma$
+showing that (\ref{eq:prenexNot}) holds.
+\end{exercise}
+
+\begin{exercise}\label{exer:graphsECdelta}
+Show that the class of infinite undirected graphs\index{graph!undirected} is
+an elementary class in the wide sense ($\EC_\Delta$).  
+\end{exercise}
+
+\begin{exercise}\label{exer:graphsECdelta2}
+Show that the class of undirected graphs that do not
+contain a cycle is
+an elementary class in the wide sense ($\EC_\Delta$).
+\end{exercise}
+
+\begin{exercise}\label{exer:graphsECdelta3}
+Show that the class of 3-colorable undirected graphs is
+an elementary class in the wide sense ($\EC_\Delta$).
+[Hint: See Exercise~\ref{exer:3colorableProp}.]
+\end{exercise}
+
+\begin{exercise}
+Prove the following statements.\index{elementary class}\index{elementary class in the wide sense}
+\begin{enumerate}
+\item The intersection of two elementary classes is an elementary class.
+\item The union of two elementary classes is an elementary class.
+\item The intersection of two $\EC_\Delta$ classes is $\EC_\Delta$.
+\item The intersection of an arbitrary collection of $\EC_\Delta$ classes
+is $\EC_\Delta$.
+\item The union of two $\EC_\Delta$ classes is $\EC_\Delta$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exer:charZeroECdelta}
+(For readers with some knowledge of field theory. Compare with
+Exercise~\ref{exer:finiteCharNotECDelta}.) Show that,
+for a fixed prime~$p$,
+the class of fields of characteristic~$p$ is an elementary class.
+Show that the class of fields of characteristic zero is
+$\EC_\Delta$.
+\end{exercise}
+
+\begin{exercise}
+The \emph{truncated subtraction}\index{subtraction ($\dotminus$)} function $\dotminus$ is defined
+on the nonnegative integers by $x \dotminus y = \max\{x-y,0\}$.
+Prove that $\dotminus$ is definable in~$\mathcal N$.
+Also, prove that the \emph{excess over a square} function, $x\dotminus \lfloor \sqrt x \rfloor$
+is definable in~$\mathcal N$  by giving a formula over the language $0,S,+,\cdot$ that defines
+it.
+\end{exercise}
+
+\begin{exercise}
+Work in the language $L = \{S, \cdot\}$ where $S$ is
+the successor function and $\cdot$ is integer multiplication.
+Let the structure $\mathcal N_{S,\cdot} = (\mathbb N, S, \cdot )$ be the
+nonnegative integers with the usual successor and multiplication
+functions.  Show that the function~$+$ is definable in~$\mathcal N^{S,\cdot}$.
+[Hint: First show that, for $c>0$, $a + b = c$ is true if and only
+if $(xz+1)(yz+1) = z^2(xy+1)+1$.]
+This result is due to
+Julia Robinson\nocite{Robinson:DefinabilityArithmetic} [1949].
+\end{exercise}
+
+\begin{exercise}
+Let $\mathcal Q = (\mathbb Q, 0, +, \cdot)$ be the structure of
+the rationals.
+\begin{enumerate}
+\item Show that the object 1 is definable in~$\mathcal Q$.
+\item Show that the function $x \mapsto -x$ is definable in~$\mathcal Q$.
+\item Let $f(x,y) = x/y$ if $y\neq 0$ and let $f(x,0) = 0$. Show that $f$
+is definable in~$\mathcal Q$.
+\item Show that the set of positive rational numbers is definable in~$\mathcal Q$.
+[Hint: You may use the Lagrange four square theorem, which states that any
+positive integer is the sum of four integer squares.]
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exer:arrays}
+Show that the following two formulas are logical consequences of
+the theory of \idxnm{arrays}.
+\begin{enumerate}
+\item $\forall a\,\forall i\,[\TArray(a)\land Index(i) \limplies a = Write(a,i,Read(a,i))]$.
+\item $\forall a\,\forall i\,\forall j\,\forall x\, \forall y\,
+[\TArray(a)\land Index(i)\land Index(j) \land i\neq j \land \TValue(x) \land \TValue(y) \limplies
+\TWrite(\TWrite(a,i,x),j,y)=\TWrite(\TWrite(a,j,y),i,x)]$.
+\end{enumerate}
+Both of these need to use the axiom of extensionality.
+\end{exercise}
+
+\begin{exercise}
+Example \ref{example:removeDefdFuncThm} constructed a formula~$A^*$ such that
+$\{\TUniq_f,\TDef_f\} \vDash A\liff A^*$. Here is an alternate construction.
+Let $A^{**}$ be the sentence
+\[
+\forall x\, \forall y\, \forall z\, [
+      B(x,a,y) \land B(x,y,z) \limplies Q(a+z) ].
+\]
+Prove that $\{\TUniq_f,\TDef_f\}\vDash A \liff A^{**}$.
+\end{exercise}
+
+\begin{exercise}
+Work with a fixed language~$L$.
+Let $\mathcal S, \mathcal S_1,\mathcal S_2$ be classes of structures. Let $T, T_1,T_2$ be theories.  (Recall that a theory is a set of
+sentences closed under logical consequence.)
+\begin{enumerate}
+\item Prove that if $T_1\subseteq T_2$ then $\TMod {T_2} \subseteq \TMod{T_1}$.
+\item Prove that if $\mathcal S_1\subseteq \mathcal S_2$ then $\TTh {\mathcal S_2} \subseteq \TTh{\mathcal S_1}$.
+\item Prove that $T = \TTh {\TMod T}$.
+\item Prove that $\TTh {\mathcal S} = \TTh{\TMod{\TTh {\mathcal S}}}$.
+\item Give an example of $\mathcal S$ such that $S \neq \TMod { \TTh {\mathcal S}}$. Explain why your example works.
+\end{enumerate}
+\end{exercise}
+
+\begin{exerciseStar}
+A \idxnm{purely existential} formula is a prenex formula
+in which all the quantifiers are existential. Let $P$ be
+a unary predicate symbol. Prove that
+$\forall x \, P(x)$ is not logically equivalent to
+any purely existential formula.
+\end{exerciseStar}
+
+\begin{exerciseStar}
+Let $A$ be the formula $Q(c) \liff \forall x P(x)$, where $P$ and~$Q$
+are binary predicate symbols and $c$~is a constant symbol.
+Prove
+\begin{enumerate}
+\item There is no purely universal prenex formula~$B$ such that
+$B \tautEq A$.
+\item There is no purely existential prenex formula~$B$ such that
+$B \tautEq A$.
+\end{enumerate}
+When forming prenex formulas, the first step was to eliminate
+any use of the $\liff$ symbol by replacing subformulas
+$A\liff B$ with $(A\limplies\penalty10000 B) \land (B \limplies\penalty10000 A)$. The point
+of this exercise is that it shows that something like this must be done. In other words,
+it proves that there are no prenex equivalences
+for~$\liff$ that are as simple in form as the logical equivalences
+of Lemma~\ref{lem:prenexHelpers}.
+\end{exerciseStar}
+
+\begin{exercise}\label{exer:engthAtMost}
+Examples \ref{example:LengthFour} and~\ref{example:LengthEight} showed how
+to give first-order formulas expressing that there is a path of length exactly~$\ell$
+for $\ell=4$ and $\ell = 8$.  Rework these examples to give formulas
+expressing that there is a path from $x$ to~$y$ of length {\em at most}~$\ell$,
+for $\ell = 4$ and $\ell = 8$.
+\end{exercise}
+
+\begin{exercise}
+\ ~ \relax
+\begin{enumerate}
+\item Generalize the two constructions of Example~\ref{example:LengthEight}
+arbitrary powers of two~$\ell$.
+\item Generalize the two constructions of Example~\ref{example:LengthEight}
+arbitrary values of~$\ell$ (not necessarily a power of two).
+\end{enumerate}
+\end{exercise}
+
+\begin{exerciseStar}
+The two constructions of Example~\ref{example:LengthEight}
+gave formulas for $\TDist_8$ that used the
+equality symbol~($=$). Rework these examples so that they do not
+use the equality symbol. [Hint: This is not hard, but it
+is a little tricky.]
+\end{exerciseStar}

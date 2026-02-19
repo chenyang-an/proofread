@@ -1,0 +1,265 @@
+\section{Universal Turing Machines}\label{sec:universalTM}
+
+A \idxnm{universal Turing machine} is a Turing machine~$U$ that
+can simulate any Turing machine~$M$ when given
+the G{\"o}del number of~$M$. In light of the
+Church-Turing thesis, a universal Turing machine must exist.
+This is just because it is possible to write an algorithm
+that uses $\lgn M \rgn$ to simulate~$M$ and because that
+algorithm can be implemented on a Turing machine.
+
+At this point, it is hoped that the reader is convinced that
+the Church-Turing Thesis is true and thus convinced that there is
+a universal Turing machine. We therefore will not attempt
+to describe a universal Turing machine. What we will do instead
+is propose one possible way that the inputs to a universal
+Turing machine can be formatted.
+
+For this,
+here is one possible way of defining the G{\"o}del number~$\lgn M \rgn$
+of a Turing machine~$M$.  In this proposal,
+the G{\"o}del number~$\lgn M \rgn$ can
+be viewed as a string of bits that specify the
+following information:
+\begin{itemizeLoose}
+\item The cardinality~$|\Gamma|$ of the tape alphabet~$\Gamma$.
+\item The cardinality~$|\Sigma|$ of the input alphabet~$\Sigma$.
+\item The number~$|Q|$ of states. W.l.o.g.\ the states are named
+$q_0,q_1,\ldots,q_{|Q|-1}$ and $q_0$~is the start state.
+\item The number~$|Q_\Thalt|$ of halting states. If this is
+0 or~1, there is a single output state $q_\Tout$ which, w.l.o.g.,
+is equal to~$q_{|Q|-1}$.
+If $|Q_\Thalt| = 2$, there are two output states $q_\Tacc$ and~$q_\Trej$
+which w.l.o.g.\ are equal to $q_{|Q|-2}$ and~$q_{|Q|-1}$.
+\item The transition function
+$\delta : (Q\setminus Q_\THalt)\times \Gamma \rightarrow |\Gamma| \times \{\TR,\TL\}\times |Q|$
+has  $(|Q|-\penalty10000 |Q_\Thalt|) \cdot\penalty10000 |\Gamma|$
+many values. Letting $\ell_\Gamma = \lceil \log_2 |\Gamma| \rceil$
+and $\ell_Q = \lceil \log_2 |Q| \rceil$, each value of
+$\delta$ can be encoded with $\ell_\Gamma + 1 + \ell_Q$ many bits.
+By concatenating the binary strings encoding the values of~$\delta$,
+the entire function~$\delta$ is encoded by a single binary string $\TEncode_\delta$ of length
+\[
+\ell_\delta ~:=~ (|Q|-|Q_\Thalt|) \cdot |\Gamma| \cdot ( \ell_\Gamma + 1 + \ell_Q) .
+\]
+\end{itemizeLoose}
+The G{\"o}del number~$\lgn M \rgn$ of the Turing machine~$M$
+must encode the above information about~$M$. For the sake
+of concreteness, $\lgn M \rgn$~can then be defined to be the
+binary string
+\[
+1^{|\Gamma|} 0 1^{|\Sigma|} 0 1^{|Q|} 0 1^{|Q_\THalt|} 0 \TEncode_\delta
+\]
+of length $|\Gamma|+|\Sigma|+|Q|+|Q_\THalt|+ 4 + \ell_\delta$.
+
+The universal Turing machine~$U$ will take two inputs
+$\lgn M \rgn$ and a string~$w$: the result of running $U(\lgn M \rgn , w)$
+is the same as the result of running $M(w)$. This exposes another
+complication.  Namely, the universal machine~$U$ uses a particular input alphabet~$\Sigma_U$;
+but in the definition above, the size of the input alphabet~$\Sigma$
+was allowed to be specified in the G{\"o}del number~$\lgn M \rgn$. This
+means there is
+a mismatch in the inputs~$w$ that $M$~can accept and the inputs~$w$
+that~$U$ can accept.
+
+There are a couple of ways around this. The first, and perhaps the best,
+is to just mandate that all machines have the same alphabet. In this
+approach, $U$~is a universal machine for those Turing machines~$M$
+with the same input alphabet $\Sigma = \{0,1\}$ as~$U$. The second approach
+would be to allow machines~$M$ to have arbitrary input alphabets, even though
+$U$~must use a fixed input alphabet, say $\Sigma = \{0,1\}$.
+In this approach, an input~$w$ to~$M$ is encoded as a binary string~$w^*$
+and then $U(\lgn M \rgn , w^*)$ simulates the action of~$M(w)$.
+If $U (\lgn M \rgn , w^*)$ produces the result that $M$ outputs~$v$, then
+$U$~outputs the encoded value~$v^*$ of~$v$.
+
+A natural way to define the encoding~$w^*$ of~$w$ is to
+use a fixed length\index{fixed length code} binary encoding wherein
+each symbol~$a$ of~$\Sigma$ is encoded by a distinct string $v_a \in \{0,1\}^*$
+of length exactly~$\ell_{|\Sigma|}$.
+If $w$ is $a_1a_2\cdots a_k$ where each $a_i \in \{0,1\}$,
+then $w^*$ is just the concatenation $v_{a_1} v_{a_2}\cdots v_{a_k}$
+of the code words for the~$a_i$.
+
+\bigskip
+
+\paragraph*{Using the tape alphabet {\boldmath $\{0, 1, \#\}$}}
+We now restrict attention to Turing machines which use input
+alphabet $\Sigma = \{0, 1\}$.  The universal
+Turing machine~$U$ uses some fixed tape alphabet~$\Gamma_U$,
+where $\Gamma_U \supseteq \{0,1\,\# \}$. It is interesting
+to ask whether a universal Turing machine~$U$
+can be designed with $\Gamma_U = \{0,1,\#\}$. The answer is yes, but
+this may not be immediately evident. Indeed, the earlier arguments
+justifying the Church-Turing Thesis depended on having
+Turing machines that can copy strings long distances, or compare
+two strings on the tape that are not located near each other on the
+tape. Those Turing machines were built with the aid of ``breadcrumbs'';
+namely, the tape alphabet contained symbols such as $0^\prime$ and~$1^\prime$,
+so the tape alphabet~$\Gamma$ for these machines
+is larger than just $\{0,1,\#\}$.
+
+To address this, we describe a way to transform an arbitrary
+Turing machine~$M_1$ with input alphabet $\Sigma = \{0,1\}$ and with
+arbitrary tape alphabet~$\Gamma_1$ to an equivalent
+Turing machine~$M_2$ with tape alphabet equal to $\Gamma_2 = \{0,1,\#\}$.
+The idea is to encode symbols from~$\Gamma_1$ by
+fixed length binary codewords\index{fixed length code}
+over the alphabet~$\Gamma_2$. Each code
+word will have length~$\ell = \lceil\log_2 |\Gamma_1|\rceil$.
+Without loss of generality, the codewords for the symbols $0$ and~$1$
+are $0^\ell$ and~$1^\ell$; in addition, $M_2$~should
+use $\ell$~many~$\#$'s in place of a $0/1$-codeword for~$\#$.
+A configuration of~$M_1$ with the tape contents equal
+to $\cdots\# a_1 a_2 \ldots a_k \#\cdots$ and the tape head positioned
+on the symbol~$a_i$ will correspond to the configuration
+of~$M_2$ with tape contents $\cdots\# v_1 v_2\, \cdots\, v_k \#\cdots$
+where each~$a_i$ has been replaced with its codeword~$v_i$, and with
+$M_2$'s tape head positioned over the first symbol of~$v_i$.
+
+$M_2$~simulates $M_1$ by
+keeping track of $M_1$'s current state and simulating
+a single step of~$M_1$ by the following steps:
+(a)~First taking $\ell-1$~steps to scan rightward and
+read the current codeword, using $2^\ell-1$~many states. This
+lets $M_2$ know what symbol~$M_1$ is currently reading.
+(b)~Then moving leftward $\ell-1$~steps to overwrite the
+codeword with the new codeword for the symbol~$M_1$ would write. And,
+(c)~finally moving leftward or rightward $\ell$ tape cells, according to whether
+$M_1$'s tape head moves left or right, to position the
+tape head to be ready to simulate the next step of~$M_1$. 
+%To accomplish
+%this, each state of~$M_1$ is replaced by $(2^\ell-1) + 2 (\ell-1)$ many states:
+%$2^\ell-1$ states for task~(a), $\ell-1$ states for task~(b),
+%and $\ell-1$~states for task~(c).
+
+The Turing machine~$M_2$ can thus emulate the operation of~$M_1$ using
+the tape alphabet~$\Gamma_2$. But before $M_2$ can begin emulating the operation
+of~$M_1$, it needs
+to convert its input string~$w \in \Sigma^*$ into its encoded
+version~$w^*$.  This is done by replacing each symbol in~$w$
+with its $\ell$-symbol codeword.
+And, once $M_2$'s emulation of~$M_1$ discovers that
+$M_1$ has output a string~$v^*$, then
+$M_2$~has to convert it the encoded output string~$v^*$ back to the string
+$v \in \Sigma^*$ for~$M_2$ to output it.
+For example, suppose codewords have length $\ell =2$. 
+Then if $M_1$ takes input ``01'' and outputs
+``$010$'', then $M_2$~first replaces the input with ``$0011$'', then
+emulates~$M_1$ using codewords of length~$2$,
+and finally converts the encoded output ``$001100$''
+to just ``$010$''.
+
+These conversions from $w$ to~$w^*$ and from $v^*$ to~$v$ have to be done
+using
+the tape alphabet $\Gamma_2 = \{0,1,\#\}$.
+Exercise~\ref{exer:symboldoubling} asks you
+to give algorithms for this under the assumption that the codewords
+have length~$\ell =2$ and that the codewords for ``$0$'' and``$1$'' are
+``$00$'' and~``$11$''. Similar methods can be used for
+longer codewords, still using the tape alphabet $\Gamma_2 = \{0,1,\#\}$.
+
+This construction allows any Turing machine with input alphabet $\{0,1\}$ be
+converted into an equivalent Turing machine that uses the tape alphabet $\{0, 1, \#\}$.
+In particular, there is a universal Turing machine~$U$ which uses the tape alphabet
+$\{0,1,\#\}$. The only caveat is that if the universal Turing machine is to
+handle Turing machines that have input alphabet $\Sigma$ other than $\{0,1\}$,
+then the
+universal machine has to accept encoded inputs and output encoded outputs.
+
+\paragraph*{Using the tape alphabet {\boldmath $\{1, \#\}$}}
+It is even possible to restrict Turing machines to use the tape alphabet~$\{1,\#\}$.
+Turing machines with an alphabet of size~2, say $\Sigma=\{1,\#\}$, are typically
+envisioned as working on (non-negative) integers. An input or output string of the
+form~$1^n$ is viewed as representing the integer~$n$.
+
+We claim that any Turing machine with input alphabet $\Sigma= \{1\}$ can
+be simulated by a Turing machine with tape alphabet~$\{1,\#\}$. This is proved
+almost exactly like the just-given construction reducing Turing machines
+to machines that use $\Gamma = \{0,1,\#\}$. The only difference is now
+codewords use the two symbols $\#$ and~$1$ instead of $0$ and~$1$.  We formalize
+this as a theorem as it will be useful in Chapter~\ref{chap:ArithmeticIncompleteness}
+when we discuss how to represent decidable predicates and computable
+functions in first-order theories of arithmetic.
+
+Recall that Definitions \ref{def:integerTMs_1}-\ref{def:integerTMs_3} defined
+the computability of functions and the decidability of relations on~$\mathbb N$
+using Turing machines that encoded integers as $\{0,1\}$-strings
+in binary notations.
+
+\begin{theorem}\label{thm:AlphaBlank1}
+Let $\Sigma= \{1\}$ and $\Gamma = \{\#,1\}$.
+\begin{enumerateLoose}
+\item If $R$ is a decidable $k$-ary predicate on~$\mathbb N$, then there is
+a Turing machine with input alphabet~$\Sigma$ and tape alphabet~$\Gamma$
+that decides~$R$, using unary notation to encode its inputs.
+\item If $f$ is a computable $k$-ary function on~$\mathbb N$, then there is
+a Turing machine with input alphabet~$\Sigma$ and tape alphabet~$\Gamma$
+that computes~$f$, using unary notation to encode its inputs and outputs.
+\end{enumerateLoose}
+\end{theorem}
+
+\begin{proof} (Sketch)
+Turing machines with input alphabet $\{1\}$ represent integers~$n$
+in unary notation with strings $1^n$. Exercise~\ref{exer:binaryUnary} asks
+you to show Turing machines can convert between binary and unary notations.
+Thus, for purposes of
+decidability or computability, it does not matter whether integers are
+represented using binary notation or unary notation.
+
+Using unary notation for integers, the ``codeword'' construction above
+shows that decidable predicates and computable functions can be decided or
+computed by a Turing machine with tape alphabet $\{1,\#\}$.
+\end{proof}
+This theorem will be helpful in Chapter~\ref{chap:ArithmeticIncompleteness}, when
+we show that Turing machine computations are representable.
+
+
+\paragraph*{Multitape Turing machines.}\index{multitape Turing machine}
+So far, we have discussed only Turing machines that have
+a single two-way infinite tape, with a single tape head. It is common
+to also consider multitape Turing machines that have $k$~many tapes for
+some $k>1$. Each of the $k$~tapes has its own tape head, and the tape heads can move
+independently. The transition function~$\delta$ for a $k$~tape Turing machine takes as input
+the current state, and the $k$~symbols being read by the $k$~tape heads.
+The value of the transition function is the $k$~many symbols that overwrite
+the symbols on the $k$~tape, and $k$~many values from $\{\TR,\TL,\TN\}$ for ``move right'', ``move left''
+or ``no movement'', and the next state. Thus the transition function~$\delta$ is
+a mapping
+\[
+\delta ~:~ Q \times \Gamma^k ~\rightarrow~ \Gamma^k \times \{\TR,\TL,\TN\}^k \times Q .
+\]
+A tape head of a multitape Turing machine is allowed
+to remain stationary instead of moving
+left or right (using the  code~``$\TN$'' for ``no movement'')
+so as to have complete
+flexibility in the independent movement of the tape heads.  The first tape of a
+multitape Turing machine is the designated input/output tape. The input
+tape holds the inputs when the machine is started, and the rest of the tapes
+are initially blank. The output tape is usually the same as the input tape
+and holds the output when the Turing machine outputs a value.
+
+A multitape Turing machine~$M$ can
+be simulated by a single tape Turing machine~$N$, albeit
+with a quadratic slowdown in running time. The usual approach for constructing~$N$
+from~$M$ is something
+similar to the following. We let $\Gamma^\prime$ be the set containing the
+symbols~$a^\prime$ for $a \in \Gamma$. In other words, $\Gamma^\prime$~contains
+the ``breadcrumbed'' copies of symbols of~$\Gamma$. Then the tape alphabet of~$N$
+is $(\Gamma \cup \Gamma^\prime)^k$, so each symbol is a $k$-tuple of symbols
+from~$\Gamma$ possibly with breadcrumbs added. In this way, the contents of the $k$-tapes~$M$
+can be written ``in $k$ parallel tracks'' on the tape of~$N$; a tape cell of~$N$ holds
+the symbols of the corresponding cells on the $k$~tapes of~$M$. A symbol is marked with
+a breadcrumb to indicate that the corresponding tape head is currently reading that
+symbol. The intuition is that the tape of~$N$ has $k$~many tracks, with each track holding
+the contents of one tape of~$M$.
+
+It is straightforward to show that a Turing machine~$N$ of this type can simulate
+the action of~$M$. The finite state control of~$N$ can remember the relative positions of the
+$k$~tape heads on the $k$~tapes, relative to the tape head position of~$N$. Thus, $N$~can
+scan back and forth between the different tape head positions and make the
+appropriate
+updates to the contents of the $k$~tracks on its tape.   We leave the details
+to the reader to work out.
+
+

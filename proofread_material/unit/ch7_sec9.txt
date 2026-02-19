@@ -1,0 +1,439 @@
+\section{The Second Incompleteness Theorem}\label{sec:SecondIncomplete}
+\index{Second Incompleteness Theorem|(}
+
+The section proves the Second Incompleteness Theorem and some of its
+consequences, including L\"ob's Theorem. The proof uses the extensional
+approach as discussed in Section~\ref{sec:IntensionalExtensional}. This means
+that the theory~$T$ needs to be 
+substantially stronger than~$\TR$ so that it can prove
+simple metamathematical assertions about proofs and theorems.
+
+For the first part of this section, let $T$ be a fixed axiomatizable, consistent
+theory~$T$ extending~$\TR$. (Later in the section, we will need more assumptions
+about~$T$.)
+A sentence~$B$ is said to be \idxem{independent}
+of~$T$ if neither $B$ nor~$\lnot B$ is a consequence of~$T$.
+The First Incompleteness Theorem states that $T$~is not complete.
+However, the proofs of the First Incompleteness Theorem
+in Section~\ref{sec:FirstIncompleteness} were proofs by contradiction,
+and they did not give any example of a sentence~$B$ which is
+independent of~$T$.  This section will address this
+by providing examples of independent sentences.
+
+The first example will be essentially the diagonal formula~$D_A$
+used in the proof of the First Incompleteness Theorem based
+on self-reference. The second example will be a formula expressing
+the consistency of~$T$. Thus the second example will show that,
+with appropriate conditions, a theory~$T$ of arithmetic cannot prove
+the self-consistency statement ``$T$~is consistent''. This fact is
+known as the ``Second Incompleteness Theorem''.
+
+Recall that $\TProof_T$ and $\TPrf_T$ are decidable
+relations with $\TProof_T(w)$ expressing that $w$~is
+the G{\"o}del number of a $T$-proof, and $\TPrf_T(w,v)$
+expressing that $w$~is the G{\"o}del number of a
+$T$-proof of the formula with G{\"o}del number~$v$.
+Since these predicates are decidable,
+Theorem~\ref{thm:decidableAreRepresentable} tells us
+they are representable in~$\TR$.  We write
+$\scProof_T$ and $\scPrf_T$ to denote the formulas
+which represent $\TProof_T$ and $\TPrf_T$ in~$\TR$.
+So,
+\begin{center}
+\begin{tabular}{rcl}
+$\scProof_T(x_1)$ & represents & $\TProof_T$ \\
+$\scPrf_T(x_1,x_2)$ & represents & $\TPrf_T$
+\end{tabular}
+\end{center}
+The difference in fonts, as in ``$\TPrf_T$'' versus ``$\scPrf_T$'',
+is just to stress that the former is a binary relation on~$\mathbb N$
+where the latter is an $L_\PA$-formula.
+
+Since $\TR$~is a true theory and $\scPrf_T$ represents $\TPrf_T$ in~$\TR$,
+it also defines $\TPrf_T$ in~$\mathcal N$. Namely,
+for all $n, m\in \mathbb N$,
+\[
+\mathcal N \vDash \scPrf_T(n,m) ~~\Leftrightarrow~~ \langle n,m \rangle \in \TPrf_T .
+\]
+
+The formula $\scThm_T(x)$ is defined to be the formula $\exists y\, \scPrf_T(y,x)$.
+Since $\scPrf_T$ defines the relation $\TPrf_T$ in~$\mathcal N$, it follows
+that $\scThm_T(x)$ defines the set of theorems of~$T$. Namely, for all $m \in \mathbb N$,
+
+\[
+\mathcal N \vDash \scThm_T(m) ~~\Leftrightarrow~~
+      \hbox{$m = \lgn A\rgn$ for some~$A$ such that $T\vDash A$}.
+\]
+
+Let $D$ be a formula obtained from the Diagonal
+Theorem~\ref{thm:DiagTR}
+such that\footnote{Note
+that this $D$ is very similar to the $D_A$ used in the
+last proof of Section~\ref{sec:FirstIncompleteness} of the
+First Incompleteness Theorem, since in that proof, $A$~was presumed
+to represent $\overline{\TThm_T}$. The difference is that the earlier
+proof was by contradiction, so the existence of~$A$ was based on the
+(false) assumption that $\TThm_T$ is decidable and hence
+representable in~$\TR$. The definition of~$D$
+now uses just the fact that $\TThm_T$ is {\em definable} in~$\mathcal N$.}
+\begin{equation}\label{eq:DiagDfmla}
+\TR ~\vdash~ D \liff \lnot \scThm_T(\underline{\lgn D \rgn}) .
+\end{equation}
+
+\begin{theorem}[\hbox{Incompleteness Theorem --- explicit unprovable true formula}]
+\label{thm:SelfReferUnprovable}
+Let $T$ be a consistent, axiomatizable extension of~$\TR$.
+Suppose $D$ satisfies~{\rm(\ref{eq:DiagDfmla})}.  Then $D$~is true in~$\mathcal N$
+and $T \nvdash D$.
+\end{theorem}
+
+The formula $D$ says ``I am not provable
+in~$T$''.
+The intuition for the proof of Theorem~\ref{thm:SelfReferUnprovable} is as follows.
+First, for simplicity, let's assume that $T$ is a true theory.
+If $D$~is false, then $T$ does prove~$D$. But this
+would mean $T$~proves a false formula, contradicting the assumption
+that $T$ is a true theory. So $D$ must be true and hence not
+provable in~$T$.
+
+To extend the intuition to the general case where we do not use the assumption
+that $T$ is true, we argue as follows. First, if $T$ proves~$D$, then $T$~proves
+``$T$~does not prove~$D$''; this is by the self-referential choice of~$D$. On
+the other hand, if $T$ proves~$D$, there is a finite, explicit $T$-proof
+of~$D$ with some G{\"o}del number~$m$. Examining this $T$-proof shows that it is indeed
+a $T$-proof; this can be done in~$\TR$ and hence in~$T$, showing that $T$~proves
+``$T$ proves~$D$''.  But $T$ is consistent, so it cannot prove both
+``$T$~does not prove~$D$'' and ``$T$ proves~$D$''. Thus $T$ cannot prove~$D$.
+
+The proof of Theorem \ref{thm:SelfReferUnprovable} makes this informal argument formal:
+
+\begin{proof}
+From (\ref{eq:DiagDfmla}), we have
+\[
+T \vdash D ~ \Leftrightarrow ~ T\vdash \lnot \scThm_T(\underline{\lgn D \rgn}) .
+\]
+On the other hand, we have
+\begin{implications}
+\multicolumn{3}{l}{$T\vdash D$} \\
+& $\Leftrightarrow$ & ${\mathcal N} \vDash \scThm_T(\underline{\lgn D \rgn})$ & By definition of $\scThm_T$ \\
+& $\Leftrightarrow$ & ${\mathcal N} \vDash \scPrf_T(\underline m, \underline{\lgn D \rgn})$, for some $m\in \mathbb N$ & By definition of $\scThm_T$ \\
+& $\Leftrightarrow$ & $\TR \vdash \scPrf_T(\underline m,\underline{\lgn D \rgn})$, for some $m\in \mathbb N$ & $\scPrf_T$ represents $\TPrf_T$ \\
+& $\Leftrightarrow$ & $\TR \vdash \scThm_T(\underline{\lgn D \rgn})$ & By definition of $\scThm_T$ \\
+&&&~~~ and since $\TR$ is a true theory \\
+& $\Rightarrow$ & $T \vdash \scThm_T(\underline{\lgn D \rgn})$ & Since $T \supseteq \TR$
+\end{implications}
+
+We shown that if $T\vdash D$, then both $\scThm_T(\underline{\lgn D \rgn})$
+and $\lnot \scThm_T(\underline{\lgn D \rgn})$ are consequences of~$T$, contradicting
+the consistency of~$T$. Therefore $T\nvdash D$.
+\end{proof}
+
+Theorem~\ref{thm:SelfReferUnprovable} left open the possibility
+that $T$ proves~$\lnot D$. This can be ruled out if $T$~is
+$\omega$-consistent\index{omega consistent@{$\omega$-consistent}}:
+
+\begin{theorem}[\hbox{Incompleteness Theorem --- explicit independent formula}]
+\label{thm:SelfReferIndependent}
+Let $T$ be an $\omega$-consistent, axiomatizable extension of~$\TR$.
+Suppose $D$ satisfies~{\rm(\ref{eq:DiagDfmla})}.  Then $D$~is independent
+of~$T$.
+\end{theorem}
+\begin{proof}
+From the previous theorem, $T\nvdash D$, so we only need to show
+that $T\nvdash \lnot D$. Suppose that $T \vdash \lnot D$. By {\rm(\ref{eq:DiagDfmla})},
+$T \vdash \exists x\, \scPrf_T(x, \underline{ \lgn D \rgn })$.
+
+On the other hand, by the previous theorem, there is no
+$T$-proof of~$D$, hence $\TPrf_T(m, \lgn D \rgn)$ is false for
+every $m\in\mathbb N$. Since $\scPrf_T$ represents~$\TPrf_T$,
+we have $T \vdash \lnot \scPrf_T(\underline m, \underline{ \lgn D \rgn })$
+for every~$m$. This contradicts the $\omega$-consistency of~$T$.
+\end{proof}
+
+Theorem~\ref{thm:SelfReferIndependent} gives
+an independent sentence~$D$. This works even for $T$ a very natural
+and strong theory such as Peano Arithmetic (PA).
+The problem is that $D$ is
+a somewhat strange, self-referential, formula. As such, one might
+object to the importance of~$D$ as an independent sentence just
+because it is self-referential. The Second Incompleteness Theorem
+addresses this by giving an alternative formula $\scCon_T$
+which is independent of~$T$ (after making some additional, but natural,
+assumptions about~$T$). $\scCon_T$~express the property that
+``$T$~is consistent''  so, informally, the
+Second Incompleteness Theorem states that no arithmetic theory~$T$ can
+prove its own consistency (under suitable assumptions about~$T$).
+
+
+\bigskip
+\paragraph*{The Second Incompleteness Theorem.}
+The intuition
+for the Second Incompleteness Theorem comes from the
+observation that
+Theorem~\ref{thm:SelfReferUnprovable} can be restated as follows:
+\begin{corollary}\label{ConImpliesD}
+Let $T$ be an axiomatizable extension of~$\TR$. Then,
+\[
+\hbox{If $T$ is consistent, then $D$~is true in~$\mathcal N$.}
+\]
+\end{corollary}
+We already know that $T$~does not prove~$D$.
+From the corollary, we can make an intuitive leap
+and conjecture that since $D$ is unprovable in~$T$,
+also the consistency
+of~$T$ is unprovable in~$T$. Making this ``intuitive leap''
+formal is exactly what is needed to prove the Second
+Incompleteness Theorem.
+As we shall see next, the notion of ``$T$~is consistent'' can
+be formalized as a sentence~$\scCon_T$. Then, with some additional
+assumptions on~$T$, we will be able to establish that $T$ proves
+$\scCon_T \limplies D$ and consequently that $T$~does not
+prove $\scCon_T$.
+
+\begin{definition}
+Let $T$ be an axiomatizable theory in the language~$L_\PA$. Then
+$\scCon_T$ is the sentence
+\[
+\lnot \scThm_T(\underline{\lgn 0=1 \rgn}),
+\]
+where we write ``0=1'' as a shorthand notation
+for ``0=S(0)'' or ``0=\underline 1''. In other words, 
+$\underline{\lgn 0=1 \rgn}$ 
+means the term $S^m 0$ where $m \in \mathbb N$ is the
+G{\"o}del number of the formula $0=S(0)$.
+
+Similarly, $\scCon_T$ is the sentence
+$\lnot \exists x \, \scPrf_T(x, \underline{\lgn 0=1 \rgn})$.
+\end{definition}
+
+We need some extra conditions for the proof of the
+Second Incompleteness Theorem. The idea is that $T$ should not only
+contain $\TR$ but should also be strong enough to prove simple properties
+about the formulas $\scPrf_T$ and $\scThm_T$. These are expressed by the
+Hilbert-Bernays-L\"ob conditions:
+
+\begin{definition}
+Let $T\supseteq R$ be an axiomatizable theory in the language~$L_\PA$. The
+Hilbert-Bernays-L\"ob conditions for~$T$ state the following
+hold for all $L_\PA$-sentences $A$ and~$B$:
+\begin{itemizeLoose}[labelwidth=\widthof{$\THBL_3$:},leftmargin=!]
+\item[$\THBL_1$:] If $T \vdash A$, then $T \vdash \scThm_T(\underline{\lgn A\rgn})$.
+\item[$\THBL_2$:] $T$ proves
+    $\scThm_T(\underline{\lgn A\rgn}) \limplies
+         \scThm_T ( \underline{ \lgn \scThm_T(\underline{\lgn A\rgn}) \rgn } )$.
+\item[$\THBL_3$:] $T$ proves
+      $\scThm_T(\underline{\lgn A \rgn}) \land \scThm_T(\underline{\lgn A\limplies B \rgn}) \limplies
+       \scThm_T(\underline{\lgn B \rgn})$.
+\end{itemizeLoose}
+\end{definition}
+
+It turns out that the Hilbert-Bernays-L\"ob conditions are very natural
+and hold for many sufficiently powerful theories~$T$ of arithmetic,
+including~$\PA$. For this, formulas such as $\scPrf_T$ and $\scThm_T$
+must be formulated in a sufficiently straightforward and natural way.
+
+It is not hard to see that the condition $\THBL_1$ holds for
+any axiomatizable theory~$T$ that extends~$\TR$. At least, this holds if $\scThm_T$ is
+formalized as described earlier, using a formula $\scPrf_T$ that represents
+$\TPrf_T$ in~$\TR$. The argument is just that if $T\vdash A$, then there is
+a particular $T$-proof, with some G{\"o}del number~$m$, and then
+$\TPrf_T(m, \lgn A \rgn)$ is true and hence
+$T$~can
+prove that $\scPrf_T(\underline m, \underline{\lgn A \rgn})$ holds.
+From this, $T$~can prove $\scThm_T(\underline{\lgn A\rgn})$.
+
+The condition $\THBL_2$ can be viewed as a formalized
+version of $\THBL_1$. That is, $\THBL_2$ states that
+the implication of~$\THBL_1$ can be proved as a general principle
+in~$T$. The argument formalizes the fact that if $A$ has a $T$-proof~$P$,
+then there is a definable method to transform~$P$ into a $T$-proof of
+$\scThm_T(\underline{\lgn A \rgn})$. The difficulty is that
+the $T$-proof~$P$ is not known: it is just the (unknown) value of
+the leading existential quantifier in $\scThm_T$.
+Carrying out the proof of~$\THBL_2$ in a theory such
+as $\PA$ can be detailed and lengthy; we do not present it here.
+
+The condition $\THBL_3$ is simpler. Informally, it states that
+$T$ can prove that if $A$ has a $T$-proof~$P_1$ and $A\limplies B$
+has a $T$-proof~$P_2$, then there is a $T$-proof~$P_3$ of~$B$. The intuition
+is that the $T$-proof of~$B$ is formed by concatenating the $T$-proofs $P_1$
+and~$P_2$, and then appending the formula~$B$ as derived by a
+use of modus ponens. Viewed in this way, the condition $\THBL_3$ is
+almost a triviality, as it is just a formalized version of
+Modus Ponens. However, it does depend on the theory~$T$
+being strong enough to define --- and prove properties of ---
+predicates and functions that parse
+and manipulate $T$-proofs.
+
+We henceforth work with theories that satisfy the
+Hilbert-Bernays-L\"ob conditions.
+One such theory is the
+theory~$\PA$ of Peano Arithmetic. $\PA$~is a true theory, but
+there are also non-true theories that satisfy the
+Hilbert-Bernays-L\"ob conditions, for instance the
+theory $\PA + \lnot \TCon_\PA$.
+
+\begin{lemma}\label{lem:ConProperties}
+Suppose $T$~is a consistent axiomatizable theory extending~$\TR$
+that satisfies the Hilbert-Bernays-L\"ob conditions. 
+Let $A$~be an $L_\PA$-formula.
+Then
+\begin{itemizeLoose}
+\item[(a)] $T$ proves $\lnot \scCon_T \limplies \scThm_T(\underline{\lgn A \rgn})$.
+\item[(b)] $T$ proves
+\[
+\scThm_T(\underline{\lgn A \rgn}) \limplies \scThm_T(\underline{\lgn \lnot A \rgn})
+   \limplies \scThm_T(\underline{\lgn \lnot \scCon_T \rgn}) .
+\]
+\end{itemizeLoose}
+\end{lemma}
+
+Lemma~\ref{lem:ConProperties} shows the theory~$T$ can
+formalize enough metamathematics to prove that
+$\scCon_T$ properly formalizes the
+statement that $T$ is consistent. Namely, part~(a) states that if
+$T$ is inconsistent, then every formula~$A$ is a consequence of~$T$.
+And, part~(b) states that if $T$~proves directly contradictory
+formulas, then $T$~proves that $T$ is inconsistent.
+Furthermore, these facts are provable by~$T$.
+
+\begin{proof}
+We prove~(a) first. Since $T\supseteq \TR$, $T \vdash 0 \neq 1$.
+Therefore, $T \vdash 0=1 \limplies A$. By $\THBL_1$,
+$T$~proves $\scThm_T(\underline{ \lgn 0=1 \limplies A \rgn })$.
+By $\THBL_3$, $T$~proves
+\[
+\scThm_T(\underline{\lgn 0=1 \rgn}) \limplies
+    \scThm_T(\underline{\lgn 0=1 \limplies A \rgn}) \limplies
+    \scThm_T(\underline{\lgn A\rgn}).
+\]
+$\TCon_T$ is the same as
+$\lnot \scThm_T(\underline{\lgn 0=1 \rgn})$. Part~(a)
+follows tautologically.
+
+We now prove~(b). By $\THBL_1$, $T$ proves
+$\scThm_T(\underline {\lgn A \limplies \lnot A \limplies 0=1\rgn})$.
+By two uses of $\THBL_3$,
+\[
+T~\vdash~\scThm_T(\underline {\lgn A\rgn}) \land
+          \scThm_T(\underline {\lgn A \limplies \lnot A \limplies 0=1\rgn})
+         \limplies \scThm_T(\underline {\lgn \lnot A \limplies 0=1\rgn})
+\]
+and
+\[
+T~\vdash~\scThm_T(\underline {\lgn \lnot A \rgn})
+    \land \scThm_T(\underline {\lgn \lnot A \limplies 0=1\rgn})
+    \limplies \scThm_T(\underline {\lgn 0=1\rgn}) .
+\]
+Putting these together proves part~(b).
+\end{proof}
+
+\begin{theorem}[Second Incompleteness Theorem]
+Suppose $T$~is a consistent axiomatizable theory extending~$\TR$
+that satisfies the Hilbert-Bernays-L\"ob conditions.
+Then
+\[
+T \nvdash \scCon_T.
+\]
+\end{theorem}
+
+\begin{proof}
+Let $D$ be the unprovable self-referential
+formula of~(\ref{eq:DiagDfmla}), chosen so that
+$R \vdash D \liff \lnot \scThm_T(\underline{\lgn D \rgn})$.
+Theorem~\ref{thm:SelfReferUnprovable} established that $T\nvdash\penalty10000 D$.
+We shall prove that $T$ proves $\lnot D \limplies \lnot \scCon_T$.
+From this, it follows that $T$~proves $\scCon_T \limplies D$ and therefore
+$T \nvdash \scCon_T$.
+
+Note that
+\begin{equation}\label{eq:SIT_1}
+T ~\vdash~ \lnot D \limplies \scThm_T(\underline{\lgn D \rgn})
+\end{equation}
+by choice of~$D$.
+By $\THBL_2$,
+\begin{equation}\label{eq:SIT_2}
+T ~\vdash~ \scThm_T(\underline{\lgn D \rgn}) \limplies
+   \scThm_T(\underline{\lgn \scThm_T(\underline{\lgn D \rgn})\rgn}).
+\end{equation}
+By choice of $D$ again, $T$ proves $\scThm_T(\underline{\lgn D \rgn}) \limplies \lnot D$.
+Hence by $\THBL_1$,
+\begin{equation}\label{eq:eqSIT_3}
+T ~\vdash~ \scThm(\underline{\lgn \scThm_T(\underline{\lgn D \rgn}) \limplies \lnot D \rgn}) .
+\end{equation}
+From $\THBL_3$, (\ref{eq:eqSIT_3}) gives that
+\begin{equation}\label{eq:SIT_4}
+T ~\vdash~ \scThm(\underline{\lgn \scThm_T(\underline{\lgn D \rgn})}) \limplies \scThm(\underline{\lgn\lnot D \rgn}) .
+\end{equation}
+From (\ref{eq:SIT_1}), (\ref{eq:SIT_2}) and (\ref{eq:SIT_4}), we obtain
+\begin{equation}\label{eq:SIT_5}
+T ~\vdash~ \lnot D \limplies \scThm_T(\underline{\lgn \lnot D \rgn}).
+\end{equation}
+From (\ref{eq:SIT_1}) and (\ref{eq:SIT_5})
+and by Lemma~\ref{lem:ConProperties}(b) with $A$~equal to~$D$
+and $B$~equal to $0=1$, we obtain
+\[
+T ~\vdash~ \lnot D \limplies \lnot \scCon_T
+\]
+as desired. This completes the proof of the Second Incompleteness Theorem.
+\end{proof}
+
+We have established that $T$ cannot prove $\scCon_T$ --- at least assuming
+that $T$ is a consistent, axiomatizable extension of~$\TR$. In this case, $\scCon_T$
+is a true statement that is not provable in~$T$. Unlike the earlier
+formula~$D$ asserting its own unprovability, $\scCon$~is a natural statement,
+with an intuitive meaning that does not depend on self-reference. As such, it is a
+very satisfying example of the limitation of almost any useful strong
+theory of arithmetic.
+
+One might still complain that $\scCon_T$ is metamathematical in nature, not
+quite purely mathematical in the normal sense of mathematics. There
+other statements that are independent of~$\PA$ that are more natural
+in the sense that they do not explicitly involve metamathematical
+concepts.  These other independent statements are beyond the scope
+of the present text, but the interested reader can seek them out by
+doing an internet search for the ``Paris-Harrington theorem'',
+the ``hydra theorem'', the ``Goodstein theorem'', and related constructions.
+
+\medskip
+
+The next obvious question is whether $\scCon_T$ is always independent
+of~$T$. The answer is no. To see this, let $T$ be any
+axiomatizable, consistent extension of~$\TR$. By the Second Incompleteness
+Theorem, $T\nvdash \scCon_T$. Therefore, if we let $T^\prime$ be the
+theory $T \cup \{\lnot \scCon_T\}$, it must be that $T^\prime$ is
+consistent. Clearly, $T^\prime$ is also axiomatizable.
+It is in addition reasonable to assume that
+$T^\prime \vdash \scCon_{T^\prime} \limplies \scCon_T$
+just because any $T$-proof is a $T^\prime$-proof.\footnote{Strictly
+speaking, we need some extra assumptions. In particular, we
+want $T$~to prove $\scThm_{T^\prime}(\lgn A \rgn)$ is
+equivalent to $\scThm_T(\lgn \scCon_T \limplies A\rgn)$.
+This certainly holds for any straightforward way of
+formalizing metamathematics in a powerful theory such as~$\PA$.
+See also the comments after the statement of L\"ob's Theorem.}\label{footnote:Tprime}
+Therefore
+$T^\prime \vdash \lnot \scCon_{T^\prime}$ just because
+$T^\prime \vdash \scCon_{T^\prime} \limplies \scCon_T$.
+
+On the other hand, the extra condition of $\omega$-consistency
+is enough to ensure that $\scCon_T$ is independent of~$T$.
+\begin{theorem}
+Suppose $T\supseteq \TR$ is $\omega$-consistent and axiomatiable
+and satisfies the Hilbert-Bernays-L\"ob conditions. Then
+$\scCon_T$ is independent of~$T$.
+\end{theorem}
+
+\begin{proof}
+We already proved that $T\nvdash \scCon_T$. So suppose
+that $T\vdash \lnot\scCon_T$; that is, that
+$T\vdash \exists y \, \scPrf_T(y,\underline{ \lgn 0=1 \rgn })$.
+Since $T$ is consistent and $T\supseteq R$, and since
+$\scPrf_T$ represents $\TPrf_T$, we have
+that $T \vdash \lnot \scPrf_T(\underline m, \underline{ \lgn 0=1 \rgn })$
+for every $m \in \mathbb N$. This contradicts the
+$\omega$-consistency of~$T$.
+\end{proof}
+
+\index{Second Incompleteness Theorem|)}
+

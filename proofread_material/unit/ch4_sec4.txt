@@ -1,0 +1,490 @@
+\section{Proof of the Completeness Theorem}\label{sec:completenessProofFO}
+
+We now prove the Completeness Theorem~\ref{thm:completeFO}. For this,
+it suffices to prove part~(a), so we assume that $\Gamma$~is
+a consistent set of formulas and need to prove that $\Gamma$~is
+satisfiable by constructing a structure~$\mathfrakA$ which
+satisfies~$\Gamma$. The proof will use the same ideas as the
+proof of the Completeness Theorem for the propositional
+proof system~$\PL$; however, there are substantial additional
+ingredients needed to handle quantifiers and to construct a
+model~$\mathfrakA$ of~$\Gamma$.  Very briefly, the proof requires the
+following steps: First, additional constant symbols are introduced
+and $\Gamma$ is extended to a set~$\Delta$ of sentences which
+is ``strongly Henkin''. Second, \idxnm{Lindenbaum's Theorem}
+is used to further extend~$\Gamma$ to
+to a set~$\Pi$ of sentences which
+is complete and still consistent and strongly Henkin.
+Third, a structure~$\mathfrakA$ is constructed that satisfies~$\Pi$.
+
+We will need to be careful at times about what language
+is being used. We assume that $\Gamma$ is a set of
+$L$-sentences. We also use a larger language~$L^\plus$ which
+extends $L$ with the addition of constant symbols~$d_i$
+so that
+\begin{equation}\label{eq:Lplus}
+L^\plus ~=~ L \cup \{ d_1, d_2, d_3,\ldots \}.
+\end{equation}
+The constant symbols~$d_i$ are new and are not in~$L$.
+The sets $\Delta$ and~$\Pi$ will be sets of $L^\plus$-sentences.
+The structure~$\mathfrakA$ will be an $L^\plus$-structure,
+but in the end, $\mathfrakA$~will be restricted to the language~$L$
+so as to obtain an $L$-structure satisfying~$\Gamma$.
+
+\paragraph*{Henkin and strongly Henkin.}
+
+Recall that a \idxnm{closed term} is a term that does not contain any variables~$x_i$.
+For example, $0+S(0)$ is a closed $L_\PA$-term, but $0+x_1$ is not.
+
+\begin{definition}
+Let $\Gamma$ be a set of $L$-sentences.
+The set~$\Gamma$ is \idxem{Henkin} if the following holds:
+For any sentence $\exists x\, A(x)$ such that $\Gamma \vdash \exists x\, A(x)$,
+there is a closed $L$-term~$t$ such that $\Gamma \vdash A(t)$.
+\end{definition}
+
+The point of being Henkin is that, for any provable
+sentence~$\exists x\, A(x)$ that asserts the
+existence of an object, there is a closed term~$t$ that
+gives an example of such an object.  The closed term~$t$,
+being variable-free, serves as a name for a particular object; it can
+be considered to be ``\idxnm{witness}'' for the truth
+of $\exists x\, A(x)$.
+
+The Henkin property was stated using $\exists x$.
+By convention, $\exists x$~is
+an abbreviation for $\lnot \forall x \lnot$. Therefore, an equivalent way to state
+the Henkin property is as follows:
+For any formula~$A$, if $\Gamma \vdash \lnot \forall x\, A(x)$,
+then for some closed term~$t$, $\Gamma \vdash \lnot A(t)$.
+The term~$t$ can be viewed as a ``\idxnm{counterexample}''
+that witnesses the falsity of $\forall x\, A(x)$.
+
+\begin{definition}
+Let $\Gamma$ be a set of $L$-sentences.
+The set~$\Gamma$ is \idxem{strongly Henkin} if the following holds:
+For any sentence $\forall x\, A(x)$,
+there is a constant symbol~$c\in L$ such that
+the sentence
+\[
+A(c) \limplies \forall x \,  A(x)
+\]
+is a member of~$\Gamma$.
+\end{definition}
+Note that if $\Gamma$~is strongly Henkin, then $\Gamma$~is Henkin.
+This is because $c$ is a closed term, and by the previous remark
+and Modus Tollens.
+
+Given that $\Gamma$ is consistent, we wish to form a larger
+set~$\Delta$ of sentences which augments~$\Gamma$
+to be both consistent and strongly Henkin. For this, we must introduce
+new constant symbols. (Indeed, the language~$L$ may not
+have any constant symbols at all, and thus there may not even be any
+closed $L$-terms.)
+
+\begin{lemma}\label{lem:stronglyHenkin}
+Suppose $\exists x\, A(x)$ is an $L$-sentence and $\Gamma$~is a
+consistent set of $L$-sentences.
+Let $c$ be a new constant symbol, so $c\notin L$. Then
+\[
+\hbox{ $\Gamma \cup \{ A(c) \limplies \forall x\, A(x)\}$ is consistent.}
+\]
+\end{lemma}
+\begin{proof}
+Suppose the conclusion fails. Then, by the
+Proof by Contradiction
+Theorem~\ref{thm:ProofByContradictionFO}(b),
+\[
+\Gamma \vdash \lnot [ A(c) \limplies \forall x\, A(x) ].
+\]
+Therefore, by the TAUT rule, $\Gamma \vdash \lnot \forall x\, A(x)$
+and $\Gamma \vdash A(c)$. From the latter, since $c$ is new,
+the Theorem on Constants~\ref{thm:constantsSyntactic} implies that
+$\Gamma \vdash \forall x\, A(x)$. This contradicts the consistency
+of~$\Gamma$.
+\end{proof}
+
+Henceforth, we let $d_1,d_2,d_3,\ldots$ be new constant symbols
+that do not appear in~$\Gamma$, and let $L^\plus$ be the language~(\ref{eq:Lplus})
+consisting of $L$ plus the constant symbols~$d_i$.
+
+\begin{theorem}\label{thm:stronglyHenkinDelta}
+Suppose $\Gamma$ is a consistent set of $L$-sentences.
+Then there is a consistent and strongly Henkin set~$\Delta$
+of $L^\plus$-sentences such that $\Delta \supseteq \Gamma$.
+\end{theorem}
+
+\begin{proof}
+We will form $\Delta$ by adding sentences to~$\Gamma$ one at a time
+while preserving consistency.  Enumerate all $L^\plus$-sentences that start
+with a universal quantifier in an infinite sequence as
+\[
+\forall x_{k_1} A_1(x_{k_1}), \,
+\forall x_{k_2} A_2(x_{k_2}), \,
+\forall x_{k_3} A_3(x_{k_3}), \, \ldots
+\]
+so that no constant symbol $d_j$ appears in any $\forall x_{k_i} A_i(x_{k_i})$
+with $i\le j$.\footnote{One way to do this is to enumerate
+the $L^\plus$-sentences in arbitrary order, discarding the ones that do not
+start with the symbol~$\forall$. To ensure that the constant symbol~$d_j$
+does not appear in the first $j$~formulas, one can insert
+extra sentences into the sequence, say of the form $\exists x_1 \, x_1=x_1$
+(if the equality sign,~$=$, is in~$L$)
+or $\forall x_1\, (P(x_1,\ldots,x_1)\liff P(x_1,\ldots,x_1))$. These
+extra inserted sentences serve no purpose except to delay the appearance of
+a constant symbol~$d_j$ until after the $j$-th sentence.}
+The important point is that every sentence of the form $\forall x\, A(x)$
+appears in the sequence at least once.
+It is OK if the same sentence appears multiple times in the sequence.
+
+Define $\Gamma_0 = \Gamma$ and for each $i > 0$, define
+\begin{equation}\label{eq:stronglyHenkinThm}
+\Gamma_i ~=~ \Gamma_{i-1} \cup \{ A_i ( d_i ) \limplies \forall x_{k_i}\, A(x_{k_i}) \}.
+\end{equation}
+We claim that each $\Gamma_i$ is consistent. This is readily proved by
+induction on~$i$; the induction step can use Lemma~\ref{lem:stronglyHenkin}
+since $d_i$ does not appear in $\Gamma_{i-1}$ or in $A(x_{k_i})$.
+
+The set $\Delta$ is defined as $\Delta = \bigcup_i \Gamma_i$.
+Note $\Gamma_i \supset \Gamma_{i-1}$ for all~$i$. If $\Delta$~was inconsistent,
+then since $\FO$-proofs are finite, some finite subset of~$\Delta$ would be
+inconsistent. That would imply that some $\Gamma_i$ is inconsistent.
+Therefore, $\Delta$~must be consistent.  By construction, $\Delta$~contains
+all sentences of the form $A_i ( d_i ) \limplies \forall x_{k_i}\, A(x_{k_i})$ and thus is
+strongly Henkin.
+\end{proof}
+
+\paragraph*{Lindenbaum's theorem.}
+\idxnm{Lindenbaum's Theorem} was earlier proved for the propositional
+proof system~$\PL$. The same construction works also for
+sets of first-order sentences.
+
+\begin{definition}
+A set~$\Gamma$ of sentences is \idxem{complete} if, for
+every sentence $A$, either $A\in \Gamma$ or $\lnot A \in \Gamma$.
+\end{definition}
+
+\begin{theorem}[Lindenbaum's Theorem]
+\label{thm:lindenbaumFO}\index{Lindenbaum's Theorem}
+Suppose $\Gamma$ is a consistent set of sentences. Then there is
+a consistent, complete set~$\Pi$ of sentences such that $\Gamma \subseteq \Pi$.
+\end{theorem}
+
+\begin{proof}
+The proof is identical to the proof of Lindenbaum's Theorem~\ref{thm:lindenbaumPL}
+except that now we are working with first-order sentences instead of
+propositional formulas and that Theorem~\ref{thm:extendConsisFO}
+is used instead of Corollary~\ref{coro:extendConsis}.
+\end{proof}
+
+So far, we have established that $\Gamma$ can be extended
+to a complete and strongly Henkin set of sentences.
+
+\begin{corollary}\label{coro:lindenbaum Henkin}
+Suppose $\Gamma$ is a consistent set of~$L$-sentences. There
+there is a consistent, complete, strongly Henkin set $\Pi$
+of $L^\plus$-sentences such that $\Gamma \subseteq \Pi$.
+\end{corollary}
+
+\begin{proof}
+First use Theorem~\ref{thm:stronglyHenkinDelta} to
+form $\Delta$ as a strongly Henkin, consistent set of
+$L^\plus$-sentences such that $\Delta \supset \Gamma$. Then apply
+Lindenbaum's Theorem~(\ref{thm:lindenbaumFO}) to
+obtains a consistent, strongly Henkin, complete set~$\Pi$
+of $L^\plus$-sentences such that $\Pi \supset \Delta$.
+\end{proof}
+
+Note that Lindenbaum's Theorem is applied to~$\Delta$, not~$\Gamma$.
+Namely, the strongly Henkin construction is done before
+Lindenbaum's Theorem is invoked.
+
+\begin{lemma}\label{lem:gammaProperties}
+Let $\Pi$ be a strongly Henkin, consistent, complete set
+of $L^\plus$-sentences as above. Suppose $A$, $B$ and $\forall x\, C(x)$
+are $L^\plus$-sentences.
+\begin{itemize}
+\item[(a)] $A\in \Pi$ if and only if $\lnot A \notin \Pi$.
+\item[(b)] $A\limplies B \in \Pi$ if and only if $A\notin\Pi$ or $B\in \Pi$.
+\item[(c)] If $\Pi \vdash A$, then $A\in \Pi$.
+\item[(d)] $\lnot \forall x\, C(x) \in \Pi$ if and only if, for some closed term~$t$, $\lnot C(t) \in \Pi$.
+\item[(e)] $\forall x\, C(x) \in \Pi$ if and only if, for all closed terms~$t$, $C(t) \in \Pi$.
+\end{itemize}
+\end{lemma}
+
+\begin{proof}
+The proofs of parts (a) and~(b) are identical to
+the proof of Lemma~\ref{lem:completePLconds} except
+that now $A$ and~$B$ are first-order sentences instead
+of propositional formulas.
+For part~(c), suppose
+$\Pi\vdash A$. Then
+$\lnot A$ cannot be in~$\Pi$, since otherwise $\Pi$ would
+be inconsistent. Then, by~(a), $A \in \Pi$.
+
+For (d), first suppose $\lnot \forall x\, C(x) \in \Pi$.
+Since $\Pi$ is strongly Henkin, it is also Henkin;
+therefore, $\Pi \vdash \lnot C(t)$ for some closed
+term~$t$. By~(c), $\lnot C(t)$ is in~$\Pi$.
+Second suppose $\lnot C(t) \in \Pi$.
+Since $\lnot C(t) \vdash \lnot \forall x\, C(x)$,
+part~(c) implies that $\lnot \forall x\, C \in\penalty10000 \Gamma$.
+That proves~(d).
+
+Part~(e) is immediate from parts (a) and~(d).
+\end{proof}
+
+\paragraph*{Construction of a Henkin model.}
+The next step in the proof of the Completeness Theorem
+is to define an $L^\plus$-structure~$\mathfrakA$ that will be shown
+to satisfy~$\Pi$. The intuition for constructing~$\mathfrakA$ is
+that the complete set~$\Pi$ will guide the choice of what is
+true in~$A$. This is analogous to what was done in the
+proof of the Completeness Theorem~\ref{thm:completePL}
+for propositional logic~($\PL$), where
+a truth assignment was defined by letting $\varphi(p_i)=\True$
+if and only if $p_i\in\Pi$. And, indeed, the
+structure~$\mathfrakA$ will be defined so that
+$P^\mathfrakA(t_1,\ldots, t_k)$ is true if and only
+if $P(t_1,\ldots, t_k) \in \Pi$.
+
+But, since we are working in first-order logic,
+we also must define the
+universe~$|\mathfrakA|$ and give interpretations
+to the constant symbols and function symbols.
+The solution to this is simultaneously
+ingenious and straightforward: the universe
+of~$\mathfrakA$ consists of (essentially) the
+closed $L^\plus$-terms. If the equality sign is not
+included in the language~$L$, this idea works without
+modification. However, if the equality sign,~$=$,
+is part of the language~$L$, then the universe
+of~$\mathfrakA$ consists of the set of closed $L^\plus$-terms,
+but identifying terms $s$ and~$t$ such that $s=t$ is
+in~$\Pi$.  This identification is done by showing
+that ``$s=t\in \Pi$'' is an equivalence relation~$\sim$ on terms.
+We will write $[s]$ to denote
+the equivalence class containing~$s$. The universe~$|\mathfrakA|$ will
+be the set of equivalence classes~$[s]$,
+for $s$ ranging over the closed $L^\plus$-terms.
+
+\begin{definition}[Definition of $\sim$]
+Let $s$ and $t$ be closed $L^\plus$-terms.
+\begin{enumerateLoose}
+\item If $=$ is not a symbol of~$L$, then $s \sim t$ holds if $s$ and~$t$
+are the same term.  (In other words, $\sim$~is the identity relation.)
+\item If $=$ is a symbol of~$L^\plus$, then $s\sim t$ holds if
+the sentence $s=t$ is in~$\Pi$.
+\end{enumerateLoose}
+\end{definition}
+
+\begin{lemma}\label{thm:simEquivalence}
+The relation~$\sim$ is an equivalence relation.\index{equivalence relation}
+\end{lemma}
+
+\begin{proof}
+By definition, $\sim$~is an \idxnm{equivalence relation}
+if is reflexive\index{reflexivity}, symmetric\index{symmetry}
+and transistive\index{transitivity}. If $=$ is not in the language,
+then $\sim$~is the identity relation and of course is an equivalence
+relation. So suppose that the equality sign,~$=$, is in~$L$.
+
+To show reflexivity, we must prove that $s\sim s$ by
+proving that $s=s$ is in~$\Pi$.  It is easy to check that
+$\Pi \vdash s=s$ (using an EQ1 axiom and the Substitution rule).
+Hence, by Lemma~\ref{lem:gammaProperties}(c), $s=s \in \Pi$.
+
+To show symmetry, we must show that if $s\sim t$ then $t\sim s$,
+or equivalently, that if $s=t \in \Pi$ then $t=s\in \Pi$.
+By EQ2 and the Substitution rule, $\vdash s=t \limplies t=s$.
+Suppose $s=t \in \Pi$. Then $\Pi \vdash t=s$; thus $t=s \in \Pi$
+by Lemma~\ref{lem:gammaProperties}(c).
+
+Transitivity works similarly: we must show that if $r\sim s$ and $s\sim t$,
+then $r\sim t$. Suppose $r=s\in \Pi$ and $s=t \in \Pi$.
+It will suffice to show $r  = t \in \Pi$.
+Now $\vdash r=s\limplies s=t \limplies r=t$, as it is a substitution
+instance of an EQ3 axiom. Then, using Modus Ponens twice,
+$\Gamma\vdash r=t$, so $r=t \in \Gamma$.
+\end{proof}
+
+\begin{definition}
+The $L^\plus$-structure~$|\mathfrakA|$ is defined by letting
+\begin{equation}\label{eq:fmathfrakDef}
+|\mathfrakA| ~=~ \{ [s] : \hbox{$s$ is a closed~$L^\plus$-term} \},
+\end{equation}
+and defining the interpretations of the non-logical
+symbols by
+\begin{eqnarray*}
+c^\mathfrakA &=& [c] \\[1ex]
+f^\mathfrakA &=& 
+      \{ \langle [s_1],\ldots, [s_k], [f(s_1,\ldots, s_k)]\rangle : 
+          \hbox{$s_1,\ldots s_k$ are closed $L^\plus$-terms} \} \\[1ex]
+P^\mathfrakA &=& \{ \langle [s_1],\ldots,[s_k]\rangle : P(s_1,\ldots, s_k) \in \Pi \}.
+\end{eqnarray*}
+\end{definition}
+A more intuitive way to express the
+definition of the $k$-ary function~$f^\mathfrakA$ is that
+\[
+f^\mathfrakA([s_1],\ldots, [s_k]) ~=~ [f(s_1,\ldots, s_k)].
+\]
+Note that each $[s_i]$ is an object in~$|\mathfrakA|$.  The function~$f^\mathfrakA$
+takes as input the $k$~objects $[s_1], \ldots, [s_k]$; it outputs
+the object $[f(s_1,\ldots, s_k)]$.  Similarly, a more intuitive
+way to write the definition of the $k$-ary predicate~$P^\mathfrakA$ is that
+\[
+\hbox{$P^\mathfrakA([s_1],\ldots,[s_k])$ is true}
+\qquad \hbox{if and only if}\qquad
+P(s_1,\ldots,s_k) \in \Pi.
+\]
+
+We still need to show that
+$f^\mathfrakA$ and $P^\mathfrakA$
+are \idxem{well-defined} by the above definition.
+The issue is that $f^\mathfrakA([s_1],\ldots, [s_k])$ was defined
+in terms of particular representatives $s_1,\ldots, s_k$
+of equivalence classes. To show that $f^\mathfrakA$ has a well-definition,
+we must show that, for all closed $L^\plus$-terms $s_1,\ldots, s_k$
+and $r_1,\ldots, r_k$,
+\[
+\hbox{If $r_i \sim s_i$ for all~$i$, then $f(r_1,\ldots,r_k)\sim f(s_1,\ldots,s_k)$.}
+\]
+This is equivalent to showing that the definition of~$f^\mathfrakA$ as a
+set of $(k+1)$-tuples defines the graph of a (single-valued) function.
+
+Similarly, to show that $P^\mathfrakA$ is well-defined, we
+must show that,
+\[
+\hbox{If $r_i \sim s_i$ for all~$i$, then $P(r_1,\ldots,r_k)\in \Pi$ iff $P(s_1,\ldots,s_k) \in \Pi$.}
+\]
+
+\begin{lemma}
+The functions~$f^\mathfrakA$ and predicates $P^\mathfrakA$
+are \idxnm{well-defined}.
+\end{lemma}
+
+\begin{proof}
+Suppose that $r_i \sim s_i$ for $i=1,\ldots, k$. Thus
+$r_i = s_i \in \Pi$ for all~$i$.  In addition, if $f$~is a
+$k$-ary function symbol, then
+\[
+\vdash r_1=s_1 \limplies r_2=s_2 \limplies \cdots \limplies r_k=s_k
+       \limplies f(r_1,\ldots,r_k)=f(s_1,\ldots,s_k),
+\]
+since this is a substitution instance of an EQ${}_f$ axiom.
+Therefore, $\Pi \vdash f(r_1,\ldots,r_k)=\penalty10000 f(s_1,\ldots,s_k)$,
+so $f(r_1,\ldots,r_k) \sim f(s_1,\ldots,s_k)$.
+In addition, if $P$~is a $k$-ary predicate symbol,
+\[
+\vdash r_1=s_1 \limplies r_2=s_2 \limplies \cdots \limplies r_k=s_k
+       \limplies ( P(r_1,\ldots,r_k)\liff P(s_1,\ldots,s_k) ).
+\]
+Thus, $\Pi \vdash P(r_1,\ldots,r_k)$ if and only if
+$\Pi \vdash P(s_1,\ldots,s_k)$. Thus
+$P(r_1,\ldots,r_k)\in \Pi$ if and only if
+$P(s_1,\ldots,s_k)$.
+\end{proof}
+
+\begin{lemma}\label{lem:sigmaValue}
+Let $\mathfrakA$ be as defined above and let $\sigma$~be
+an object assignment. For all closed $L^\plus$-terms~$t$,
+we have $\sigma(t) = [t]$. Hence $t^\mathfrakA = [t]$.
+\end{lemma}
+
+\begin{proof}
+This is proved by induction on~$t$. The base case is where $t$
+is a constant symbol. By the definition of truth,
+$\sigma(c) = c^\mathfrakA = [c]$.
+
+The induction step is where $t$ is $f(s_1,\ldots, s_k)$. The
+$k$~many induction hypotheses state that $\sigma(s_i) = [s_i]$.
+Thus
+\begin{implicationsnarrow}
+$(f(s_1,\ldots, s_k))^{\mathfrakA}$
+& = & $\sigma(f(s_1,\ldots, s_k))$ & Definition~\ref{def:tClosedValue} \\
+& = & $f^\mathfrakA(\sigma(s_1), \ldots \sigma(s_k))$ & Definition of truth \\
+& = & $f^\mathfrakA([s_1],\ldots,[s_k])$ & Induction hypotheses \\
+& = & $[f(s_1,\ldots, s_k)]$ & Definition of $f^\mathfrakA$  \qedhere
+\end{implicationsnarrow}
+\end{proof}
+
+\paragraph*{Final stage of the proof of the Completeness Theorem.}
+We are now ready to finish the proof of the Completeness
+Theorem. We have constructed a consistent, complete, strongly Henkin
+set~$\Pi$ of sentences with $\Gamma \subseteq \Pi$. We have also
+defined an $L^\plus$-structure~$\mathfrakA$.  The remaining
+step is to show that $\mathfrakA \vDash \Pi$.  From that, it
+follows that $\mathfrakA \vDash \Gamma$.  Of course, $\mathfrakA$
+is an $L^\plus$-structure not an $L$-structure, but by taking the
+restriction of~$\mathfrakA$ to the language~$L$, i.e.\ by
+discarding the interpretations of the constant symbols~$d_i$
+in $L^\plus\setminus L$, we obtain an $L$-structure that
+satisfies~$\Gamma$. (See Theorem~\ref{thm:truthInExpansion}.)
+
+\begin{lemma}
+$\mathfrakA \vDash \Pi$.  Hence $\mathfrakA \vDash \Gamma$.
+\end{lemma}
+
+\begin{proof}
+We shall prove:
+
+\begin{claim}
+For every $L^\plus$-sentence~$A$, we have $\mathfrakA \vDash A$ if and only if $A\in \Pi$.
+\end{claim}
+
+The proof of the claim is by induction on the logical complexity of~$A$.
+Two of the induction steps are very similar to the proof of the
+claim on page~\pageref{claim:completenessPL} used for the proof of the Completeness
+Theorem for~$\PL$, but we include them here for completeness.\footnote{Pun not intended!}
+
+\begin{description}
+\item[Base case \#1:] Suppose $A$ is an atomic formula $P(s_1,\ldots, s_k)$.
+By Lemma~\ref{lem:sigmaValue}, $\sigma(s_i) = [s_i]$ for any truth assignment~$\sigma$.
+Therefore, by the definition of truth, and the definition of~$P^\mathfrakA$,
+\[
+\mathfrakA \vDash P(s_1,\ldots, s_k) ~\Leftrightarrow~
+    \langle [s_1],\ldots, [s_k] \rangle\in P^\mathfrakA ~\Leftrightarrow
+    P(s_1,\ldots,s_k)\in \Pi.
+\]
+\item[Base case \#2:] Suppose $A$ is an atomic formula $s_1=s_2$.
+By Lemma~\ref{lem:sigmaValue}, $\sigma(s_1) = [s_1]$ and $\sigma(s_2) = [s_2]$
+for any truth assignment~$\sigma$. Therefore, $\mathfrakA \vDash\penalty10000  s_1=\penalty10000 s_2$
+if and only if $[s_1]=[s_2]$. That holds if and only if $s_1\sim s_2$, and that
+is further equivalent to $s_1=s_2 \in \Pi$ by the definition of~$\sim$.
+Thus, $\mathfrakA \vDash s_1=s_1$ is true if and only if $s_1=s_2$ is in~$\Pi$.
+\item[Induction step \#1:] Suppose $A$ is $\lnot B$.
+The induction hypothesis tells that the claim holds for~$B$. Thus,
+\begin{implicationsnarrow}
+$\lnot B \in \Pi$
+& $\Leftrightarrow$ & $B \notin \Pi$ & Lemma~\ref{lem:gammaProperties}(a) \\
+& $\Leftrightarrow$ & $\mathfrakA \nvDash B$ & Induction hypothesis \\
+& $\Leftrightarrow$ & $\mathfrakA \vDash \lnot B$ & Definition of truth
+\end{implicationsnarrow}
+
+\item[Induction step \#2:] Suppose $A$ is $B\limplies C$.
+The induction hypothesis holds for both $B$ and~$C$. Then
+\begin{implicationsnarrow}
+$(B\limplies C) \in \Pi$
+& $\Leftrightarrow$ & $B\notin\Pi$ or $C \in \Pi$ & Lemma~\ref{lem:gammaProperties}(b) \\
+& $\Leftrightarrow$ & $\mathfrakA \nvDash B$ or $\mathfrakA \vDash C$ & Induction hypotheses for $B$ and $C$ \\
+& $\Leftrightarrow$ & $\mathfrakA \vDash (B\limplies C)$ & Definition of truth
+\end{implicationsnarrow}
+\item[Induction step \#3:] Suppose $A$ is $\forall x\, B(x)$.
+The induction hypothesis holds for $B(t)$ for every closed $L^+$-term~$t$. Then
+\begin{implicationsnarrow}
+$\forall x\, B(x) \in \Pi$
+& $\Leftrightarrow$ & for all closed $L^\plus$-terms, $B(t) \in \Pi$ & Lemma~\ref{lem:gammaProperties}(e) \\
+& $\Leftrightarrow$ & for all closed $L^\plus$-terms $t$, $\mathfrakA \vDash B(t)$
+    & Induction hypotheses for $B(t)$ \\
+& $\Leftrightarrow$ & for all closed $L^\plus$-terms $t$, $\mathfrakA \vDash B(t^\mathfrakA)$
+    & Theorem \ref{thm:relaxedSubst} \\
+& $\Leftrightarrow$ & for all~$\sigma$, $\mathfrakA \vDash B(x)[\sigma]$ & Lemma~\ref{lem:sigmaValue} \\
+& $\Leftrightarrow$ & $\mathfrakA \vDash \forall x\, B(x)$ & Definition of truth \\
+\end{implicationsnarrow}
+Therefore, $\mathfrakA \vDash \forall x\, B(x)$ if and only if $\forall x\, B(x) \in \Pi$. $\qedhere$
+\end{description}
+\end{proof}
+
+\noindent
+That concludes the proof of the Completeness Theorem.
+

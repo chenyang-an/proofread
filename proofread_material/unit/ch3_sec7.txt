@@ -1,0 +1,60 @@
+\section{Principles of Equality}\label{sec:equality}\index{equality}
+
+We now discuss several principles of equality.
+The basic underlying philosophy is that if objects
+are equal, then they should satisfy the same properties.
+The first principles state that equality~($=$) defines an equivalence
+relation:
+
+\begin{theorem}\label{thm:EQ123instances}
+Let $r$, $s$ and~$t$ be terms.
+\begin{enumerate}
+\item $\vDash t=t$.  {\rm  (Reflexivity)}\index{reflexivity}
+\item $\vDash s=t \limplies t=s$.  {\rm  (Symmetry)}\index{symmetry}
+\item $\vDash r=s \limplies s=t \limplies r=t$.  {\rm  (Transitivity)}\index{transitivity}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+These logical validities follow immediately from the definition
+of truth. For instance, transitivity follows from the fact that
+if an object assignment~$\sigma$ satisfies $\sigma(r)=\sigma(s)$
+and $\sigma(s)=\sigma(t)$, then $\sigma(r)=\sigma(t)$.
+\end{proof}
+
+The next principles state that predicate and function symbols
+respect equality.  These were already stated and proved
+in Lemma~\ref{lem:equalityAxioms}, and are restated here for convenience:
+\[
+\vDash ~ \bigand_{i=1}^k s_i = t_i ~\limplies~ [ P(s_1,\ldots, s_k) \liff P(t_1,\ldots t_k)].
+\]
+and
+\[
+\vDash ~ \bigand_{i=1}^k s_i = t_i ~\limplies~  f(s_1,\ldots, s_k) = f(t_1,\ldots t_k).
+\]
+A more general version of the equality principle holds for arbitrary formulas~$A$ in place of
+a predicate~$P$:
+\begin{theorem}\label{thm:equalityPrincipleSemantic}
+Let $A(x_{i_1},\ldots, x_{i_k})$ be a formula
+and let $s_1, \ldots, s_k$ and $t_1,\ldots, t_k$ be terms. Suppose
+that each $s_j$ and $t_j$ is substitutable for $x_{i_j}$
+in~$A$.
+Then
+\begin{equation}\label{eq:equalityPrincipleSemanticThm}
+\vDash ~ \bigand_{i=1}^k s_i = t_i ~\limplies~ [ A(s_1,\ldots, s_k) \liff A(t_1,\ldots t_k)].
+\end{equation}
+\end{theorem}
+\begin{proof}
+Without loss of generality, the variables $x_{i_1}\ldots,x_{i_k}$ do not
+appear in the terms $s_1,\ldots, s_k$ and $t_1,\ldots, t_k$, since otherwise
+the variables~$x_{i_j}$ can be renamed in~$A$.
+Equation~(\ref{eq:equalityAxiomsThm}) of Theorem~\ref{thm:substitution}
+gives
+\[
+\vDash ~ \bigand_{i=1}^\ell x_{i_j} = t_j ~\limplies~  [ A(\vec x) \liff A(\vec t)].
+\]
+From this, Corollary~\ref{coro:UIfreevariable} gives
+(\ref{eq:equalityPrincipleSemanticThm}) as desired.
+\end{proof}
+
+

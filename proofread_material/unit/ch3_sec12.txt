@@ -1,0 +1,217 @@
+\section{Extensions by Definitions}\label{sec:defineInTheory}
+
+Section~\ref{sec:definability} defined what it means for
+predicates, constants, and functions to be definable in a
+structure. We now discuss how the same constructions can
+be used to define and introduce new predicate symbols, 
+constant symbols, or function symbols in a theory. We shall see that adding new
+defined symbols is ``conservative'' in that it does not increase
+the power of the theory.
+
+For the rest of this section, let $T$ be a fixed $L$-theory.
+Symbols such as $Q$, $f$, $c$ are presumed to be new non-logical
+symbols that are not in~$L$.
+
+\begin{definition}\label{def:extensionByDefinition}
+Any formula $B(x_1,\ldots,x_n)$ with no free variables other
+than $x_1,\ldots,x_n$ \idxem{defines} an $n$-ary predicate~$Q$ in~$T$;
+the \idxem{defining axiom} for~$Q$ is the sentence $\TDef_Q$:
+\[
+\forall x_1 \, \cdots\, \forall x_n \, [ Q(x_1,\ldots,x_n) \liff B(x_1,\ldots, x_n) ].
+\]
+\end{definition}
+
+\begin{definition}
+Let $L^\prime\supseteq L$. Suppose $\Gamma$ is an set of $L$-sentences and
+$\Delta$ is a set of $L^\prime$-sentences.
+We say that $\Delta$~is a \idxem{conservative extension} of~$\Gamma$ provided that
+$\Delta \vDash \Gamma$ and that,
+for every $L$-sentence~$A$, if $\Delta \vDash A$  then $\Gamma \vDash A$.
+We write $\Gamma \preccurlyeq \Delta$ to denote that
+$\Delta$~is a conservative extension of~$\Gamma$.
+\end{definition}
+Thus, if $\Delta$ is a conservative extension~$\Gamma$ then $\Gamma$
+and~$\Delta$ have the same $L$-consequences.
+This is useful when we want to augment
+$\Gamma$ with $L^\prime$-sentences without changing the $L$-consquences.
+
+\begin{theorem}\label{thm:defPredSym}
+Let $T$ be a theory.
+Let the $n$-ary predicate $Q$ be defined by~$B(x_1,\ldots,x_n)$.
+Let $L^\prime = L \cup \{Q\}$ and $T^\prime$~be the theory with axioms
+$T + \TDef_Q$. Then
+\begin{itemize}
+\item[(a)] $T^\prime$~is a conservative extension of~$T$.
+\item[(b)] For every $L^\prime$-formula~$A$ there is an $L$-formula~$A^*$
+such that $T^\prime \vDash A \liff A^*$.
+\end{itemize}
+\end{theorem}
+
+The theorem states that when the defined predicate~$Q$ is added to~$T$,
+the resulting theory~$T^\prime$ cannot prove any new $L$-sentence
+that $T$ could not already prove. Furthermore, anything that can
+be expressed with the new symbol~$Q$ can already be expressed without it.
+
+\begin{proof}
+We first prove~(a). Clearly $T^\prime \vDash T$. Suppose $A$~is an $L$-sentence
+such that $T\nvDash A$. We'll show that $T^\prime \nvDash A$
+to prove the conservativity. Since $T\nvDash A$,
+there is a model~$\mathfrakA$ of $T \cup \{\lnot A\}$. Expand
+$\mathfrakA$ to a $L^\prime$-model~$\mathfrakB$ by choosing the
+interpretation of~$Q$ to be
+\[
+Q^\mathfrakB ~=~ \{ \langle a_1,\ldots, a_n \rangle : \mathfrakA \vDash B(a_1,\ldots, a_n),~ a_1,\ldots, a_n\in |\mathfrakA| \}.
+\]
+Since $\mathfrakB$ is an expansion of~$\mathfrakA$,
+exactly the same $L$-sentences are true in~$\mathfrakA$
+as are true in~$\mathfrakB$ (by Theorem~\ref{thm:truthInExpansion}).
+By choice of~$Q^\mathfrakB$, we have $\mathfrakB \vDash \TDef_Q$. Therefore
+$T^\prime \cup \{\lnot A\}$ is satisfied by~$\mathfrakB$.
+Hence $T^\prime \nvDash A$.
+
+The proof of~(b) is almost trivial. To form $A^*$,
+replace every subformula in~$A$ of the
+form $Q(t_1,\ldots,t_n)$ with the subformula $B(t_1,\ldots,t_n)$, using
+an alphabetic variant of~$B$ if necessary to avoid clashes with
+bound variables. Certainly, $\TDef_Q \vDash Q(\vec t ) \liff B(\vec t)$.
+Therefore, by Theorem~\ref{thm:subEquivSubfmla},
+$\TDef_Q \vDash A \liff A^*$, and thus $T^\prime \vDash A \liff A^*$.
+\end{proof}
+
+Similar constructions work for introducing defined function symbols
+and predicate symbols. The added complication is that
+the theory~$T$ needs to prove the uniqueness and totality conditions
+for a function or a constant before that function or constant
+can be introduced as a defined function symbol. The totality
+condition is crucial; the uniqueness condition can be omitted,
+but then a less faithful extension is obtained.
+
+We'll show how this works for functions. After that, the definability of
+constants can be viewed as being the same as introducing a 0-ary function.
+
+\begin{definition}\label{def:defFunction}
+Let $T$ and $L$ be as above.
+Let $B(x_1,\ldots,x_n,x_{n+1})$ be an $L$-formula with no
+free variables other than $x_1,\ldots,x_{n+1}$.
+\begin{enumerate}
+\item The formula~$B$ \idxem{defines} a function~$f$ in~$T$ if
+\begin{equation}\label{eq:defFunctionDef}
+T \vDash \forall x_1\, \cdots\, \forall x_n \, \exists ! x_{n+1} \, B(x_1,\ldots,x_n,x_{n+1}).
+\end{equation}
+\item The formula~$B$ \idxem{ambiguously defines} a function~$f$ in~$T$ if
+\begin{equation}\label{eq:defFunctionAmbigDef}
+T \vDash \forall x_1\, \cdots\, \forall x_n \, \exists x_{n+1} \, B(x_1,\ldots,x_n,x_{n+1}).
+\end{equation}
+\end{enumerate}
+In either case, the \idxem{defining axiom} for~$f$ is the sentence $\TDef_f$:
+\[
+\forall x_1\, \cdots\, \forall x_n \, \forall x_{n+1} \, [ f(x_1,\ldots,x_n)=x_{n+1} \limplies B(x_1,\ldots,x_n,x_{n+1}) ].
+\]
+\end{definition}
+When $B$ (unambiguously) defines~$f$,
+the uniqueness condition in Equation~(\ref{eq:defFunctionDef})
+means that the defining axiom $\TDef_f$ is equivalent (provably in~$T$)
+to
+\[
+\forall x_1\, \cdots\, \forall x_n \, \forall x_{n+1} \, [ f(x_1,\ldots,x_n)=x_{n+1} \liff B(x_1,\ldots,x_n,x_{n+1}) ].
+\]
+
+The next theorem states that adding an (ambiguously) defined function
+symbol does not add any new $L$-consequences.
+\begin{theorem}
+Let the $n$-ary function~$f$ be definable or ambiguously definable
+by~$B(x_1,\ldots,x_{n+1})$ in~$T$.
+Let $L^\prime = L \cup \{f\}$ and $T^\prime$~be the theory with axioms
+$T + \TDef_f$. Then
+$T^\prime$~is a conservative extension of~$T$.
+\end{theorem}
+
+\begin{proof}
+The proof is similar to the proof of Theorem~\ref{thm:defPredSym}(a).
+Suppose $T\nvDash A$ where $A$~is an $L$-sentence. Let $\mathfrakA$
+be an $L$-model of $T\cup \{\lnot A \}$.
+The sentence~(\ref{eq:defFunctionAmbigDef}) is true in~$\mathfrakA$.
+Therefore, for every $a_1,\ldots, a_n \in |\mathfrakA|$, there is
+at least one $b\in |\mathfrakA|$ such that $\mathfrakA \vDash B(a_1,\ldots,a_n, b)$;
+pick one and denote it $b_{a_1,\ldots,a_n}$.  (This
+uses the Axiom of
+Choice if $f$ is only ambiguously defined.) 
+Then expand $\mathfrakA$ to a $L^\prime$-structure~$\mathfrakB$
+by letting the interpretation of~$f$ satisfy
+\[
+f^\mathfrakB(a_1,\ldots,a_n) ~=~ b_{a_1,\ldots,a_n}.
+\]
+Since $\mathfrakB$ is an expansion of~$\mathfrakA$, the structures
+$\mathfrakA$~and $\mathfrakB$ satisfy the same $L$-sentences.
+Thus $\mathfrakB \vDash T\cup\{ \lnot A \}$.
+Finally, by choice of~$f^\mathfrakB$, we have $\mathfrakB \vDash \TDef_f$.
+Therefore $T,\penalty10000 \TDef_f \nvDash\penalty10000 A$.
+\end{proof}
+
+The next theorem is for defined function symbols, not ambiguously defined
+function symbols. It states that formulas using the defined function
+symbol can be rewritten as provably equivalent formulas that do not
+use the defined function symbol.
+
+\begin{theorem}\label{thm:removeDefdFunc}
+Let the $n$-ary function~$f$ be definable
+by~$B(x_1,\ldots,x_n,x_{n+1})$ in~$T$.
+Let $L^\prime = L \cup \{f\}$ and $T^\prime$~be the theory with axioms
+$T + \TDef_f$. Then, for every $L^\prime$-formula~$A$, there is an
+$L$-formula~$A^*$ such that $T^\prime \vDash A \liff A^*$.
+\end{theorem}
+
+This is very similar to Theorem~\ref{thm:defPredSym}(b), but its proof
+is more complicated. The problem is that we
+have to indirectly replace uses of~$f$, and terms may include
+multiple, nested occurrences of~$f$.
+
+\begin{example}\label{example:removeDefdFuncThm}
+To understand the idea
+behind the proof of the theorem, consider the example of a binary function~$f$
+which is defined in~$T$ by a formula $B(x_1,x_2,x_3)$. Suppose
+$A$~is the formula $\forall x\, Q(a+f(x,f(x,a))$ where $Q$ is a predicate
+symbol, $a$~is a constant symbol, and $+$~of course is a binary function symbol.
+To form $A^*$ such that $T\vDash A \liff A^*$,
+we let $A^*$ be
+\[
+\forall x\, \exists y\, \exists z\, [
+      B(x,a,y) \land B(x,y,z) \land Q(a+z) ].
+\]
+Let $\TUniq_f$ be the sentence
+from~(\ref{eq:defFunctionDef}) expressing unique existence.
+Then $\{\TUniq_f, \TDef_f \}$ logically implies the sentences
+\[
+\forall x\, [ Q(a+f(x,f(x,a))) \liff
+      \exists y\, ( B(x,a,y) \land Q(a+f(x,y)) ) ].
+\]
+and
+\[
+\forall x\, \forall y\, [ Q(a+f(x,y)) \liff  \exists z\, (
+        B(x,y,z) \land Q(a+z) ) ].
+\]
+Putting these together, a little work
+shows that $\TUniq_f, \TDef_f \vDash A \liff A^*$.
+Hence $T\vDash A \liff A^*$.
+\end{example}
+
+\begin{proof}[Proof of Theorem \ref{thm:removeDefdFunc}]
+Suppose $A$ has $k$ occurrences of the symbol~$f$. We will construct a
+sentence~$A^\prime$ with only $k-1$ occurrences of~$f$ such that
+$\TUniq_f,\TDef_f\ \vDash\penalty10000 A \liff\penalty10000 A^\prime$. Iterating this
+$k$ times yields the desired~$A^*$. Choose an occurrence
+of a term $f(t_1,\ldots, t_k)$ in~$A$ such that $f$ does not appear
+in any of its arguments~$t_i$. For shorter notation, we write $\vec t$
+instead of $t_1,\ldots,t_k$. Let $C(f(\vec t))$ denote the atomic subformula
+of~$A$ where $f(\vec t)$ occurs. In this notation, $C = C(y)$ is
+an atomic formula in which there is a single occurrence of~$y$. Let~$C^\prime$
+be the formula
+\[
+\exists z \, ( B(\vec t, z) \land C(z) )
+\]
+where $z$ is a variable that does not appear in~$C(f(\vec t))$.
+Then $\TUniq_f,\penalty10000 \TDef_f \vDash C \liff\penalty10000  C^\prime$. Form $A^\prime$
+by replacing the subformula $C(f(\vec t))$ of~$A$ with~$C^\prime$.
+Then $\TUniq_f,\TDef_f\ \vDash A \liff A^\prime$.
+\end{proof}
+

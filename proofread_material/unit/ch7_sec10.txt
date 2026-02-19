@@ -1,0 +1,84 @@
+\section{L\"ob's Theorem}\label{sec:LobsTheorem}\index{Lob's Theorem@{L\"ob's Theorem}}
+
+L\"ob's Theorem is an interesting application of the Second Incompleteness
+Theorem; loosely speaking, it says that if the provability of~$A$ implies
+the truth of~$A$, then $A$~is true. Or more precisely, it states that if $A$ can be proved
+with the aid of the hypothesis that $A$~has a proof, then $A$~can proved
+without that hypothesis:
+
+\begin{theorem}[L\"ob's Theorem]\label{thm:Lobs}\index{Lob's Theorem@{L\"ob's Theorem}}
+Let $T \supseteq \TR$ be consistent and axiomatizable and
+satisfy the Hilbert-Bernays-L\"ob conditions. Suppose
+$T$~proves $\scThm_T(\underline{\lgn A \rgn}) \limplies\penalty10000 A$.
+Then $T \vdash A$.
+\end{theorem}
+
+The formula $\scThm_T(\underline{\lgn A \rgn}) \limplies\penalty10000 A$ states
+that the provability of~$A$ implies the truth of~$A$; this is known as the
+\idxem{reflection principle} for~$A$ relative to~$T$. The Second Incompleteness
+Theorem implies that, under the hypotheses of L\"ob's Theorem, $T \nvdash \lnot A$.
+This is because otherwise $T \vdash \lnot\scThm_T(\underline{\lgn A \rgn})$ and
+hence, by Lemma~\ref{lem:ConProperties}(a), $T\vdash \scCon_T$.  L\"ob's Theorem
+gives the stronger conclusion that $T \vdash A$.
+
+The proof of L\"ob's Theorem will proceed by letting $T^\prime$ be the
+theory $T +\penalty10000 \lnot A$ and showing that $T^\prime$ is inconsistent.
+Before giving the proof, we explain how to define the
+formula $\scPrf_{T^\prime}(w,x)$ that represents the $\TPrf_{T^\prime}$ relation.
+(We glossed over this point in the footnote on page~\pageref{footnote:Tprime};
+now we make it precise.) The idea is that $\scPrf_{T^\prime}(w,\underline{\lgn B \rgn})$
+should hold exactly when $\scPrf_T(w,\underline{\lgn A\limplies B \rgn})$.
+More formally, let $\scImp_A(x_1, x_2)$ represent, in~$\TR$, the
+computable function $\lgn B \rgn \mapsto \lgn A \limplies\penalty10000 B \rgn$. Then
+let $\scPrf_{T^\prime}(w,x)$ be the formula
+\[
+\scPrf_{T^\prime}(w,x) ~:=~ \exists z\, (\scImp_A(x,z) \land \scPrf_T(w,z)).
+\]
+Then define $\scThm_{T^\prime}(x)$ to be the formula $\exists y\, \scPrf_{T^\prime}(y,x)$, and
+define $\scCon_{T^\prime}$ to be the sentence $\lnot \scThm_{T^\prime}(\underline{\lgn 0=1\rgn})$.
+
+\begin{claim}\label{claim:LobsThm}
+Let $T$ be as in the statement of L\"ob's Theorem.
+\begin{enumerate}
+\item $\scPrf_{T^\prime}(w,x)$ represents $\TPrf_{T^\prime}$.
+\item As formalized above, $T^\prime$ satisfies the Hilbert-Bernays-L\"ob conditions.
+\item $T^\prime \nvdash \scCon_{T^\prime}$.
+\end{enumerate}
+\end{claim}
+The proof of the claim is fairly  straightforward and is left
+for the reader as Exercise~\ref{exer:LobClaim}. Note that parts (a) and~(b)
+mean that all the constructions for the First and Second Incompleteness
+Theorems apply to~$T^\prime$ without further modification.
+
+\begin{proof}[Proof of L\"ob's Theorem \ref{thm:Lobs}]
+Let $T^\prime$ be the theory $T + \lnot A$.  It will suffice
+to show that $T^\prime$~is inconsistent as that implies
+$T\vdash A$. By the
+Second Incompleteness Theorem for~$T^\prime$, it suffices to
+prove that $T^\prime \vdash \scCon_{T^\prime}$.
+
+By the hypothesis that $T$~proves
+$\scThm_T(\underline{\lgn A \rgn}) \limplies\penalty10000 A$ and
+since $T^\prime \vdash \lnot A$,
+we obtain that $T^\prime$ proves $\lnot \scThm_T(\underline{\lgn A \rgn})$.
+By $\THBL_1$ and $\THBL_3$ we obtain
+\[
+T ~\vdash~ \scThm_T(\underline{\lgn (\lnot A \limplies 0=1)\limplies A \rgn})
+\]
+and
+\[
+T ~\vdash~
+  \scThm_T(\underline{\lgn (\lnot A \limplies 0=1)\rgn})
+  \land \scThm_T(\underline{\lgn (\lnot A \limplies 0=1)\limplies A \rgn})
+  \limplies \scThm_T(\underline{\lgn A \rgn}).
+\]
+Thus since
+$T^\prime \supseteq T$, the theory~$T^\prime$ proves
+$\lnot \scThm_T(\underline{\lgn \lnot A \limplies 0=1 \rgn})$. In other words,
+$T^\prime \vdash \lnot\scThm_{T^\prime}(\underline{\lgn 0=1 \rgn})$, namely,
+$T^\prime$~proves $\scCon_{T^\prime}$.
+From this, $T^\prime$ is inconsistent and therefore $T\vdash A$.
+\end{proof}
+
+
+

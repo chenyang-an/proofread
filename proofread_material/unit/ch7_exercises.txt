@@ -1,0 +1,251 @@
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+\nonumSectionmark{Exercises}
+
+\begin{exercise}\label{exer:QnoProvexSx}
+Prove that $\TQ$ does not prove $\forall x \, (x \neq Sx)$. [Hint: Do this
+by constructing a model of $\TQ \cup \{ \exists x\, (x=Sx)\}$.
+The universe of the model can be $\mathbb N \cup \{ \infty \}$
+where $\infty$~denotes an additional element. You will need to
+define the model so that $S\infty$ to equal $\infty$,
+and also define how addition
+and multiplication act when one or both arguments are
+equal~$\infty$.]
+\end{exercise}
+
+\begin{exercise}\label{exer:QzeroPlusx}
+Prove that $\TQ$ does not prove $\forall x\, (0+x = x)$
+or $\forall x \, (0\cdot x =\penalty10000 0)$. 
+[Hint: Find a model~$\TQ$ with universe
+$\mathbb N \cup \{\infty_1 , \infty_2\}$ in which
+both $\forall x\, (0+\penalty10000x =\penalty10000 x)$
+and $\forall x \, (0\cdot x = 0)$ are false.]
+Conclude that $\TQ$~also does not prove
+$\forall x \, \forall y\, (x+\penalty10000 y=\penalty10000 y+\penalty10000 x)$
+or $\forall x \, \forall y\, (x\cdot y=y\cdot x)$.
+\end{exercise}
+
+\begin{exercise}
+\ ~
+\begin{enumerate}
+\item Prove that $\PA$ proves $\forall x\, (x \neq Sx)$. Compare to Exercise~\ref{exer:QnoProvexSx}.
+\item Prove that $\PA$ proves $\forall x\, (x \neq SSx)$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Prove that
+$\PA$ proves $\forall x \, \forall y \, (x+y = y+x)$.
+This will require three steps, each using induction:
+\begin{enumerate}
+\item Prove that $\PA$ proves $0+x = x+0$.  (You can use Example~\ref{example:PAzeroxx}.)
+\item Prove that $\PA$ proves $Sx+y = S(x+y)$.  (Use induction on~$y$.)
+\item Prove that $\PA$ proves $x+y = y+x$. (Use induction.)
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let $\PA\setminus\{ \TQ_3\}$ be the theory with the same axioms
+as~$\PA$ except omitting the axioms $\TQ_3$.
+Prove that $\PA\setminus\{ \TQ_3\}$ logically implies~$\TQ_3$.
+Therefore, $\TQ_3$~may
+be omitted from the list of axioms for~$\PA$,
+without changing the theory.
+[Hint: Use induction on the formula
+$x\neq 0 \limplies \exists y\, (Sy = x)$.]
+\end{exercise}
+
+\begin{exercise}
+Consider replacing the definition of~$E_A$ in Equation~\ref{eq:defnEA}
+with
+\[
+E_A(x_1) ~:=~ \forall y\, [ A_\TSelfSub(x_1,y) \limplies A(y) ].
+\]
+Revise the second proof of Theorem~\ref{thm:FirstIncompletesecond}
+so that it works with this definition of~$E_A$.
+\end{exercise}
+
+\begin{exercise}\label{exer:representPredFunc}
+Prove the following claims from Example~\ref{example:representPredFunc}.
+\begin{enumerate}
+\item $A_P(x_1,y)$ represents the \idxnm{predecessor function}~$P$ in~$\TR$.
+\item $\TR \nvdash \forall y\, (Sy \neq 0)$. Therefore, $A_{G_P}$~does
+not represent the function~$P$ in~$\TR$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Give a direct proof that a relation~$S$ is representable
+in~$\TR$ if and only if its \idxnm{characteristic function}~$\chi_S$
+is representable in~$\TR$.  By a ``direct'' proof, we mean a proof
+that uses the definitions of $\TR$ and representability, and does
+not depend on Theorems \ref{thm:characteristicFunc}
+and~\ref{thm:decidableAreRepresentable}.
+\end{exercise}
+
+\begin{exercise}
+Regular minimization was used to define the function
+$2^{\lfloor \log_2 x \rfloor}$, but was not elsewhere
+used for the definition of the G{\"o}del $\beta$~function.
+Show how to eliminate the use of regular minimization in
+the definitions used for the G{\"o}del $\beta$~function by reworking
+the definition to use bounded quantification in place of
+regular minimization.\footnote{This
+result is usually stated as ``exponentiation is $\Delta_0$-definable'',
+see
+Gaifman-Dimitracopoulus~[1980]\nocite{GaifmanDimitracopoulos:MRDP}.
+The gist is that addition, multiplication, Boolean operators
+and bounded quantification suffice to form a formula
+that represents the graph of the exponentiation function in~$\TR$, and hence
+defines the graph of the exponentiation function in~$\mathcal N$.}
+\end{exercise}
+
+\begin{exercise}\label{exer:seqConcatenation}
+Prove that the sequence concatenation function~$\seqConcatenate$
+\[
+\langleBeta n_1,\ldots, n_k \rangleBeta \seqConcatenate \langleBeta m_1,\ldots, n_\ell \rangleBeta
+                      ~:=~ \langleBeta n_1,\ldots, n_k, m_1,\ldots, m_\ell \rangleBeta.
+\]
+is representable.  Give a proof
+using the techniques of
+Sections \ref{sec:representBasic} and~\ref{sec:betaFunction}
+including G{\"o}del sequence coding, but not using
+Theorem~\ref{thm:decidableAreRepresentable}.
+\end{exercise}
+
+\begin{exercise}
+If $g$ is a $k$-ary function and $h$~is a $(k+2)$-ary
+function, then a $(k+1)$-ary function~$f$ can be defined
+by \idxem{primitive recursion} from $g$ and~$h$ as
+\begin{eqnarray*}
+f(\vec n, 0) &=& g(\vec n) \\[1ex]
+f(\vec n, m+1 ) &=& h(\vec n, m, f(\vec n, m)).
+\end{eqnarray*}
+Suppose $g$ and~$h$ are representable. Give a direct proof that
+$f$~is representable. By a ``direct'' proof is meant
+a proof using G{\"o}del sequence coding, and not using
+Theorem~\ref{thm:decidableAreRepresentable}.
+\end{exercise}
+
+\begin{definition}
+Let $T \supseteq \TR$ be consistent, and $S$~be a $k$-ary relation.
+Define that $T$ \emph{semirepresents}\index{semirepresent}~$S$
+provided that there is a formula $A_S(x_1,\ldots, x_k)$ such that for all
+$n_1,\ldots, n_k \in \mathbb N$,
+\begin{enumerate}
+\item If $S(n_1,\ldots,n_k)$ is true, then $T\vdash A_S(\underline{n_1},\ldots,\underline{n_k})$; and
+\item If $S(n_1,\ldots,n_k)$ is false, then $T\nvdash A_S(\underline{n_1},\ldots,\underline{n_k})$.
+\end{enumerate}
+If other words, $S(n_1,\ldots,n_k)$ is true if and only if
+$T\vdash A_S(\underline{n_1},\ldots,\underline{n_k})$. Prove that $S$~is
+semirepresented by~$T$ if and only if $S$~is semidecidable.
+\end{definition}
+
+\begin{exercise}
+Let $T\supseteq R$ be consistent and axiomatizable.
+Prove that the theory $T = \{ A : A\in T\}$ and the set $\{ A : \lnot A \in T \}$
+are computably inseparable. [Hint: Use a proof by contradiction
+and a self-referential formula.]
+\end{exercise}
+
+\begin{exercise}
+Let $A$ be an arbitrary $L_\PA$-sentence. Prove that
+$\PA$ does not prove $\lnot \scThm_\PA(\underline{\lgn A \rgn})$.
+\end{exercise}
+
+\begin{exercise}
+Let $E$ be a self-referential formula such that $\TR$ proves
+$E \liff\penalty10000 \scThm_\PA(\underline{ \lgn \lnot E \rgn } )$,
+so that $E$~states ``I am refutable by~$\PA$.''
+Is $E$ true or false? Justify your answer.  (For this and the next
+exercises, ``true'' or ``false'' means true or false in the
+standard model of the integers.)
+\end{exercise}
+
+\begin{exercise}
+Let $F$ be a self-referential formula such that $\TR$ proves
+$F \liff\penalty10000 \scThm_\PA(\underline{ \lgn F \rgn } )$,
+so that $F$~states that ``I am $\PA$~provable''.
+Is $F$ true or false? Justify your answer. A sentence~$F$ with this
+property is called a ``\idxnm{Henkin sentence}''.
+[Hint: Use L\"ob's Theorem.]
+\end{exercise}
+
+\begin{exercise}
+Let $G$ be a self-referential formula such that $\TR$ proves
+$G \liff\penalty10000 \lnot \scThm_\PA(\underline{ \lgn \lnot G \rgn } )$,
+so that $G$~states that ``$\PA$~cannot refute my negation''.
+Is $G$ true or false? Justify your answer. [Hint: Use L\"ob's Theorem,
+or the previous exercise.]
+\end{exercise}
+
+\begin{exercise}
+Let $H$ be a self-referential formula such that $\TR$ proves
+\[
+H ~\liff~ \lnot \scThm_\PA(\underline{ \lgn H \rgn } )
+\land \lnot \scThm_\PA(\underline{ \lgn \lnot H \rgn } ),
+\]
+so that $H$~states that ``I am independent of~$\PA$''.
+Is $H$ true or false? Justify your answer.
+\end{exercise}
+
+\begin{exercise}
+Let $J$ be a self-referential formula such that $\TR$ proves
+\[
+J ~\liff~ \scThm_\PA(\underline{ \lgn J \rgn } )
+\lor \scThm_\PA(\underline{ \lgn \lnot J \rgn } ),
+\]
+so that $J$~states that ``I am not independent of~$\PA$''.
+Is $J$ true or false? Justify your answer. [Hint: Use L\"ob's Theorem.]
+\end{exercise}
+
+\begin{exercise}\label{exer:LobClaim}
+Prove the claim stated on page~\ref{claim:LobsThm}
+before the proof of L\"ob's Theorem~\ref{thm:Lobs}.
+\end{exercise}
+
+\begin{exercise}
+Suppose $T\supseteq R$ is consistent, axiomatizable and satisfies the Hilbert-Bernays-L\"ob
+conditions.
+Let $D$ be a self-referential formula such that
+$\TR\vdash D \liff \lnot \scThm_T(\underline{\lgn D \rgn})$.
+\begin{enumerate}
+\item Prove $T \vdash D \liff \scCon_T$.
+\item Suppose that $E$ is another sentence such that
+$\TR\vdash E \liff \lnot \scThm_T(\underline{\lgn E \rgn})$.
+Prove that $T \vdash D \liff E$.
+\item Show that there is a theory~$T$ such that $T\vdash \lnot D$.  (This shows
+that the assumption of $\omega$-consistency in Theorem~\ref{thm:SelfReferIndependent}
+cannot be weakened to the assumption of consistency.)
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let $T\supseteq \TR$ be a consistent, axiomatizable theory.
+This exercise asks you to carry Rosser's construction of an
+independent sentence for~$T$. A \emph{Rosser $T$-proof}\index{Rosser proof} of a formula~$A$ is
+defined to be a $T$-proof~$P$ of~$A$ such that there is no $T$-proof~$P^\prime$
+of $\lnot A$ with $\lgn P^\prime \rgn < \lgn P \rgn$.  More formally,
+let $\scNeg(x_1,x_2)$ represent the (computable) mapping
+$\lgn A \rgn \mapsto \lgn \lnot A \rgn$ in~$\TR$, and define
+$\scRprf_T(w,x)$ to be the formula
+\[
+\scRprf_T(w,x) ~:=~
+\scPrf_T(w,x) \land \forall v\, \forall y\, ( v<w \land \scNeg(x,y) \limplies \lnot \scPrf_T(v,y) ).
+\]
+Let $\scRthm_T(x)$ be the formula $\lnot \exists w \, \scPrf_T(w,x)$. Finally, let
+$D_R$ be a self-referential formula such that $\TR$
+proves $D_R \liff \lnot \scRthm_T(\underline{\lgn D_R\rgn})$.
+Also, let $A$ be an arbitrary formula. Prove:
+\begin{enumerate}
+\item There is a Rosser $T$-proof of~$A$ if and only if there is
+a $T$-proof of~$A$.
+\item If $T\vdash A$, then $T\vdash \scRthm_T(\underline{\lgn A \rgn })$. \newline
+[Hint: You will need to use $T\supseteq R$ and Axiom~$\TR_{\le}^\prime$.]
+\item If $T \vdash \lnot A$, then $T\vdash \lnot \scRthm_T(\underline{ \lgn A \rgn })$.
+\item Prove that $T \nvdash D_R$.
+\item Prove that $T \nvdash \lnot D_R$.
+\item Conclude that $D_R$ is independent of~$T$.
+\end{enumerate}
+\end{exercise}
+

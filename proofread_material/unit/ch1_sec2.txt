@@ -1,0 +1,177 @@
+\section{Propositional Formulas} \label{sec:propFormulas}
+\index{propositional formula|(}
+
+We now give the formal definitions of the syntax of
+propositional formulas. After that, the next section will
+define the truth value of a formula in terms of the
+truth values of its variables.
+
+Propositional formulas will be expressions\index{expression},
+that is strings
+of symbols. The permitted symbols are:
+\begin{enumerateLoose}
+\item Variables $p_1, p_2, p_3, \ldots$,\index{variable}
+\item Propositional connectives\index{propositional connective}
+$\lnot$, $\land$, $\lor$, $\limplies$ and~$\liff$, and
+\item Parentheses $($ and $)$.
+\end{enumerateLoose}
+
+\begin{definition}\label{def:propositionalFmla}
+The set of propositional formulas\index{propositional formula}
+is inductively defined by:
+\begin{itemizeLoose}
+\item[(a)] $p_i$~is a propositional formula, for any $i\ge 1$.
+\item[(b)] If $A$ is a propositional formula, then so is $\lnot A$.
+\item[(c)] If $A$ and $B$ are propositional formulas, then so are
+$(A \lor B)$ and $(A \land B)$ and $(A \limplies B)$ and $(A \liff B)$.
+\end{itemizeLoose}
+\end{definition}
+It is implicit in the definition that rules (a)-(c) are the only
+ways of generating propositional formulas. It is important that
+parentheses are included exactly as indicated.
+
+\begin{example}
+\vbox{
+Examples of propositional formulas include:
+\[
+p_1 \quad\quad  p_2 \quad\quad p_{1000} \quad\quad \lnot p_2  \quad\quad \lnot \lnot p_2
+\]
+\[
+(p_1 \limplies (\lnot p_2 \limplies p_1)) \quad\quad ((p_1\limplies \lnot p_2)\limplies p_1)
+\]
+\[
+\lnot( (p_1 \liff \lnot\lnot\lnot p_2) \limplies (\lnot p_2 \lor (p_1\land p_1)) ).
+\]
+}
+\noindent
+On the other hand, $p_1\land p_2$ is not a propositional formula due to missing parentheses,
+and $(\lnot p_3)$ is not a propositional formula due to having extra parentheses.
+Likewise, $p\lor r$ is not a propositional formula due to using variables other than the $p_i$'s.
+\end{example}
+
+\paragraph*{Informal abbreviations for formulas.}
+The formal definition of formulas requires the inclusion
+of many open and close parentheses. These are useful for
+uniquely parsing formulas, but often detract from readability.
+Thus it is common to informally abbreviate formulas
+by omitting parentheses when writing out formulas.
+For instance, we can always omit writing the outermost parentheses
+without any ambiguity about what the formula is.
+However, it is important that we know how to reinsert parentheses
+to recover the actual formula. We do this according to the following
+rules of precedence\index{precedence of connectives}:
+\begin{itemizeLoose}
+\item The negation sign, $\lnot$, has the highest precedence.
+\item The connectives $\land$ and $\lor$ have the second highest precedence.
+\item The connectives $\limplies$ and $\liff$ have the lowest precedence.
+\item If parentheses are omitted amongst connectives of the same precedence,
+they are associated from right to left.
+\end{itemizeLoose}
+Some examples are:
+\begin{center}
+\begin{tabular}{cc}
+Informal & Actual \\
+abbreviation & formula \\
+\hline
+$\lnot p_1 \lor \lnot p_2 \lor p_3$
+   & $(\lnot p_1 \lor (\lnot p_2 \lor p_3))$ \\
+$\lnot p_1 \limplies \lnot p_2 \limplies p_3$
+   & $(\lnot p_1 \limplies (\lnot p_2 \limplies p_3))$ \\
+$\lnot (p_1 \limplies \lnot p_2) \limplies p_3$
+   & $(\lnot (p_1 \limplies \lnot p_2) \limplies p_3)$ \\
+$p_1 \lor \lnot p_2 \limplies \lnot p_3 \land p_4$
+   & $((p_1 \lor \lnot p_2) \limplies (\lnot p_3 \land p_4))$
+\end{tabular}
+\end{center}
+In addition to omitting parentheses, variable names
+such as $p,q,r,\ldots$ are frequently
+used instead of $p_1, p_2, p_3,\ldots$. This is just to improve readability; formally
+only variables $p_i$ can appear in formulas.
+
+The truth functions for $\land$, $\lor$, and $\liff$ are associative, so the convention
+about associating from right to left is not so important for them. However,
+$\limplies$ is not associative, as $p\limplies (q \limplies r)$ is not
+equivalent to $(p \limplies q) \limplies r$. The formula
+$p \limplies (q \limplies r)$ is, however, equivalent truth-functionally to the
+formula $p \land q \limplies r$.
+This is often a convenient and useful way to write a formula,
+and it is for this reason
+that we have chosen to associate from
+right to left.
+
+It is best to avoid writing things like $A \lor B \land C$
+or $A \limplies B \liff C$, to avoid confusing readers. According
+to our conventions they mean $A \lor (B \land C)$
+or $A \limplies (B \liff C)$, but other authors use different conventions.
+
+\paragraph*{Proofs by induction and recursive definitions.}
+The reason for being so careful about giving a formal mathematical definition
+of propositional formulas is that we will use it to prove theorems about
+propositional formulas. That is to say, we do not merely use formulas,
+we also prove theorems about formulas.
+
+Definition~\ref{def:propositionalFmla}
+gave an inductive definition\index{recursive definition}
+for formulas. This allows properties of formulas to be proved
+by induction.  Specifically, suppose we wish to prove that
+every propositional formula satisfies some property~$\mathcal Q$.
+To prove this by induction, it suffices to show that:\index{proof by induction}
+\begin{itemizeLoose}
+\item[(a)] Every formula $p_i$ satisfies property~$\mathcal Q$,
+\item[(b)] If $A$ is a propositional formula that satisfies property~$\mathcal Q$,
+then the formula $\lnot A$ also satisfies property~$\mathcal Q$, and
+\item[(c)] If $A$ and~$B$ are propositional formulas
+that each satisfy property~$\mathcal Q$,
+then the formulas
+$(A \land B)$, $(A \lor B)$, $(A\limplies B)$, and $(A\liff B)$
+all satisfy property~$\mathcal Q$.
+\end{itemizeLoose}
+The first case, (a), serves as the base case.
+Cases (b) and~(c) serve as the induction steps.
+This means there are two induction steps to be proved,
+or even five induction steps
+if case~(c) has to be treated as four different induction steps.
+
+The third case, (c), of Definition~\ref{def:propositionalFmla} for
+propositional formulas treats the case where the principal connective
+is $\land$, $\lor$, $\limplies$, or~$\liff$. It requires that parentheses
+be included so that the formula has the form $(A \circ B)$, for $\circ$ one
+of the four binary connectives. The presence of all these
+parentheses means that there is a
+unique way to parse any propositional formula. That is to say, if $C$~is
+a propositional formula, then there is a unique way to express it in one
+of the forms (a)-(c) of Definition~\ref{def:propositionalFmla}. This
+is called the \idxem{unique readability} property and means that
+propositional formulas can be uniquely parsed.
+
+The inductive definition of propositional formulas in
+Definition~\ref{def:propositionalFmla} and the unique readability
+property together allow using inductive definitions (also called
+``recursive definitions'') to define functions of propositional
+formulas. The general framework for defining a function~$h(A)$ by recursion on the
+complexity of the formula~$A$ is as follows:\index{recursive definition}
+\begin{itemizeLoose}
+\item[(a)] For the base case, we define the value of $h$ for
+a propositional formula~$p_i$.
+\item[(b)] For the first case of recursion, we suppose that the value of~$h$ for
+a formula~$A$ is already defined. We use this to define the value of~$h$ for
+the formula~$\lnot A$.
+\item[(c)] For other cases of recursion, we suppose that the values
+of~$h$ on the formulas $A$ and~$B$ have already been defined.
+We use these to define the value
+of~$h$ for the formula $(A\circ B)$ where $\circ$~is
+one of the connectives $\land$, $\lor$, $\limplies$, or~$\liff$.
+\end{itemizeLoose}
+The \idxnm{unique readability} property means that there is exactly one
+way to express a propositional formula in one of the forms $p_i$ or $\lnot A$
+or $(A \circ B)$ to apply recursively one of the cases (a), (b), or~(c).
+Thus the value~$h$ is uniquely defined for all formulas.
+
+A prominent use of definition by recursion is the
+Definition~\ref{def:truthProp} given
+in the next section
+for the truth value of a propositional formula.
+Section~\ref{sec:proofsByInduction} gives some examples of proofs
+by induction on the complexity of formulas.
+\index{propositional formula|)}
+

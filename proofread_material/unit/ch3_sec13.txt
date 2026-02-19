@@ -1,0 +1,186 @@
+\section{A Game-Theoretic Definition of Truth}\label{sec:gameTheory}
+
+The Tarskian definition of truth for first-order formulas,
+as given in Definition~\ref{def:truthFO}, defined
+the meanings of ``$\forall$'' and~``$\exists$'' in terms
+of the English ``for all'' and ``for some''. This section presents
+another way of thinking about the meanings of first-order formulas in terms
+of game semantics. This gives a more dynamic and more intuitive
+way of visualizing truth, namely in terms of the existence of winning
+strategies for games played by two players.
+
+We first describe how the game semantics works to characterize
+the truth of prenex formulas. The game is played by two players,
+somewhat whimsically named ``Alice'' and ``Eve''.  Alice and
+Eve are presented with a $L$-structure~$\mathfrak A$ and a
+$L$-formula~$B(y_1,\ldots, y_\ell)$ and
+members $a_1,\ldots,a_\ell \in \mathfrak A$. No
+other variables appear free in~$B$ beyond $y_1,\ldots,y_\ell$.
+Eve is attempting to prove that
+$B(a_1,\ldots, a_\ell)$ is true in~$\mathfrak A$;
+conversely, Alice is attempting to prove that it is false in~$\mathfrak A$.
+Eve will act by giving values for existentially quantified variables;
+Alice will act by giving values for universally quantified variables.
+(The names
+``Alice'' and ``Eve'' are chosen to have initials
+``A'' and~``E'' for ``$\forall$'' and~``$\exists$''.)
+The game halts when presented with a quantifier-free formula, at which point
+Eve wins if $\mathfrak A \vDash B(\vec a)$ and Alice wins if
+$\mathfrak A \nvDash B(\vec a)$.
+
+The structure~$\mathfrak A$ stays the same
+throughout the game. The formula $B(y_1,\ldots,y_\ell)$ and
+the objects $a_1,\ldots, a_\ell$ change after each step.
+For each move in the game, there are three possible situations;
+\begin{itemizeLoose}[align=left,font=\em,leftmargin=1em,labelwidth=0.5em]
+\item[$\exists$-move:] Suppose $B(a_1,\ldots, a_\ell)$ begins
+with an existential quantifier, and thus has the form
+$\exists y_{\ell+1}\, C(a_1,\ldots, a_\ell, y_{\ell+1})$.
+Then it is Eve's turn to move and, as her move,
+she selects an object $a_{\ell+1}$.  The next round
+of the game considers $C(a_1,\ldots,a_\ell,a_{\ell+1})$ in place
+of $B(a_1,\ldots, a_\ell)$.
+\item[$\forall$-move:] Suppose $B(a_1,\ldots, a_\ell)$ begins
+with a universal quantifier and thus has the form
+$\forall y_{\ell+1}\, C(a_1,\ldots, a_\ell, y_{\ell+1})$.
+Then it is Alice's turn to move and,
+as her move, she selects an object $a_{\ell+1}$.  The next round
+of the game considers $C(a_1,\ldots,a_\ell,a_{\ell+1})$.
+\item[Quantifier-free:] If $B(a_1,\ldots,a_\ell)$ is quantifier-free,
+the game ends. Eve wins the game if $B(a_1,\ldots,a_\ell)$ is
+true in~$\mathfrak A$. Otherwise, Alice wins.
+\end{itemizeLoose}
+
+\begin{example}\label{example:LengthFour}
+This and the next example are based on the structure shown
+in Figure~\ref{fig:LengthEight}. The language consists of a
+binary relation~$E$ and equality~($=$). The universe is
+equal to $\{0,1,2,3,4,5,6,7\}$.  We consider two ways to write
+formulas $\TDist_4(x,y)$ that state there
+is a path of length
+exactly~4 between objects $a$ and~$b$.
+\begin{enumerateLoose}
+\item First let $\TDist(x,y)$ be the formula
+\[
+\exists z_1\, \exists z_2\, \exists z_3\,
+  [ E(x,z_1) \land E(z_1,z_2) \land E(z_2,z_3) \land E(z_3,y) ].
+\]
+With $x$ and~$y$ equal to 0 and~4, Alice and Eve
+play the game on $\TDist(0,4)$. This formula is
+true in the structure~$\mathfrakA$. Since the quantifiers are
+all existential, Eve makes all the moves. Her winning strategy
+is to set $a_1=1$, $a_2 = 2$, and $a_3 = 3$.  Then, since
+\[
+E(0,1) \land E(1,2) \land E(2,3) \land E(3,4)
+\]
+is true, Eve wins the game.
+On the other hand, Eve does not have a winning
+strategies for the games on $\TDist(0,3)$ and $\TDist0,5)$, reflecting
+the fact that these are false.
+
+The formula $\TDist_4$ is a straightforward way to express that
+there is a path of length~4. It has the disadvantage, however, that
+when generalizing this to form a formula $\TDist_\ell$ about
+having a path of length~$\ell>4$, a total of $\ell-1$ quantifiers.
+\item Now consider another formula that expresses the same property
+as $\TDist_4(x,y)$:
+\[
+\exists z_2\, \forall u\, \exists z^\prime\,
+ [  (u=x \limplies E(x,z^\prime) \land E(z^\prime, z_2) ) \land
+    (u\neq x \limplies E(z_2,z^\prime) \land E(z^\prime, y) ) ].
+\]
+When there is a length~4 path from $x$ to~$y$, Eve's winning
+strategy is to start by picking $z_2$ to be the midpoint of such a path.
+Alice can then either choose $u$ to equal~$x$ to challenge the
+fact there is path from $x$ to~$z_2$ of length~2 or choose $u$ to equal~$z_2$
+to challenge the
+fact there is a path from $z_2$ to~$y$ of length~2. Eve replies by
+setting $z^\prime$ to be either the midpoint of the first length~2 subpath (if Alice
+selected~$x$) or the midpoint of the second length~2 subpath (if Alice
+selected~$z_2$).\footnote{Our analysis omitted considering the case
+where $z_2$ is equal to~$x$, but the formula and the corresponding game still
+work in that case too.}
+\end{enumerateLoose}
+\end{example}
+
+\begin{example}\label{example:LengthEight}
+\begin{enumerate}
+\item Continuing the previous example, here is a formula
+$\TDist_8(x,y)$ that expresses there is path of length
+exactly~8 from $x$ to~$y$:
+\begin{eqnarray*}
+\lefteqn{\exists z_4\, \forall u\, \exists z^\prime\, \forall u^\prime\, \exists z^\pprime\,
+[  (u=x \land u^\prime=x \limplies E(x,z^\pprime) \land E(z^\pprime, z^\prime)) \land } \\
+&& \qquad\qquad\qquad\,\, (u=x \land u^\prime \neq x \limplies E(z^\prime,z^\pprime) \land E(z^\pprime, z_4)) \land \\
+&& \qquad\qquad\qquad\,\, (u\neq x \land u^\prime=x \limplies E(z_4,z^\pprime) \land E(z^\pprime, z^\prime)) \land \\
+&& \qquad\qquad\qquad\,\, (u\neq x \land u^\prime \neq x \limplies E(z^\prime,z^\pprime) \land E(z^\pprime, y)) ~ ].
+\end{eqnarray*}
+The idea is that Eve chooses $z_4$ to be the midpoint of a length~8 path from
+$x$ to~$y$. Then Alice either chooses $u$ to be $x$ to indicate there
+is no length~4 path from $x$ to~$z_4$ or 
+chooses $u\neq x$ to indicate there is no length~4 path from $z_4$ to~$y$.
+Then Eve picks the midpoint~$z^\prime$ of the length~4 path that was challenged by Alice,
+either from $x$ to~$z_4$ or from $z_4$ to~$y$.
+Next, Alice picks $u^\prime$ to be equal to~$x$ to challenge the existence of the first
+subpath of length~2, or to be unequal to~$z$ to challenge the existence of the second
+claimed subpath of length~2.
+Finally, Eves chooses the middle vertex of that subpath of length~2.
+
+This example generalizes to formulas for $\TDist_\ell$ that require only $O(\log \ell)$
+quantifiers.  However, these still require $O(\ell \log \ell)$ size formulas overall.
+\item Here is yet another construction
+that gives formulas equivalent to $\TDist_\ell$ of size only $O(\ell)$. For $\ell = 8$,
+the example is
+\begin{eqnarray*}
+\lefteqn{\exists z_4\, \forall u\, \exists x^\prime\, \exists z^\prime\, \exists y^\prime
+ \forall u^\prime\, \exists x^\pprime\, \exists z^\pprime\, \exists y^\pprime } \\
+&& ( ~[(u=x \limplies x^\prime = x \land y^\prime = z_4) \land (u\neq x \limplies x^\prime = z_4 \land y^\prime = y)] \\
+&& ~ ~\land [(u=x^\prime \limplies x^\pprime = x^\prime \land y^\prime = z^\prime)
+       \limplies (u\neq x^\prime \limplies x^\pprime = z^\prime \land y^\pprime = y^\prime)] \\
+&& ~ ~ \land E(x^\pprime, z^\pprime) \land E(z^\pprime, y^\pprime) ~ ).
+\end{eqnarray*}
+The idea for this construction is that Eve's winning strategy (if any) is based
+on choosing values so that there is a length~4 path from $x^\prime$ to $y^\prime$ with
+midpoint~$z^\prime$ and there is a length~2 path from $x^\pprime$ to $y^\pprime$ with
+midpoint~$z^\pprime$.
+\end{enumerate}
+\end{example}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=1.5,
+   >={Latex[length=4pt,width=4pt]},
+   object/.style={minimum size=6pt,circle,draw}]
+\node (a0) at (0,0) [object]{$0$};
+\node (a1) at (1,0) [object]{$1$};
+\node (a2) at (2,0) [object]{$2$};
+\node (a3) at (3,0) [object]{$3$};
+\node (a4) at (4,0) [object]{$4$};
+\node (a5) at (5,0) [object]{$5$};
+\node (a6) at (6,0) [object]{$6$};
+\node (a7) at (7,0) [object]{$7$};
+\draw [->] (a0) to (a1);
+\draw [->] (a1) to (a2);
+\draw [->] (a2) to (a3);
+\draw [->] (a3) to (a4);
+\draw [->] (a4) to (a5);
+\draw [->] (a5) to (a6);
+\draw [->] (a6) to (a7);
+\end{tikzpicture}
+\end{center}
+\caption{The structure~$\mathfrakA$ for
+Examples \ref{example:LengthFour} and~\ref{example:LengthEight}
+is a directed graph on eight vertices. The directed edges
+from $i$ to~$i{+}1$ indicate that $E(i,i{+}1)$ is true.}
+\label{fig:LengthEight}
+\end{figure}
+
+
+Game semantics is frequently used as a tool to show that certain concepts
+are not expressible by first-order formulas, especially in the study
+of Finite Model Theory. Many of these constructions
+are based on ``Ehrenfeucht-Fra\"{\i}ss\'e'' games and its variants.
+
+%% Exercise: 4x4 grid of X's/O's with LeftOf, RightOf, Below, Above
+
+

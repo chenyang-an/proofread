@@ -1,0 +1,246 @@
+\section{Propositional Substitution}\label{sec:substitutionProp}
+
+\index{substitution!propositional|(}
+
+Propositional substitution means substituting a formula~$B$
+for a variable~$p_i$ inside some formula~$A$.
+In other words, it means
+replacing a variable~$p$ in~$A$ with
+a formula~$B$. There are several reasons to look carefully
+at substitution. First of all, we need to prove that if
+$A$~is a tautology, then so is the formula obtained by
+substituting $B$ for every occurrence of~$p$ in~$A$. This will be important
+for the proof system~$\PL$ defined in the next chapter. Second, we need to
+prove that if $B$ and $C$ are tautologically equivalent, and we replace
+an occurrence of~$B$ as a subformula of~$A$ with~$C$, then the result is
+tautologically equivalent to~$A$. This is a fact we have already used
+more than once, notably in Section~\ref{sec:adequate} when discussing
+adequate sets of connectives. For example, the proof of
+Theorem~\ref{thm:notImpliesAdequate} replaced subformulas $B\lor C$ with
+$\lnot B \limplies C$, and argued that this preserved tautological equivalence.
+A third reason is that studying the
+substitution of propositional formulas for variables
+will give a glimpse of the issues we will encounter with substitution in
+first-order logic in later chapters.
+
+We use the notation $A(B/p)$ to mean the formula
+that results from~$A$ after replacing every occurrence of the variable~$p$
+in~$A$ with the formula~$B$.  More generally, we write
+$A(B_1,\ldots,B_k/p_{i_1},\ldots,p_{i_k})$ to denote the
+result of replacing, in parallel,
+each occurrence of each~$p_{i_j}$ in~$A$ with~$B_j$. The formal definition is
+below, but first we consider a few examples.
+
+\begin{example}
+Let $A$ be the formula $(p_1 \limplies (p_2 \limplies p_1))$.
+Letting $B$ be $((p_2\land\penalty10000 p_3)\limplies p_1)$, we have
+$A(((p_2\land p_3)\limplies p_1)/p_1)$ is the formula
+\[
+(((p_2\land p_3)\limplies p_1) \limplies (p_2 \limplies ((p_2\land p_3)\limplies p_1))) .
+\]
+As this example shows, it is permitted that $p_1$ appears in~$B$.
+
+For another example, $A(p_1/p_1)$~is the same as~$A$.
+
+Finally, let $C$ be $(p_2\land p_3)$ and $D$ be $(p_1\land p_4)$. Then
+$A(C,D/p_1,p_2)$ is the formula
+\[
+((p_2\land p_3) \limplies ((p_1\land p_4) \limplies (p_2\land p_3))) .
+\]
+Note that the two $p_1$'s in~$A$ were replaced with~$C$ and the $p_2$
+in~$A$ was replaced with~$D$. But the $p_1$ and $p_2$ that appear in
+$C$ and~$D$ do not change. This reflects the fact that the substitution
+of $C$ and~$D$ for occurrences of $p_1$ and~$p_2$ is done ``in parallel''.
+
+If substitutions are to be done sequentially\index{substitution!sequential}
+instead of in parallel, we would
+use the notation $A(C/p_1)(D/p_2)$.  This would mean first substituting
+$C$ for~$p_1$ in~$A$ and then substituting $D$ for~$p_2$ in the resulting
+formula. You should convince yourself that this is the same as
+$A(C',D/p_1,p_2)$ where $C'$~is $C(D/p_2)$.
+\end{example}
+
+\begin{definition}\label{def:substitutionProp}\index{substitution}\index{substitution!parallel}
+Let $k\ge 1$ and $A,B_1,\ldots, B_k$ be propositional formulas
+and $p_{i_1},\ldots, p_{i_k}$ be (distinct) propositional variables. Then
+the formula $A(B_1,\ldots,B_k/p_{i_1},\ldots,p_{i_k})$ is
+recursively defined as follows:
+\begin{enumerateLoose}
+\item If $A$ is the variable~$p_{i_j}$ for some $1\le j \le k$,
+then $A(B_1,\ldots,B_k/p_{i_1},\ldots,p_{i_k})$ is~$B_j$.
+\item If $A$ is a variable~$p_\ell$ with $\ell \notin \{i_1,\ldots, i_k\}$,
+then $A(B_1,\ldots,B_k/p_{i_1},\ldots,p_{i_k})$ is~$p_\ell$.
+In other words, $A$~is
+unchanged by the substitution.
+\item If $A$ is $\lnot C$, then $A(B_1,\ldots,B_k/p_{i_1},\ldots,p_{i_k})$
+is $\lnot C(B_1,\ldots,B_k/p_{i_1},\ldots,p_{i_k})$.
+In other words, it
+is $\lnot C^\prime$ where $C^\prime$ is $C(B_1,\ldots,B_k/p_{i_1},\ldots,p_{i_k})$.
+\item If $A$ is $C \circ D$ for $\circ$ a binary connective,
+then $A(B_1,\ldots,B_k/p_{i_1},\ldots,p_{i_k})$ is
+$C(B_1,\ldots,B_k/p_{i_1},\ldots,p_{i_k})\circ D(B_1,\ldots,B_k/p_{i_1},\ldots,p_{i_k})$.
+In other words, it
+is $C^\prime \circ D^\prime$
+where $C^\prime$ is as before and $D^\prime$~is $D(B_1,\ldots,B_k/p_{i_1},\ldots,p_{i_k})$.
+\end{enumerateLoose}
+\end{definition}
+
+The reader is warned that sometimes different notations are used for substitution.
+For example, some authors will introduce a formula~$A$ as $A = A(p)$, and then
+write $A(B)$ to denote what we mean by $A(B/p)$. This notation $A(B)$ has the
+advantage of being less cluttered and more readable, but it has the disadvantage
+of being a little ambiguous about whether $A(B)$ means the result of
+replacing all of the occurrences of~$p$ with~$B$ or just some of the occurrences.
+For the time being, we will stick with the notation $A(B/p)$,
+and it always means replacing all of the occurrences of~$p$.
+
+It is also fairly common to use the notation $A(B_1/p_1,\ldots,B_k/p_k)$
+instead of $A(B_1,\ldots,B_k/p_1,\ldots,p_k)$ for parallel\index{substitution!parallel} substitution.
+
+\begin{definition}\label{def:instanceProp}
+Any formula of the form $A(B/p_i)$ is called an \idxem{instance} of~$A$.
+\end{definition}
+
+The next theorem states that
+if $B$ and $C$ have the same truth value,
+then the formulas $A(B/p)$ and $A(C/p)$ have the same truth value.
+It is a straightforward result,
+but is the crucial fact needed to prove the rest of our theorems
+on substitution of propositional formulas.
+
+\begin{theorem}\label{thm:substituteProp1}
+Let $A$, $B$ and $C$ be formulas, and $p_i$ be a variable.
+Also, let $\varphi$ be a truth assignment.
+If $\varphi(B) = \varphi(C)$, then $\varphi(A(B/p_i)) = \varphi(A(C/p_i))$.
+\end{theorem}
+
+\begin{proof}
+Let $B$, $C$, $p_i$ and~$\varphi$ be fixed. We prove that the
+theorem holds for all~$A$, by using induction on~$A$.
+\begin{description}
+\item[Base case \#1:] Suppose $A$ is the propositional variable~$p_i$.
+Then $A(B/p_i)$ and $A(C/p_i)$ are just $B$ and~$C$. So by the hypothesis
+that $\varphi(B) = \varphi(C)$, we have immediately
+$\varphi(A(B/p_i))=\varphi(A(C/p_i))$.
+\item[Base case \#2:] Suppose $A$ is a variable~$p_j$, with $j \neq i$.
+Then $A(B/p_i)$ and $A(C/p_i)$ are both just~$A$, so of course
+$\varphi(A(B/p_i))=\varphi(A(C/p_i))$.
+\item[Induction step \#1:] Suppose $A$ is $\lnot D$, so
+$A(B/p_i)$ is $\lnot D(B/p_i)$ and $A(C/p_i)$ is $\lnot D(C/p_i)$.
+The induction hypothesis
+states that $\varphi(D(B/p_i))=\varphi(D(C/p_i))$.  
+By the definition of truth for~$\lnot$, we have immediately
+that $\varphi(A(B/p_i))=\varphi(A(C/p_i))$.
+\item[Induction step \#2:] Suppose $A$ is $D\circ E$ where $\circ$ is one of $\land, \lor, \limplies, \liff$.
+Thus
+$A(B/p_i)$ is $D(B/p_i)\circ E(B/p_i)$ and $A(C/p_i)$ is $D(C/p_i)\circ E(C/p_i)$.
+There are two induction hypotheses: that $\varphi(D(B/p_i))=\varphi(D(C/p_i))$
+and that $\varphi(E(B/p_i))=\varphi(E(C/p_i))$. By the definition of
+truth for~$\circ$, $\varphi(A(B/p_i))=\varphi(A(C/p_i))$. $\qedhere$
+\end{description}
+\end{proof}
+
+Theorem~\ref{thm:substituteProp1} was stated relative to a single truth assignment.
+If we strengthen the hypothesis to say that $\varphi(B)=\varphi(C)$ for
+{\em all} truth assignments, we get the following corollary.
+
+\begin{corollary}\label{coro:substituteTaut}
+Suppose $B \tautEq C$.
+Then $A(B/p_i) \tautEq A(C/p_i)$.
+\end{corollary}
+
+This corollary has already been used earlier, for instance in
+the proof of Theorem~\ref{thm:notImpliesAdequate}. In that proof,
+we asserted that if a subformula $(B\lor C)$ of~$A$ is replaced
+with $(\lnot B\limplies C)$, then the resulting formula~$A'$ is
+tautologically equivalent to~$A$. Of course, we have so far only
+discussed substituting a formula for a {\em variable}, not for
+a subformula. Nonetheless, we can recast substitution so as to apply
+it to replacing a subformula with another formula.
+
+As an example, let $p_\ell$ be a variable that does not appear in~$A$,
+and let $A^*$~be the formula obtained from~$A$ by replacing
+the subformula $(B\lor C)$ with~$p_\ell$. Then
+$A$~is the same as $A^*((B\lor C)/p_\ell)$ and $A'$~is
+the same as $A^*((\lnot B \limplies C)/p_\ell)$. The corollary
+states that $A^*((B\lor C)/p_\ell)$ and $A^*((\lnot B \limplies C)/p_\ell)$
+are tautologically equivalent. That is, that $A$ and~$A'$ are
+tautologically equivalent. This is exactly what was needed for the
+proof of Theorem~\ref{thm:notImpliesAdequate}.
+
+The above corollary talked about substituting two tautologically
+equivalent formulas into the same formula~$A$.  The next theorem
+talks about substituting $A$ into two tautologically equivalent
+formulas.
+
+\begin{theorem}\label{thm:substituteProp2}
+Suppose $B \tautEq C$. Then $B(A/p_i) \tautEq C(A/p_i)$.
+\end{theorem}
+
+\begin{proof}
+Let $\varphi$ be an arbitrary truth assignment. We need to
+show that $\varphi(B(A/p_i)) =\penalty10000 \varphi(C(A/p_i))$.
+Let $p_\ell$ be a variable that does not appear in any of $A$, $B$, or~$C$.
+Define $\varphi^\prime$ to be the truth assignment such
+that $\varphi(p_\ell) = \varphi(A)$ and otherwise agrees
+with~$\varphi$. In other words,
+\begin{equation}\label{eq:truthassignVariant}
+\varphi^\prime(p_j) ~=~ \left\{ \begin{array}{ll}
+\varphi(A) ~~~ & \hbox{if $j=\ell$} \\
+\varphi(p_j) ~~~ &\hbox{if $j\neq \ell$.}
+\end{array} \right.
+\end{equation}
+We call $\varphi'$ a ``$p_\ell$-variant\index{variant!$p_\ell$-variant}'' of~$\varphi$
+since $\varphi$ and~$\varphi^\prime$ agree on all variables except
+possibly~$p_\ell$.
+Note that $\varphi$ and~$\varphi'$ agree on all variables
+that appear in $B(A/p_i)$ or in $C(A/p_i)$.  We have
+\begin{threecolproof}
+$\varphi(B(A/p_i))~~=~$ & $\varphi^\prime(B(A/p_i))$ & By Theorem~\ref{thm:varsDependOnProp} since $p_\ell$ does not appear in $B(A/p_i)$ \\
+$=~$ & $\varphi^\prime(B(p_\ell/p_i))$ & By Theorem~\ref{thm:substituteProp1} since $\varphi^\prime(A) = \varphi^\prime(p_\ell)$ \\
+$=~$ & $\varphi^\prime(C(p_\ell/p_i))$ & By $B \tautEq C$ since $p_\ell$ does not appear in $B$ or $C$ \footnotemark \\
+$=~$ & $\varphi^\prime(C(A/p_i))$ & By Theorem~\ref{thm:substituteProp1} again \\
+$=~$ & $\varphi(C(A/p_i))$ & By Theorem~\ref{thm:varsDependOnProp} again.$\qedhere$
+\end{threecolproof}%
+\footnotetext{Informally, $B(p_\ell/p_i)$ and $C(p_\ell/p_i)$ are obtained
+from $B$ and~$C$ by renaming $p_i$ to~$p_\ell$, and therefore $B\tautEq C$ implies
+$B(p_\ell/p_i) \tautEq C(p_\ell/p_i)$.
+Strictly speaking, we should introduce another truth assignment~$\varphi^\pprime$ which
+is the $p_i$-variant of~$\varphi'$ with $\varphi^\pprime(p_i) = \varphi^\prime(p_\ell)$. Then we argue
+$\varphi^\prime(B(p_\ell/p_i))=\varphi^\pprime(B)=\varphi^\pprime(C)=\varphi^\prime(C(p_\ell/p_i))$.}
+\end{proof}
+
+\begin{corollary}\label{coro:instanceTaut} ~~\ ~
+\begin{itemize}
+\item[(a)] Any instance of a tautology is a tautology.
+\item[(b)] If $A\vDash B$, then $A(C/p_i) \vDash B(C/p_i)$
+\item[(c)] If $A_1,\ldots, A_k \vDash B$, then $A_1(C/p_i),\ldots A_k(C/p_i) \vDash B(C/p_i)$.
+\end{itemize}
+\end{corollary}
+
+\begin{proof}
+Let $A$ be a tautology, and $A(B/p_i)$ be an instance of~$A$. To prove~(a),
+we must show that $A(B/p_i)$ is a tautology.  Let $p_\ell$ be a variable
+that does not occur in~$A$. We have $A \tautEq (p_\ell \lor \lnot p_\ell)$
+since both $A$ and $p_\ell \lor \lnot p_\ell$ are tautologies.
+Therefore, by the previous theorem, substituting $B$ for~$p_i$,
+\[
+A(B/p_i) \tautEq (p_\ell \lor \lnot p_\ell),
+\]
+since $p_i$ does not appear in $(p_\ell \lor \lnot p_\ell)$.
+Therefore, $A(B/p_i)$ is a tautology.
+
+Part~(b) follows easily from part~(a). First, $A\vDash B$ holds iff
+and only if $\vDash\penalty10000 A\limplies\penalty10000 B$. Likewise,
+$A(C/p_i) \vDash B(C/p_i)$ holds if and only if
+$\vDash A(C/p_i) \limplies\penalty10000 B(C/p_i)$. Finally,
+$A(C/p_i) \limplies B(C/p_i)$ is equal to
+$(A\limplies B)(C/p_i)$. Thus (a) implies~(b).
+
+Part~(c) is proved similarly to part~(b) using the fact that
+$A_1,\ldots, A_k \vDash B$ holds if and only if
+$A_1\land \cdots\land  A_k \limplies B$ is a tautology.
+\end{proof}
+
+\index{substitution!propositional|)}
+

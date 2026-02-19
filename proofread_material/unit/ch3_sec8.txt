@@ -1,0 +1,180 @@
+\section{Prenex Formulas}\label{sec:prenex}
+
+A ``\idxnm{prenex formula}'' is a formula in which all quantifiers
+are at the front of the formula. For example, $\forall x\, \exists y\, \forall z\, (A\land B)$ is
+a prenex formula, but $\forall x\, \exists y\, (A\land \forall z\, B)$ is not.
+It turns out that every first-order formula can be reexpressed in prenex form.
+
+\begin{definition}\label{def:prenex}
+The \emph{prenex formulas} are inductively defined by:
+\begin{enumerate}
+\item If $A$ is \idxnm{quantifier-free}, i.e., if $A$~contains no
+quantifiers, then $A$ is a \idxnm{prenex formula}.
+\item If $A$ is a prenex formula and $x_i$ is a variable, then
+$\forall x_i\, A$ and $\exists x_i\, A$ are prenex formulas.
+\end{enumerate}
+\end{definition}
+
+An alternative definition of prenex formulas can be given in terms of not having
+a quantifier in the scope of a propositional connective.
+Definition~\ref{def:scopeQuantifier} already defined the scope
+of a quantifier. The scope of a propositional connective is
+defined similarly:
+\begin{definition}\label{def:scopePropositional}
+Let $A$ be a formula. Let $B$ be a subformula of the form $\lnot C$.
+The \idxem{scope} of this negation sign is the subformula~$C$.
+Now let $B$ be a subformula of the form $C \circ D$ with $\circ$ a
+binary propositional connective ($\land$, $\lor$, $\limplies$, or~$\liff$).
+The scope of this connective~$\circ$ is the two subformulas $C$ and~$D$.
+\end{definition}
+
+Clearly, a formula~$A$ is prenex\index{prenex formula} if and only if
+no quantifier occurs in~$A$ in the scope of a propositional connective.
+
+\begin{theorem}\label{thm:prenex}
+Every formula~$A$ is logically equivalent to a \idxnm{prenex formula}.
+\end{theorem}
+
+The next lemma is a crucial ingredient in the proof
+Theorem~\ref{thm:prenex}.
+
+\begin{lemma}\label{lem:prenexHelpers}
+Let $A$ and $C$ be formulas, and assume $x$ is not free in~$C$.
+Then
+\begin{itemize}
+\item[(a)] $C \land \exists x\, A \tautEq \exists x\,(C \land A)$
+\item[(b)] $C \land \forall x\, A \tautEq \forall x\,(C \land A)$
+\item[(c)] $C \lor \forall x\, A \tautEq \forall x\,(C \lor A)$
+\item[(d)] $C \lor \exists x\, A \tautEq \exists x\,(C \lor A)$
+\item[(e)] $C \limplies \forall x\, A \tautEq \forall x\,(C \limplies A)$
+\item[(f)] $C \limplies \exists x\, A \tautEq \exists x\,(C \limplies A)$
+\item[(g)] $(\forall x\, A) \limplies C \tautEq \exists x\,(A \limplies C)$
+\item[(h)] $(\exists x\, A) \limplies C \tautEq \forall x\,(A \limplies C)$
+\end{itemize}
+\end{lemma}
+
+\begin{proof}[Proof of Lemma~\ref{lem:prenexHelpers}]
+We will sketch the proof, and leave some of the details to
+the exercises.  First,
+part~(e) was already proved in Example~\ref{example:prenexACI}.
+We claim that parts (a), (c), and~(h) are essentially equivalent to part~(e).
+For instance, to prove part~(h), we note that
+$(\exists x\, A) \limplies C$ is tautologically equivalent to
+$\lnot C \limplies\penalty10000 \lnot \exists x\, A$. The latter
+is logically equivalent to $\lnot C \limplies\penalty10000 \forall x \, \lnot A$
+by Theorem~\ref{thm:negQnegBis}. That in turn is logically
+equivalent to $\forall x\, (\lnot C \limplies \lnot A)$ since part~(e) holds
+in general. This last formula is logically equivalent to
+$\forall x\, ( A \limplies  C)$, and thus part~(h) is proved.
+Similar arguments prove parts (a) and~(c) from~(e) by
+expressing $\land$ and $\lor$ in terms of $\limplies$ and~$\lnot$.
+
+Now let's prove part~(d). As is proved in Exercise~\ref{exer:EorEorEAandAandA},
+$\exists x\,(C \lor A)$ is logically equivalent to
+$\exists x\,C \lor \exists x\, A$.\footnote{The application of
+Exercise~\ref{exer:EorEorEAandAandA}
+does not need the assumption that $x$ is not free in~$C$.}  And since
+$x$ is not free in~$C$,
+Exercise~\ref{exer:QxNotFree} states that $\exists x\, C$ is logically
+equivalent to~$C$. It follows that
+$\exists x\,(C \lor A)$ is logically equivalent to
+$C \lor \exists x\, A$, so (d) is proved.  Parts (b), (f), and~(g)
+are essentially equivalent to part~(b), analogously to the way
+that parts (a), (c), (e), and~(h) were essentially equivalent to each other.
+\end{proof}
+
+Theorem~\ref{thm:prenex} is now proved by using the lemma; the main
+new thing is that we have to handle the case where $x$ is free in~$C$
+by using alphabetic variants.
+
+\begin{proof}[Proof of Theorem \ref{thm:prenex} on prenex formulas]
+Without loss of generality, $A$~does not contain the symbol~$\liff$
+since any subformula $B\liff C$ can replaced by the tautologically
+equivalent $(B\limplies C) \land (C\limplies B)$.
+
+We modify $A$ step-by-step by moving quantifiers in front
+of propositional connectives. Each step will reduce the
+number of pairs of occurrences of
+propositional connectives ($\lnot$ or $\circ$)
+and quantifiers $Q x$ such that $Qx$ lies the scope of the propositional
+connective. If $A$ is not in prenex form, then there must be
+at least one subformula of the form $\lnot Q x\, B$ or $Q x\, B \circ C$
+or $C \circ Q x\, C$.
+
+Suppose $A$ has a subformula $\lnot Q x\, B$ where $Q x$ denotes
+either $\forall x$ or $\exists x$.  Let $\overline Q x$ denote
+the \idxnm{dual quantifier} $\exists x$ or $\forall x$, respectively.
+Then $\lnot Q x \, B$ is logically equivalent to $\overline Q x\, \lnot $.
+Replacing $\lnot Q x \, B$ in~$A$ with $\overline Q x\, \lnot B $
+yields a formula that is logically equivalent to~$A$
+and has one less pair of occurrences of propositional connectives
+and quantifiers with the quantifier in the scope of the propositional
+connective.
+
+Now suppose $A$ has a subformula $(Qx\, B) \lor C$.  If $x$ does not
+appear free in~$C$, then replace this subformula with the
+logically equivalent $Q x \,(B \lor C)$; the logical equivalence
+follows from part (c) or~(d) of Lemma~\ref{lem:prenexHelpers}.
+On the other hand, if $x$ does appear free in~$C$, choose a new
+variable~$y$ that does not appear anywhere in~$A$.  Then $Q y\, B(y/x)$
+is an alphabetic variant of~$Qx\, B$ and thus is logically
+equivalent to~$Qx\, B$. Since $y$ was chosen to be a variable that
+is not used at all in~$A$, it has no free occurrence in~$C$.
+Therefore, $Q y \,(B(y/x) \lor C)$ is logically equivalent to
+$(Qx\, B) \lor C$. Replacing $(Qx\, B) \lor C$ with $Q y \,(B(y/x) \lor C)$
+in~$A$ yields a logically equivalent formula. It also reduces the number of
+pairs of propositional connectives and quantifiers with the quantifier inside the
+scope of the logical connective.
+
+The remaining cases where $A$ has a subformula of the
+form $((Q x\, B) \circ C$ or $(C \circ (Q x\, B)$ are similar.
+These are proved using the other logical equivalences from
+Lemma~\ref{lem:prenexHelpers}.
+
+We leave the rest of the details of the proof to the reader.
+\end{proof}
+
+
+\begin{example}
+Let $A$ be the formula  $\forall x\, P(x) \lor \exists y\, Q(z,y)$.
+Using prenex operations, we have the tautological equivalences
+\[
+\forall x\, P(x) \lor \exists y\, Q(z,y)
+   ~\tautEq~ \forall x\, ( P(x) \lor \exists y\, Q(z,y) )
+   ~\tautEq~ \forall x\, \exists y\, ( P(x) \lor Q(z,y) ).
+\]
+Thus $A$ is logically equivalent to the prenex formula
+$\forall x\, \exists y\, ( P(x) \lor Q(x,y) )$.
+
+It is possible to pull out the quantifiers in a different order:
+\[
+\forall x\, P(x) \lor \exists y\, Q(z,y)
+   ~\tautEq~ \exists y\, ( \forall x\, P(x) \lor Q(z,y) )
+   ~\tautEq~ \exists y\, \forall x\, ( P(x) \lor Q(z,y) ).
+\]
+So $A$ is also logically equivalent to the
+prenex formula $\exists y\, \forall x\, ( P(x) \lor\penalty10000 Q(x,y)$.
+Of course, these two prenex forms of~$A$ are logically
+equivalent to each other as well.
+\end{example}
+
+\begin{example}
+Now let $A$ be the formula
+$\forall x\, P(x,y) \limplies \forall x\, \exists y \, Q(x,y)$. The variable~$x$
+is quantified twice, and the variable~$y$ has both free and bound occurrences.
+Accordingly, we must work with alphabetic variants to convert~$A$ into
+prenex form.  This can be done step-by-step as:
+\begin{implications}
+\multicolumn{3}{l}{$\forall x\, P(x,y) \limplies \forall x\, \exists y \, Q(x,y)$} &  \\
+& $\tautEq$ & $\exists x\, (P(x,y) \limplies \forall x\, \exists y \, Q(x,y)$ & Lemma~\ref{lem:prenexHelpers}(g) \\
+& $\tautEq$ & $\exists x\, (P(x,y) \limplies \forall x'\, \exists y \, Q(x',y)$ & Alphabetic variant \\
+& $\tautEq$ & $\exists x\, \forall x'\, (P(x,y) \limplies \exists y \, Q(x',y)$ & Lemma~\ref{lem:prenexHelpers}(e) \\
+& $\tautEq$ & $\exists x\, \forall x'\, (P(x,y) \limplies \exists y' \, Q(x',y')$ & Alphabetic variant \\
+& $\tautEq$ & $\exists x\, \forall x'\, \exists y' \, (P(x,y) \limplies Q(x',y')$ & Lemma~\ref{lem:prenexHelpers}(f) \\
+\end{implications}
+Just as in the previous example, it would be possible to pull the quantifiers out in
+a different order. Indeed, the initial block of quantifiers could also
+end up as ``$\forall x'\, \exists x\, \exists y'$'' or ``$\forall x'\, \exists y'\, \exists x$''.
+\end{example}
+
+

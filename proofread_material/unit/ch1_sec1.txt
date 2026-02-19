@@ -1,0 +1,220 @@
+\section{Introduction to Propositional Logic}\label{sec:introProp}
+
+Propositional logic is used to express statements
+using ``propositions'' or ``sentences''
+that take on true/false values. Propositional logic
+is sometimes called ``sentential logic'' or ``Boolean logic''; the latter
+name is because it  deals with the
+Boolean values of ``True'' and ``False''.
+As a simple example, consider three propositions
+denoted by variables $r, s, w$:
+\begin{center}
+\begin{tabular}{c@{~-~}l}
+$r$ & ``It is raining'' \\[0.5ex]
+$s$ & ``The sun is shining'' \\[0.5ex]
+$w$ & ``The grass is wet''
+\end{tabular}
+\end{center}
+As propositions, they are assumed to take on definite true/false
+values. For example, it is assumed that $r$ will assume a definite truth value
+of ``True'' or ``False'' indicating either that it is raining or that it
+is not raining;
+say at some particular time or place and
+without any ambiguity that might arise from issues such as whether
+a light mist counts as rain. Likewise, it is assumed that $s$ and~$w$
+will assume definite truth values as to whether the sun is shining
+and the grass is wet.
+
+More complex propositions are formed by combining
+propositional variables with operators such as
+``not''~($\lnot$)\index{not@{not ($\lnot$)}},
+``and''~($\land$)\index{and@{and ($\land$)}}, and
+``or''~($\lor$)\index{or@{or ($\lor$)}}.
+For example,
+\begin{center}
+\begin{tabular}{c@{~-~}l}
+$\lnot r$ & ``It is not raining'' \\[0.5ex]
+$r \land w$ & ``It is raining and the grass is wet'' \\[0.5ex]
+$r \lor s$ & ``It is raining or the sun is shining'' \\[0.5ex]
+$\lnot( r \land s)$ & ``It is not the case that both it is raining and the sun is shining''
+\end{tabular}
+\end{center}
+When the variables $r$, $w$, and~$s$ have true/false values, they induce
+true/false values for the complex propositions.
+The $\lnot$~(``not'') operator is also called \emph{logical negation} or just \idxem{negation}.
+The $\land$~(``and'') operator is also called \idxem{conjunction},
+The $\lor$~(``or'') operator is also called \idxem{disjunction}.
+The connective~$\lor$ denotes the ``\idxnm{inclusive or}'' in that it allows the possibility
+that both arguments are true. Thus the formula $r \lor s$ is also true when both $r$ and~$s$
+are true.
+
+Other common connectives include
+``if \ldots then \ldots''\index{if-then@{if-then ($\limplies$)}} ($\limplies$) and
+``if and only if''~($\liff$)\index{if and only if@{if and only if ($\liff$)}}.
+The $\limplies$ operator is
+often called \idxem{implication}; and the $\liff$ operator is the
+\idxem{equivalence} operator.
+For example,
+\nopagebreak
+\begin{center}
+\begin{tabular}{c@{~~~-~}l}
+$r \limplies w$ & ``If it is raining then the grass is wet'' \\[0.5ex]
+$w \limplies r$ & ``The grass is wet only if it is raining'' \\[0.5ex]
+$r \limplies w$ & ``The grass is wet if it is raining'' \\[0.5ex]
+$w \liff r$ & ``The grass is wet if and only if it is raining''
+\end{tabular}
+\end{center}
+Some care needs to be taken in translating English sentences to propositional
+formulas since a \idxnm{natural language} such as English allows many nuances that
+are completely lost in propositional logic.  However,
+as shown in some of the above examples, ``$B$~if~$A$''
+generally means the same thing
+as ``if $A$ then~$B$''. It also means the same thing as ``$A$~only if~$B$''.
+
+Some less explicit uses of propositional connectives occur with ``but''
+and ``unless''; for example,
+\begin{center}
+\begin{tabular}{c@{~~~-~}l}
+$r \land \lnot w$ & ``It is raining but the grass is not wet'' \\[0.5ex]
+$(\lnot w) \lor r$ & ``The grass is not wet unless it is raining.''
+\end{tabular}
+\end{center}
+These illustrate that ``but'' may translate to the propositional connective $\land$~(``and''),
+and ``$A$ unless~$B$'' may translate to $A \lor B$. The latter can also translate
+to $(\lnot A) \limplies B$ because this means the same as ``if~$\lnot A$ then~$B$'' or
+``if $A$ is false, then $B$ is true''.
+On a related note, ``If $A$, then~$B$'' means the same thing in
+propositional logic as $(\lnot A) \lor B$.
+
+For somewhat more problematic correspondences between English
+assertions and propositional logic, consider
+\begin{center}
+\begin{tabular}{c@{~-~}l}
+$b$ & ``You may buy a ticket'' \\[0.5ex]
+$e$ & ``You are over eighteen years old''
+\end{tabular}
+\end{center}
+that are used to form the compound propositions
+\begin{center}
+\begin{tabular}{c@{~~~-~}l}
+$e \limplies b$ & ``You may buy a ticket if you are over eighteen'' \\[0.5ex]
+$b \limplies e$ & ``You may buy a ticket only if you are over eighteen'' \\[0.5ex]
+$b \liff e$ & ``You may buy a ticket if and only if you are over eighteen''
+\end{tabular}
+\label{table:concertEighteen}
+\end{center}
+If someone were to make these English statements in a real-world situation, they
+would probably use any of the three to mean $b \liff e$,
+i.e.\ that you may buy a ticket if and only if you are eighteen.\footnote{This
+ignores preconditions such as whether the ticket sales office is
+open and you have enough money.}
+However, we use ``if'' and ``only if'' in more specialized
+senses, as is common in logic and more generally in mathematics. This illustrates the
+need for caution in translating from a natural language to propositional
+logic.
+
+Mathematical logic avoids the ambiguity of English. Instead, the
+propositional connectives $\lnot$, $\land$, $\lor$,
+$\limplies$, $\liff$, etc., are purely \idxnm{truth functional},
+with values shown in Figure~\ref{fig:propTruthDefn}.
+For instance, whether the formula $p \limplies q$ is true or false
+is determined solely by the truth or falsity of $p$ and~$q$,
+and it does not matter whether there is some reason why the truth of~$p$
+should imply the truth of~$q$. Indeed, $p \limplies q$ will always have
+the same truth value as $(\lnot p) \lor q$.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{c|c}
+$p$ & $\lnot p$ \\
+\hline
+$\True$ & $\False \taller$ \\
+$\False$ & $\True$ \\
+\end{tabular}
+\hspace*{3em}
+\begin{tabular}{cc|cccc}
+$p$ & $q$ & $p\lor q$ & $p \land q$ & $p \limplies q$ & $p \liff q$ \\
+\hline
+$\True$ & $\True$ & $\True$ & $\True$ & $\True$ & $\True \taller$ \\
+$\True$ & $\False$ & $\True$ & $\False$ & $\False$ & $\False$ \\
+$\False$ & $\True$ & $\True$ & $\False$ & $\True$ & $\False$ \\
+$\False$ & $\False$ & $\False$ & $\False$ & $\True$ & $\True$
+\end{tabular}
+\end{center}
+\caption{The values of propositional connectives. ``$\True$'' and ``$\False$''
+denote the Boolean values ``True'' and ``False''.}
+\label{fig:propTruthDefn}
+\end{figure}
+
+This can be confusing sometimes, as it is somewhat counterintuitive that
+``if $p$, then~$q$'' should be
+true when $p$ is false,
+independently of whether $q$ is true or false. This is counterintuitive
+for the simple reason that in English,
+there is generally a distinction between
+``if $A$ then $B$'' and ``$B$ or not $A$''.
+For instance, consider the rather dramatic
+difference in meanings
+of the two sentences
+\[
+\hbox{``If you will go to your house today, you will find your passport today'',}
+\]
+and
+\[
+\hbox{``You
+will find your passport today, or you will not go to your house today''.}
+\]
+The ``if $A$ then $B$'' form of the statement sounds like helpful
+advice on how to find your missing passport. On the other hand, the
+``$B$ or not $A$'' form of the statement sounds like a threat from
+a border guard. These nuances are completely lost when translating
+the statements from English into propositional logic, since
+$A\limplies B$ means exactly the same thing as $B \lor \lnot A$ in
+propositional logic.
+
+In natural languages\index{natural language}, a statement ``if $A$ then~$B$'' 
+usually means there is a reason why the truth of~$A$ implies the truth of~$B$.
+In propositional logic,
+however, statements like ``If pigs have wings then horses can fly'' can be
+true (because pigs do not have wings) even though wings on
+pigs would presumably have nothing to do with flying horses!
+
+For an
+example of why this treatment of implications
+makes sense when dealing with mathematical statements,
+consider the propositions
+\begin{center}
+\begin{tabular}{c@{~-~}l}
+$P(x)$ & ``$x$ is a prime greater than~2'' \\[0.5ex]
+$O(x)$ & ``$x$ is odd''
+\end{tabular}
+\end{center}
+Of course, we want the statement $\forall x (P(x)\limplies O(x))$,
+\[
+\hbox{``For all~$x$, if $x$ is a prime greater than~2, then $x$ is odd''}
+\]
+to be true for $x$ ranging over all integers.
+Figure~\ref{fig:primeIfThen}
+gives the truth values of $P(x)$ and $O(x)$ and $P(x)\limplies O(x)$ when
+$x=1$, $x=2$ and $x=3$.
+We want $P(x)\limplies\penalty10000 O(x)$ to be true in all three cases, including
+the two cases where $P(x)$ is false.  Thus we want ``$\False\limplies \False$'' and
+``$\False\limplies \True$'' both to evaluate as true to give the correct results in
+the cases where $x$ is equal to 1 or~2.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{c|ccc}
+$x$ & $P(x)$ & $O(x)$ & $P(x)\limplies O(x)$ \\
+\hline
+$1$ & $\False$ & $\True$ & $\True$ \\
+$2$ & $\False$ & $\False$ & $\True$ \\
+$3$ & $\True$ & $\True$ & $\True$
+\end{tabular}
+
+\end{center}
+\caption{Some values of $P(x) \limplies O(x)$.}
+\label{fig:primeIfThen}
+\end{figure}
+
+

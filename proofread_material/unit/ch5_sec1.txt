@@ -1,0 +1,213 @@
+\section{Informal Definition of Algorithms}\label{sec:AlgorithmInformal}
+
+An algorithm is meant to be a precisely described procedure or method
+for solving a problem. One way to think of algorithms is that they
+are procedures that could be carried out by an \idxnm{idealized computer}. In
+particular, an algorithm has a finite set of instructions, and at any
+given instant in time, the algorithm is working with only a finite amount of
+data. Working on an ``idealized'' computer, however, means that the algorithm
+is not constrained by practical considerations such as the amount of memory available,
+the power that is consumed, the time that is used, etc.
+
+Generally, an algorithm accepts as input a string of symbols from
+some finite alphabet~$\Sigma$ of symbols. The output of the algorithm can be
+either a ``Yes''/``No'' answer or another string of symbols over~$\Sigma$.
+Of course, we are also interested in algorithms that deal with objects such
+as integers and with general combinatorial objects, but these can be encoded by
+strings of symbols. For instance, integers can be represented
+by strings of 0's and~1's in binary notation, or strings of digits 0-9 in
+decimal notation, etc. Likewise, a combinatorial object such as a graph
+can be encoded by a string of symbols. Thus there is no real loss of
+generality in requiring algorithms to work only with symbols from
+a finite alphabet~$\Sigma$.
+
+The informal notion of an algorithm can be captured by the following
+principles.
+\begin{itemizeDot}
+\item The algorithm is specified by a finite set
+of instructions that fully and unambiguously specify the actions of the algorithm.
+\item The algorithm operates in a step-by-step fashion. At each
+step, it uses or manipulates only a finite amount of data. The data is discrete
+or combinatorial in nature, of the type that can be encoded by symbols drawn from
+a finite alphabet of symbols.
+\item The input to the algorithm is encoded by a string
+of symbols from the finite alphabet.
+The algorithm returns an answer after running for a finite number of
+steps and then entering a special ``output state'' that indicates the answer
+is ready.  The answer is encoded in a straightforward way as a string of
+symbols in the data as maintained by the algorithm. After outputting
+an answer, the algorithm can continue where it left off, and potentially
+output further answers.
+Alternatively, the algorithm could run
+forever and never return a single answer.
+\end{itemizeDot}
+
+All of these requirements are met by a modern-day computer program. In practice,
+a computer's memory is organized into words and pages, and stored in
+a hierarchy of different memory types (cache memory, main memory, internal disk,
+external disk, etc.); however, in the end, the entire contents of a computer's memory
+can be viewed as a binary string of 0's and 1's.  A computer
+program is a finite list of instructions, and at any given instance in time
+the computer's next action is based on only a finite number of bits.
+And indeed, we will argue that idealized computer programs, namely algorithms
+that are not constrained by time or space requirements, exactly capture
+our informal notion of algorithm.
+
+It is important for the informal notion of algorithm
+that the instructions
+``fully and unambiguously'' specify the actions of the algorithm
+while only taking a finite amount of data into account.  This
+rules out things like the use of randomization or quantum computing.
+It also rules out appeals to human intuition or human judgment.
+An example of a disallowed
+appeal to human judgment would be an algorithm that is programmed to form
+a digital image, and then take one action if the resulting image is
+``attractive'' and another action if the image is ``unattractive''. 
+The problem, of course, is that this is not an unambiguous decision.
+
+However, in many cases, randomization,
+can be simulated by algorithms that do not
+use randomization.
+Whether quantum computing
+or other (possibly yet-to-be-discovered) physical processes could extend
+the power of algorithms is unknown.
+
+A more subtle limitation of algorithms is that they cannot work directly with
+real numbers. Consider, for instance, the situation where it is wished
+for an algorithm to decide whether $\pi$ is a root of the polynomial
+$9x^4-240x^2+1492$.\index{Kocha\'nski approximation@{Kochanski approximation}}\footnote{%
+This is the Kocha\'nski approximation to~$\pi$: one of its roots is
+$\sqrt{40/3 - 2 \sqrt 3} \approx 3.1415333387$.} Or more generally, whether
+a given real number is a root of a given polynomial.
+This cannot be done directly in a single step, because a real number
+can be non-rational,
+and may not be expressible as a finite amount of data. Indeed, although special
+real numbers such as~$\pi$ can be described succinctly, an
+arbitrary real number cannot be ``given'' by a finite description.
+The best that can be done is to give the algorithm a finite description
+of the real number, for instance in the form of an algorithm that generates
+its binary or decimal representation. This of course corresponds well to
+computation in ordinary computers, which likewise cannot work directly with
+(infinite precision) real numbers.
+
+The limitation of using only a finite amount of data is even more restrictive than
+just prohibiting the use of an infinite amount of data all at once. It instead means
+that there is a fixed upper bound on the amount of data that can be used in a single
+algorithmic step: this upper bound is independent of the size of the input.
+For example, consider an algorithm that takes the binary representation of
+an integer~$n$ as input, and is required to decide whether the input~$n$ is
+a prime number. It is not permitted to just look at the entire number and see directly
+whether it is prime.  Instead, the algorithm must break its work into smaller
+steps, say based on trial division, to determine whether $n$ is prime. Even things
+like adding or multiplying integers (presented, say, in binary notation) cannot
+be done in a single step. Instead, they need to be done step-by-step, perhaps by
+using grade school-style algorithms adapted to base~2 instead of base~10.
+This again corresponds well to how ordinary computers need to carry out computations
+for arbitrary precision arithmetic.
+
+To illustrate this, consider the following problem. The input is a
+string of 0's and~1's. We want an algorithm to determine
+the parity of the string,
+namely if there is an even or odd number of~1's. Suppose the string is
+very long, consisting of millions or billions of symbols or even more.
+For the sake of concreteness, we can picture the string as being presented
+to us in a multi-volume collection of books filled with text containing
+just 0's or~1's, and then imagine how we would determine
+its parity by hand. It is even more useful to picture the string as being
+written on an extremely long ribbon of paper. Then a natural algorithm
+is to start at the beginning of the string and scan the entire string
+from left to right, keeping track at each step of whether an even
+number or an odd number of~1's has been encountered so far. This algorithm
+needs only to consider a finite amount of the input data at any given
+step, and remember a finite amount of information (namely the parity
+of the bits encountered so far).\footnote{The attentive
+reader will have noticed that the algorithm also has to remember its position
+in the input string,
+and this not cannot be encoded by a fixed number of bits. This is unavoidable.
+A better way to state the requirement about using only a finite
+amount of information is that the algorithm has a finite set of
+pointers to finite sub-portions of the data, that it can only act on and alter data that
+is pointed to, and that the pointer values can be updated only in
+certain restricted (finitely describable) ways. In the Turing machine
+models, these pointers will be called ``tape head positions''\index{tape head position}.}
+
+This example raises the question of the efficiency of algorithms, namely
+of how quickly they can be implemented in practical settings. The notions
+of algorithms and computability that are discussed in this book do not
+take efficiency into consideration at all. If an algorithm takes an enormous
+amount of time, even more time than could possibly be available within
+the lifespan of the universe, this does not disqualify it from being an ``effective'' algorithm.
+On the other hand, the efficiency of an algorithm is obviously of great importance
+in real-world applications.
+In theoretical computer science, the efficiency of algorithms is categorized in
+many ways, for instance, whether the algorithm runs in ``linear'' time, ``polynomial'' time,
+``exponential'' time, etc. These notions all have precise mathematical
+definitions (which we will not present), but they are not
+important for our notion of an ``effective'' algorithm. Nonetheless, we take
+a short detour to discuss these concepts.
+
+For our brief tour of the efficiency of algorithms,
+first, consider addition and multiplication of
+integers presented in binary notation.
+Suppose two integers are presented in base~2 as binary strings written,
+say, in a multi-volume
+sets of books, or on very long ribbons. The goal is to algorithmically
+determine their sum or their product, say with the end result written in
+its own multi-volume set of books or its own very long scroll.  For
+integer addition, the grade school algorithm (adapted to base~2) is quite efficient.
+Indeed, if things are arranged so that you can scan the inputs from
+right to left, namely starting at the low-order bits, and write the
+output in right-to-left order, then the sum can be written almost as fast
+as the two input summands can be scanned.  This is a quite efficient
+algorithm and is an example of a ``\idxnm{linear time}'' algorithm.
+The grade school algorithm for integer multiplication is less efficient;
+it is a ``\idxnm{quadratic time}'' algorithm. There are algorithms for
+integer multiplication that are more efficient than quadratic time;
+however, the most efficient ones are quite
+complex. (It is an open question whether there is a linear time
+algorithm for integer multiplication.)
+
+The \idxnm{primality testing} problem is the problem of
+deciding whether an integer
+is a prime. For primality testing, the input is an integer, coded
+as a binary string, and the output is a ``Yes'' or ``No'' answer
+depending on whether the input is a prime or not.
+The straightforward algorithm based on trial division
+is an ``\idxnm{exponential time}'' algorithm, but there is
+a more sophisticated and complex algorithm for primality testing
+which uses only ``\idxnm{polynomial time}''.  
+
+The \idxnm{prime factorization}
+problem is the problem of, given an integer~$n$ as input, computing
+the prime factorization of~$n$. The best-known algorithms for
+prime factorization require exponential time, and it is open whether
+it has a linear time algorithm or even a polynomial time algorithm.
+
+An algorithm is informally called \emph{feasible}\index{feasible algorithm}
+if it is efficient enough to be carried out in practice. The feasibility
+of an algorithm is a rather vague concept. Roughly speaking, it means something
+along the lines of the following:  For reasonably sized inputs, the algorithm can
+be successfully carried out by a computer program that could be run in the real world.
+Being ``run in the real world'' could mean anything from running on
+a single computer, to running on a supercomputer, or to running
+on a network that somehow has co-opted a large fraction of the world's computers,
+and with the calculations being completed in, say, months.
+Being a ``reasonably sized'' input could mean anything from consisting
+of hundreds of symbols, to millions of symbols (e.g., fitting in a multivolume
+set of books), to trillions of symbols, or more.
+
+The notion of ``feasible'' is thus very vague and depends on the application;
+it certainly lacks
+a mathematical definition. For convenience, many people identify
+being feasible with being a polynomial time algorithm, even though it
+is an imperfect identification. In most cases, everyone agrees that
+linear time algorithms should count as feasible and that exponential time
+algorithms are infeasible.\footnote{But there are many exceptions to this,
+as this depends on the constant
+factors in the asymptotics.} Quadratic-time algorithms may generally be considered
+as feasible, but this gets much less clear as the problem size increases and there are
+many situations where quadratic-time algorithms become infeasible.
+
+In this book, we present the theory of ``\idxnm{effective}'' algorithms,
+without taking into consideration whether they are feasible.
+

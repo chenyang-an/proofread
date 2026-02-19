@@ -1,0 +1,299 @@
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+\nonumSectionmark{Exercises}
+
+Your answers to Exercises \ref{exer:firstFOproofExist}-\ref{exer:lastFOproofExist}
+should not use the Completeness Theorem.
+
+\begin{exercise}\label{exer:firstFOproofExist}
+Suppose that $y$ and $t$ are each substitutable for $x$ in~$A$.
+\begin{enumerate}
+\item Show that $\forall x\, A \vdash A(t/x)$ by giving
+an explicit $\FO$-proof of $A(t/x)$ from $\forall x\, A$.
+(An ``explicit'' $\FO$-proof means writing out all the formulas
+in the $\FO$-proof, indicating if they are a hypothesis, if they are an axiom,
+or if they are inferred by Modus Ponens or Generalization.)
+\item Show that $\forall x \, A \vdash \forall y \, A(y/x)$ by
+giving an explicit proof of $A(y/x)$ from $\forall x \, A$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let $P$ and $Q$ be unary predicate symbols, and $0$ be a constant symbol.
+Give an explicit $\FO$-proof (by listing all the formulas in the proof) of
+\[
+\forall x\, (P(x)\limplies Q(x)), \, \forall y\, P(y) ~\vdash~ P(0) \limplies \forall z\, Q(z).
+\]
+\end{exercise}
+
+\begin{exercise}
+Show that $\{\forall x\, \exists y\, P(x,y), \, \lnot P(c,z) \}$ is
+inconsistent by giving an explicit $\FO$-proof (or explicit $\FO$ proofs).
+\end{exercise}
+
+\begin{exercise}
+Prove the following:
+\begin{enumerate}
+\item $\vdash f(x) = f(x)$.
+\item $\vdash f(x)=f(y) \limplies f(y) = f(x)$.
+\item $\vdash x=y \limplies u=v \limplies g(f(x),f(u)) = g(f(y), f(v))$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Prove that $\vdash \forall x\, A \limplies \exists x\, A$.
+\end{exercise}
+
+\begin{exercise}\label{exer:AAICEAICsentence}
+Suppose that $\forall x\, A \limplies C$ is a sentence. In other words,
+$x$ does not occur free in~$C$ and $x$~is the only variable
+which appears free in~$A$.
+Prove:
+\begin{enumerate}
+\item $\forall x\, (A \limplies C) \vdash \exists x\, A \limplies C$.
+\item $\exists x\, A \limplies C \vdash \forall x\, (A \limplies C)$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exer:AAICEAICsentenceBis}
+Redo the previous exercise (Exercise~\ref{exer:AAICEAICsentence}) under only the
+assumption that $x$ does not occur free in~$C$ (but without any assumptions
+on what other variables might appear free in $A$ or~$C$).
+\end{exercise}
+
+\begin{exercise}
+Prove that $\exists y\, \forall x\, Q(x,y) \vdash \forall x\, \exists y\, Q(x,y)$.
+[Hint: There are several ways to work this; you might find the Theorem
+on Constants to be helpful.]
+\end{exercise}
+
+\begin{exercise}\label{exer:lastFOproofExist}
+Let $P$ and $Q$ be unary predicate symbols.
+\begin{enumerate}
+\item Prove that
+$\forall x\, (P(x) \limplies Q(x)) \limplies \exists x\, P(x) \limplies \exists x\, Q(x)$.
+\item Prove that
+$\vdash \forall x\, \forall y\, (P(x)\limplies Q(y))
+     \limplies \exists x\, P(x) \limplies \forall y\, Q(y)$.
+\item Prove that
+$\vdash \exists x\, \forall y\, (P(y) \limplies P(x))$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Theorem~\ref{thm:deductionSyntacticFO} stating the Deduction Theorem for $\FO$ required
+$A$~to be a sentence. Show that this hypothesis cannot be eliminated
+by giving an example of formulas $A$ and~$B$ such that
+$A \vdash B$ but $\nvdash A \limplies B$. (You can use the
+Soundness Theorem to prove $\nvdash A  \limplies B$.)
+\end{exercise}
+
+\begin{exercise}
+Theorem \ref{thm:ProofByCasesFO} on proof-by-cases for~$\FO$ required $A$~to be
+a sentence. Shown that this hypothesis cannot be eliminated by giving an
+example of formulas $A$ and~$B$ such that both $A \vdash B$ and $\lnot A \vdash B$ hold
+and such that $\nvdash B$.
+\end{exercise}
+
+\begin{exercise}
+Theorem \ref{thm:ProofByContradictionFO} on Proof by Contradiction for~$\FO$
+required $A$~to be
+a sentence. Shown that this hypothesis cannot be eliminated by giving an
+example of a formula $A$ such that $\{ A \}$ is
+inconsistent, but $\nvdash \lnot A$.
+\end{exercise}
+
+\begin{exercise}
+Part (b.ii) of the Theorem on Constants~\ref{thm:constantsSyntactic} required
+$x$ to be the only free variable in~$A(x)$. Prove that this hypothesis cannot
+be eliminated by giving an example of a formula~$A(x,y)$ such that 
+$\{ \exists x\, A(x,y)\}$ is consistent but $\{A(c,y)\}$ is inconsistent,
+\end{exercise}
+
+\begin{exercise}\label{exer:jointlyInconsisFO}
+Suppose that $\Gamma$ and $\Delta$ are sets of formulas
+and $\Gamma \cup \Delta$ is unsatisfiable.
+\begin{enumerate}
+\item Prove that there is a finite $\Gamma^\prime \subseteq \Gamma$
+and a finite $\Delta^\prime \subseteq \Delta$ such
+that $\Gamma^\prime \cup \Delta^\prime$ is unsatisfiable.
+\item Prove that there is a formula~$A$ such that
+$\Gamma \vDash A$ and $\Delta \vDash \lnot A$.
+\end{enumerate}
+This has the identical statement (and the identical proof)
+as Exercise~\ref{exer:jointlyInconsisPL} but of course
+applies to first-order logic instead of propositional logic.
+\end{exercise}
+
+\begin{exercise}
+Suppose $\Gamma$ is a set of sentences and $\Delta$~is a
+finite set of sentences such that $\Gamma\tautEq\Delta$.
+Prove that there is a finite subset~$\Gamma^\prime$ of~$\Gamma$
+such that $\Gamma^\prime\tautEq\Gamma$.
+\end{exercise}
+
+\begin{exercise}
+Let $k_0 \in \mathbb N$. Given an example of a theory
+that has models of cardinality~$k_0$ and models of
+infinite cardinality, but does not have models of
+any finite cardinality other than~$k_0$.
+\end{exercise}
+
+\begin{exercise}
+Let $A$ be a sentence and $\Gamma$ be a set of sentences.
+Suppose that $A$ is true in every infinite model of~$\Gamma$.
+Prove that there is a $k \in \mathbb N$ such that $A$ is
+true in every model of~$\Gamma$ of cardinality $\ge k$.
+\end{exercise}
+
+\begin{exercise}\label{exer:evenCardinalityNotFinite}
+Work in the language~$L$ with the symbol~$=$ and no non-logical symbols.
+Prove that there is no finite set~$\Gamma$ of $L$-sentences
+which satisfies the ``\idxnm{even cardinality finite models}'' property
+of Exercise~\ref{exer:evenCardinality}.
+\end{exercise}
+
+\begin{exercise}
+Prove that there is no
+formula~$A(x,y)$ that defines, in every graph, the property
+of $x$ and~$y$ being in the same connected component.
+For the purposes of this exercise,
+such a formula~$A$ would need to
+work in all graphs, whether finite or infinite.
+\end{exercise}
+
+\begin{exercise}
+Let $T$ be the theory of linear orders from
+Example~\ref{example:linearorder} using the language~$L=\{<\}$.
+A model~$\mathfrakA$ of~$T$ is called \idxem{well-founded}
+if there is no sequence $a_0,a_1,a_2,\ldots$ in~$|\mathfrakA|$
+such that $a_{i+1} <^\mathfrakA a_i$ holds for all~$i\in\mathbb N$.
+Show that there is no
+set~$\Gamma$ of sentences over~$T$ that expresses the
+property of being well-founded. That is, there is no
+set~$\Gamma$ of sentences such that for all models~$\mathfrakA$
+of~$T$, we have $\mathfrakA \vDash \Gamma$ if and only if $\mathfrakA$ is well-founded.
+\end{exercise}
+
+\begin{exercise}\label{exer:finiteCharNotECDelta}
+(For readers who know some field theory.  Compare with
+Exercise~\ref{exer:charZeroECdelta}.)
+Prove that the class of the fields of finite (non-zero) characteristic
+is not an $\EC_\Delta$. That is, there is no theory~$T$ in the language $0, 1, +, \cdot$
+which is true for exactly the fields of finite (non-zero) characteristic.
+\end{exercise}
+
+\begin{exercise}
+Let $c$ be the cardinality of~$\mathbb R$ (the ``\idxnm{continuum}''),
+Use the following sketch to prove that
+there is a nonstandard model of $\TTh {\mathcal R}$ of cardinality~$c$.
+Thus $\TTh {\mathcal R}$ is not $c$-categorical. (If fact, $\TTh {\mathcal R}$
+is not $\kappa$-categorical for any infinite~$\kappa$.)
+\begin{enumerate}
+\item Recall that $L= (0,1,+,\cdot,<)$ be the language of~$\mathcal R$.
+Let the \idxnm{numeral}~$n$ be the term $1+1+\cdots+1$ with
+value $n\in \mathbb N$.
+An ordered field is \idxem{archimedean} if every field element $x>0$
+satisfies $x<n$ for some $n\in \mathbb n$.
+\item Prove that $\TTh {\mathcal R}$ has a model~$\mathfrakA$ which is a
+non-archimedean field of cardinality~$c$.
+\item Prove that $\mathfrakA$ is not isomorphic to~$\mathcal R$.
+\item Conclude that $\TTh R$ is not $c$-categorical.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exer:isomorphElemEquivThm}
+Prove Theorem~\ref{thm:isomorphElemEquiv} that
+isomorphic structures are elementarily equivalent.
+The proof will assume that $\mathfrakA \cong \mathfrakB$
+and use induction on the complexity
+of~$A$ to prove that, for all~$\sigma$,
+$\mathfrakA \vDash A[\sigma]$ holds
+if and only if $\mathfrakB \vDash A[\sigma]$
+holds.
+\end{exercise}
+
+\begin{exercise}\label{exer:aleph0categorials}
+Let $L$ be the language containing only the equality symbol~$=$.
+Let $\Gamma$ be $\{ \TAtLeast_k : k\ge 2 \}$.
+Prove that $\Gamma$ is $\aleph_0$-categorical and
+complete.
+\end{exercise}
+
+\begin{exercise}\label{exer:categoricalSimple}
+Let $L$~be the language with a unary predicate symbol~$P$ (and, as always, equality).
+Let $\Gamma$ be a set of sentences expressing that there are infinitely many
+objects~$x$ satisfying $P(x)$ and infinitely many
+objects~$x$ satisfying $\lnot P(x)$.
+\begin{itemize}
+\item[(a)] Describe explicitly the formulas in~$\Gamma$.
+\item[(b)] Show that $\Gamma$ is $\aleph_0$-categorial. Conclude
+that the theory axiomatized by $\Gamma$ is complete.
+\item[(c)] Show that $\Gamma$ is
+not $\kappa$-categorical for $\kappa > \aleph_0$.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+Give an example of a theory that is $\kappa$-categorical for all
+infinite~$\kappa$.
+\end{exercise}
+
+\begin{exerciseStar}
+A theory is called \idxem{categorical} if all models of~$T$ are
+isomorphic.
+\begin{enumerate}
+\item Describe what must happen if $T$ is categorical.
+\item Suppose $T$ is a categorical theory over a finite language~$L$.
+Prove that $T$ is \idxnm{finitely axiomatizable}, that is, that there is
+a finite set of sentences~$\Gamma$ such that $\Gamma \tautEq T$.
+\end{enumerate}
+\end{exerciseStar}
+
+\begin{exercise}
+Give an example of how Theorem~\ref{thm:LosVaughtTest} (the \L{}o\'s-Vaught Test)
+can fail if the hypothesis that $T$~has no finite models is omitted.
+\end{exercise}
+
+\begin{exerciseStar}\label{exer:completeUncountable}
+(For readers who know some set theory.)
+Use the following proof outline
+to prove the Completeness Theorem~\ref{thm:completeUncountable}
+for uncountable languages.
+(Compare this to Exercise~\ref{exer:uncountCompletenessPL}.)
+Let $\Gamma$ be a consistent set
+of $L$-sentences.  Let $\kappa = \Tcard(L)$ be the cardinality
+of~$L$ and suppose $\kappa > \aleph_0$.
+\begin{enumerate}
+\item There are
+$\kappa$~many distinct $L$-formulas.
+\item Extend $\Gamma$ to a strongly Henkin set~$\Delta$ of sentences.
+Let $D$~be a
+set of $\kappa$ many new constant symbols, with $D$ the disjoint
+union $D = \bigcup_{i\in\mathbb N} D_i$ and each $D_i$ of cardinality~$\kappa$.
+Let $L_i = L \cup \bigcup_{i<j} D_i$ and $L^\plus = \bigcup_i L_i$.
+There is the same number of $L_i$-sentences as there are constants in~$D_{i+1}$.
+Therefore, each $L_i$-sentence~$A$ can be associated
+with a distinct constant $d_A \in D_{i+1}$, so $A\mapsto d_A$ is
+injective. Let $\Delta$ be the set~$\Gamma$
+plus the sentences $A(d_{\forall x A(x)})\limplies \forall x A(x)$
+for all $L^\plus$-sentences $\forall x A(x)$. Clearly $\Delta$~is
+strongly Henkin. Prove that $\Delta$ is consistent. For this, use induction
+on~$i$ and the finiteness of $\FO$-proofs.
+\item Use Zorn's Lemma to prove there is a complete, consistent
+set~$\Pi$ of sentences with $\Pi \supset \Delta$.
+\item Use the same constructions as in proof for the
+countable version of the Completeness Theorem to prove
+that there is a Henkin model~$\mathfrakA$ of~$\Pi$.
+Thus~$\mathfrakA$ (and its restriction to the language~$L$)
+satisfies~$\Gamma$.
+\item The universe of $\mathfrakA$ is equal
+to the interpretations of the constants
+in~$D$. That is, $|A| = \{ d^\mathfrakA : d\in D \}$.
+Therefore, the cardinality of~$\mathfrakA$ is at most~$\kappa$.
+\end{enumerate}
+\end{exerciseStar}
+
+
+
+

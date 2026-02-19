@@ -1,0 +1,140 @@
+\section{Examples of Tautologies and Tautological Equivalences}\label{sec:TautExamples}
+\def\cursectionname{Tautologies and Tautological Equivalences}
+
+Here we list some of the more common tautologies and tautological
+equivalences.  These can all be proved with the method of truth tables
+(or decision trees).
+They can also be proved using the proof system~$\PL$
+that will be introduced in
+Chapter~\ref{chap:PropProofs}.
+
+
+\vbox{
+\paragraph*{Simple tautologies on a single variable.}
+\begin{center}
+\begin{tabular}{c@{~~~-~}l}
+$p \lor \lnot p$ & Law of the Excluded Middle\index{excluded middle} \\
+$\lnot (p \land \lnot p)$ & Noncontradiction \\
+$p \limplies p$ & Self-Implication \\
+$p \liff p$ & Self-Equivalence \\
+$\lnot \lnot p \liff p$& Double Negation\index{double negation} \\
+$ ( \lnot p \limplies p ) \liff p$ & Equivalence with Implication from Negation
+\end{tabular}
+\end{center}
+}
+
+
+\vbox{
+\paragraph*{Simple tautological equivalences.}
+\nopagebreak
+\begin{center}
+\begin{tabular}{c@{~~~-~}l}
+$\lnot ( p \lor q ) \tautEq (\lnot p \land \lnot q) $ & De Morgan's Law\index{De Morgan's law} \\
+$\lnot ( p \land q ) \tautEq (\lnot p \lor \lnot q) $ & De Morgan's Law \\
+$p \lor p \tautEq p$ & Idempotency\index{idempotency} of $\lor$ \\
+$p \land p \tautEq p$ & Idempotency of $\land$ \\
+$p \land q \tautEq q \land p$ & Commutativity\index{commutativity} of $\land$ \\
+$p \lor q \tautEq q \lor p$ & Commutativity of $\lor$ \\
+$p \liff q \tautEq q \liff p$ & Commutativity of $\liff$ \\
+$p \land (q \land r) \tautEq (p \land q) \land r$ & Associativity\index{associativity} of $\land$ \\
+$p \lor (q \lor r) \tautEq (p \lor q) \lor r$ & Associativity of $\lor$ \\
+$p \liff (q \liff r) \tautEq (p \liff q) \liff r$ & Associativity of $\liff$ \\
+$p \land (q \lor r) \tautEq (p \land q) \lor ( p \land r )$ & Distributivity\index{distributivity} of $\land$ over $\lor$ \\
+$p \lor (q \land r) \tautEq (p \lor q) \land ( p \lor r )$ & Distributivity of $\lor$ over $\land$ \\
+$p \limplies q \tautEq \lnot q \limplies \lnot p$ & Contrapositive\index{contrapositive} (or Transposition) \\
+$p \limplies ( q \limplies r) \tautEq (p \land q) \limplies r$ & Exportation\index{exportation}
+\end{tabular}
+\end{center}
+}
+
+\paragraph*{Some tautologies often used as axioms.}
+Next we list some tautologies that are also used as axioms
+for Hilbert-style propositional proof systems. They are stated
+with explicit variables $p,q,r$; however, generally a
+Hilbert-style system allows any \idxnm{substitution instance} of an \idxnm{axiom}
+to be an axiom.
+
+There are many other possible axioms that have been used for 
+propositional proof systems; only a few of them are listed below.
+
+Chapter~\ref{chap:PropProofs} defines a Hilbert-style
+proof system $\PL$ that uses (all substitution instances of)
+the first four tautologies below as its axioms.
+For the second axiom (among others),
+be careful to understand how parentheses should be added to make it
+a fully parenthesized formula!
+\begin{center}
+\begin{tabular}{c@{~~~-~}l}
+$p \limplies (q \limplies p)$ & An axiom for $\limplies$. An axiom of~$\PL$.\index{PL, proof system!axioms} \\
+$(p\limplies q \limplies r) \limplies (p\limplies q) \limplies (p\limplies r)$ & An axiom for $\limplies$. An axiom of~$\PL$ \\
+$ \lnot p \limplies (p \limplies q)$ & An axiom for $\lnot$. An axiom of~$\PL$ \\
+$ (\lnot p \limplies p) \limplies p$ & An axiom for $\lnot$. An axiom of~$\PL$ \\
+$ (p \limplies q) \limplies (p \limplies \lnot q) \limplies \lnot p$ & An axiom for $\lnot$ \\
+$ p\land q \limplies p$ & An axiom for $\land$ \\
+$ p\land q \limplies q$ & An axiom for $\land$ \\
+$ p \limplies q \limplies p\land q$ & An axiom for $\land$ \\
+$p \limplies p\lor q$ & An axiom for $\lor$ \\
+$q \limplies p\lor q$ & An axiom for $\lor$ \\
+$(p\limplies r) \limplies (q\limplies r) \limplies (p\lor q \limplies r)$
+     & An axiom for $\lor$\label{eq:lastOrAxiom} \\
+$( p \limplies q) \limplies (r\lor p) \limplies (r \lor q)$ & \parbox[t]{2in}{Principle of Summation \newline
+   \hspace*{1em}(from {\em Principia Mathematica})} \\
+$((p\limplies q) \limplies p) \limplies p$ & \idxnm{Pierce's Law}
+\end{tabular}
+\end{center}
+
+\paragraph*{Tautological equivalences defining $\lor$, $\land$ and $\leftrightarrow$.}
+The following three tautological implications can be used to define $\lor$, $\land$
+and~$\liff$ in terms of $\lnot$ and $\limplies$. This corresponds to the fact
+that $\{\lnot, \limplies\}$
+is an \idxnm{adequate} set of connectives,
+as will be discussed later in Section~\ref{sec:booleanFunctions}.
+\begin{center}
+\begin{tabular}{c@{~~~-~}l}
+$p \lor q \tautEq \lnot p \limplies q$ & Definition of $\lor$ in $\PL$ \\
+$p \land q \tautEq \lnot (p \limplies \lnot q)$ & Definition of $\land$ in $\PL$ \\
+$p \liff q \tautEq (p \limplies q) \land (q \limplies p)$ & Definition of $\liff$ in $\PL$
+\end{tabular}
+\end{center}
+
+\paragraph*{Some tautological implications often used for inferences.}
+Any valid tautological implication can be used for inferences; thus there are
+many possible valid inference rules.  Some of the common
+ones include the following:
+\begin{center}
+\begin{tabular}{c@{~~~-~}l}
+$ p,\ p\limplies q \vDash q$ & \idxnm{Modus Ponens} \\
+$\lnot q, \, p\limplies q \vDash \lnot p$ & \idxnm{Modus Tollens} \\
+$ p\limplies q, \, q\limplies r \vDash p \limplies r$ & \idxnm{Hypothetical Syllogism}
+\end{tabular}
+\end{center}
+The proof system $\PL$ will allow only Modus Ponens as an inference rule (see Definition~\ref{def:PLproof} in
+the next chapter).
+A \idxnm{Modus Ponens} inference will be written in the form
+\begin{prooftree}
+\AxiomC{$A$}
+\AxiomC{$A\limplies B$}
+\BinaryInfC{$B$}
+\end{prooftree}
+where $A$ and~$B$ are permitted to be any well-formed formulas.
+This inference rule means that if the two formulas $A$ and $A\limplies B$
+have already been inferred, then $B$ may be inferred as well.
+
+Similarly, \idxnm{Modus Tollens} and \idxnm{Hypothetical Syllogism} correspond to the
+inference rules
+\begin{center}
+\AxiomC{$A\limplies B$}
+\AxiomC{$\lnot B$}
+\BinaryInfC{$\lnot A$}
+\DisplayProof
+\hspace*{2em} and \hspace*{2em}
+\AxiomC{$A\limplies B$}
+\AxiomC{$B\limplies C$}
+\BinaryInfC{$A\limplies C$}
+\DisplayProof
+\end{center}
+Although these will not be actual rules of inference for~$\PL$, 
+they will be seen to be ``derived\index{derived rule}'' rules 
+of inference in
+Corollaries \ref{coro:HypSyl} and~\ref{coro:modustollens}.
+

@@ -1,0 +1,927 @@
+\section{The Proof System \texorpdfstring{$\FO$}{FO}}\label{sec:FO}
+\index{FO, proof system}
+
+This section defines the proof system~$\FO$ for first-order logic. This
+is a so-called ``\idxnm{Hilbert-style}'' proof system.\footnote{
+See the footnote on page~\pageref{footnote:HilbertStyle}.}
+An $\FO$-proof is used to show that a formula~$A$ is logically
+valid, or that $A$~is logically implied by a set~$\Gamma$ of
+sentences.  We write $\vdash A$ to denote $A$~has an $\FO$-proof,
+in which case $A$~is logically valid.  We write $\Gamma \vdash A$ to
+denote that $A$ has an $\FO$-proof from~$\Gamma$.
+The Soundness\index{Soundness Theorem}
+and Completeness\index{Completeness Theorem} Theorems
+will imply that $A$~has an $\FO$-proof exactly when $A$ is logically valid.
+In other words, $\vdash A$ holds exactly when $\vDash A$ holds.
+
+Likewise, when $\Gamma$ is a set of {\em sentences}, then
+$\Gamma \vdash A$ is equivalent to $\Gamma \vDash A$ by the
+Soundness\index{Soundness Theorem}
+and Completeness\index{Completeness Theorem}
+Theorems. Thus $A$ is $\FO$-provable
+from a set~$\Gamma$ of sentences if and only if it is a logical
+consequence of~$\Gamma$. However, if $\Gamma$ is a set of {\em formulas},
+$\Gamma \vdash A$ and $\Gamma \vDash A$ are not equivalent. The reason
+for this is that $\FO$-proofs allow the Generalization rule
+and can derive $\forall x \, A(x)$ from~$A(x)$. In effect, this means we should
+think of $A$ and the formulas in~$\Gamma$ as being implicitly
+universally quantified. This means that $\Gamma \vdash A$ is
+equivalent to the statement that the universal closure
+of~$A$ is provable from the set of universal closures of formulas in~$\Gamma$.
+For more on this, see the first part of
+Section~\ref{sec:generalizationTaut} below, up through the ``Side remark''.
+
+The proof system~$\FO$ works exclusively with formulas
+that use only the logical connectives $\lnot$~(negation), $\limplies$~(implication)
+and $\forall$~(universal quantification). This is analogous to the way
+that the propositional proof system~$\PL$ worked with $\{\lnot, \limplies\}$-formulas.
+Other logical connectives are {\em abbreviations} for formulas
+that use only the permitted connectives $\lnot, \limplies, \forall$. Namely,
+\begin{center}
+\begin{tabular}{c@{~is an abbreviation for~}c}
+$A \lor B$ & $\lnot A \limplies B$ \\
+$A \land B$ & $\lnot ( A \limplies \lnot B )$ \\
+$A \liff B$ & $(A\limplies B) \land (B \limplies A)$ \\
+$\exists x\, A$ & $\lnot \forall x\, \lnot A$
+\end{tabular}
+\end{center}
+Throughout this chapter, the terminology ``formula'' means a first-order formula
+that uses only the connectives $\lnot$, $\limplies$ and~$\forall$.
+As usual, we fix a first-order language~$L$ of non-logical symbols; so ``formula'' means
+``$L$-formula''.
+
+\subsection{The definition of the proof system \texorpdfstring{$\FO$}{FO}}
+
+$\FO$-proofs start with axioms or other hypotheses and infer new formulas
+with the inference rules Modus Ponens and Generalization.
+The following types of axioms are permitted in~$\FO$-proofs.
+
+\begin{description}
+\item[Propositional axioms.]\index{FO, proof system!axioms}
+The propositional axioms are all formulas
+of the form
+\begin{description}[font=\bf]
+\item[PL1:] $A \limplies (B \limplies A)$
+\item[PL2:] $[A \limplies (B\limplies C)] \limplies [(A\limplies B) \limplies (A\limplies C)]$
+\item[PL3:] $\lnot A \limplies (A \limplies B)$
+\item[PL4:] $(\lnot A \limplies A) \limplies A$
+\end{description}
+Here $A$, $B$, and $C$ may be any formulas.
+\item[Equality axioms.]\index{equality axioms}
+Nearly always, the language~$L$ includes the symbol~$=$
+for equality; if so, special equality axioms are needed.
+The first equality axioms state
+that $=$ defines an equivalence relation. Letting $x, y, z$ be
+arbitrary variables, the first three equality axioms are
+\begin{description}[font=\bf]
+\item[EQ1:] $x=x$. \quad (Reflexivity of $=$)\index{reflexivity}
+\item[EQ2:] $x=y \limplies y=x$. \quad (Symmetry of $=$)\index{symmetry}
+\item[EQ3:] $x=y \limplies y=z \limplies x=z$. \quad (Transitivity of $=$)\index{transitivity}
+\end{description}
+For each $k$-ary function symbol~$f$ in the language~$L$, and letting
+$y_1,\ldots, y_k$ and $z_1,\ldots, z_k$ be arbitrary variables, there
+are axioms stating that $f$~respects the equality relation:
+\begin{description}[font=\bf]
+\item[EQ${}_f$:] $y_1=z_1 \limplies y_2=z_2 \limplies \cdots \limplies y_k=z_k \limplies f(y_1,\ldots,y_k) = f(z_1,\ldots,z_k)$.
+\end{description}
+For each $k$-ary predicate symbol~$P$ in the language~$L$, and letting
+$y_1,\ldots, y_k$ and $z_1,\ldots, z_k$ be arbitrary variables, there
+are axioms stating that $P$~respects the equality relation:
+\begin{description}[font=\bf]
+\item[EQ${}_P$:] $y_1=z_1 \limplies y_2=z_2 \limplies \cdots \limplies y_k=z_k \limplies P(y_1,\ldots,y_k) \limplies P(z_1,\ldots,z_k)$.
+\end{description}
+The axioms for equality are stated with variables that are implicitly
+universally quantified.
+For instance, as we shall see, the axioms $x=x$ and $x=y\limplies y=x$ can be used to
+derive $\forall x\, (x=x)$ and $\forall x\, \forall y\, (x=y\limplies y=x)$.
+So EQ1 and EQ2 really do state that equality is reflexive and symmetric.
+Similarly, EQ3 really does state that equality is transitive.
+
+The axiom EQ${}_P$ has the conclusion that
+$P(\vec y) \limplies\penalty10000 P(\vec z)$ instead
+of $P(\vec y) \liff\penalty10000 P(\vec z)$.
+However, the symmetry of equality means that this
+implication holds in both directions under the hypotheses that $y_i = z_i$ for
+all~$i$.
+\item[Axioms of universal instantiation.]\index{universal instantiation}
+Suppose the term~$t$ is substitutable for the variable~$x$ in the formula~$A$.
+The corresponding \idxnm{universal instantiation} axiom is\index{universal instantiation!UI axiom}
+\begin{description}[font=\bf]
+\item[UI:] $\forall x\, A \limplies A(t/x)$.
+\end{description}
+In keeping with our convention on relaxed notations for substitution,
+the UI axiom can also be written as $\forall x\, A(x) \limplies A(t)$.
+\end{description}
+
+\noindent
+$\FO$ admits two rules of inference, \idxnm{Modus Ponens}
+and Generalization\index{Generalization (Rule)}.\index{FO, proof system!rules}
+\begin{description}
+\item[Modus Ponens inference rule.] For arbitrary formulas $A$ and~$B$, the
+Modus Ponens rule is
+\begin{description}[font=\bf]
+\item[MP:] \quad
+\AxiomC{$A$}
+\AxiomC{$A\limplies B$}
+\BinaryInfC{$B$}
+\DisplayProof
+\end{description}
+\item[Generalization inference rule.] For $A$ and~$C$ formulas, and $x$~a variable such that
+$x$ does not appear free in~$C$,
+the Generalization rule is\index{Generalization (Rule)}\label{def:GenRule}
+\begin{description}[font=\bf]
+\item[Gen:] \quad
+\def\fCenter{\limplies}
+\Axiom$C\fCenter A$
+\UnaryInf$C \fCenter \forall x\, A$
+\DisplayProof
+\end{description}
+The variable~$x$ is called the \idxem{generalization variable}
+or the \idxem{eigenvariable} for the inference.
+\end{description}
+
+\begin{example}
+Examples of the equality axioms for functions and predicates include
+\begin{eqnarray*}
+& x_1 = x_2 \limplies x_3 = x_4 \limplies f(x_1, x_3) = f(x_2, x_4) \\
+& x_1 = x_2 \limplies x_2 = x_3 \limplies f(x_1, x_2) = f(x_2, x_3) \\
+& x_1 = x_1 \limplies x_2 = x_3 \limplies P(x_1, x_2) \limplies P(x_1, x_3) \\
+\end{eqnarray*}
+The last two illustrate that the variables $y_1,\ldots,y_k$ and $z_1,\ldots,z_k$
+do not need to be distinct. The formal definition of formulas
+allows only the use of variables $x_1,x_2,x_3, \ldots$. However, we use
+variable names such as $x,y,z$ or $y_j$ or $z_j$ as informal designations
+of arbitrary variables~$x_i$.
+\end{example}
+
+\begin{definition}
+Let $\Gamma$ be a set of formulas and $A$~be a formula.
+An \emph{$\FO$-proof}\index{FO, proof system!FO-proof} of~$A$ from the hypotheses~$\Gamma$
+is a sequence of formulas
+\[
+B_1, \, B_2,\, B_3, \ldots, B_k
+\]
+such that $B_k$ is~$A$ and such that, for each $i=1,\ldots, k$,
+(at least) one of the following conditions holds:
+\begin{enumerateLoose}
+\item $B_i$ is one of the above-listed $\FO$-axioms: PL1, PL2, PL3, PL4,
+EQ1, EQ2, EQ3, EQ${}_f$, EQ${}_P$, or UI\index{universal instantiation};
+\item $B_i$ is a member of~$\Gamma$, namely $B_i$ is a hypothesis (HYP);
+\item $B_i$ is inferred by \idxnm{Modus Ponens} (MP) from some $B_j$ and~$B_k$
+where $j, k<i$, so w.l.o.g., $B_k$~is $B_j \limplies B_i$; or
+\item $B_i$ is inferred by Generalization\index{Generalization (Rule)} (Gen)
+from some $B_j$ with
+$j<i$, so $B_i$ has the form $C\limplies \forall x D$ and
+$B_j$ has the form $C\limplies D$ and $x$~does not appear free in~$C$.
+\end{enumerateLoose}
+The final formula in the $\FO$-proof is~$A$ and is called the \idxem{conclusion}
+of the $\FO$-proof.
+We write $\Gamma \vdash A$ to denote that $A$~has a proof from~$\Gamma$.
+In this case, $A$~is a \idxem{theorem} of~$\Gamma$.
+\end{definition}
+
+\begin{definition}
+If $\Gamma = \varnothing$ (so there are no hypotheses, we write $\vdash A$
+to denote that $\varnothing \vdash A$. In this case, we write $\vdash A$
+and call $A$ a (first-order) \idxem{theorem}.
+\end{definition}
+
+$\FO$-proofs are sometimes called \emph{$\FO$-derivations}\index{derivation}.
+Similarly to what was done with $\PL$-derivations,
+we often abuse notation for sets of hypotheses and write things like
+$\Gamma, A \vdash B$ and $B_1,\ldots, B_k \vdash A$
+instead of $\Gamma\cup\{A\} \vdash B$ and $\{B_1,\ldots, B_k\} \vdash A$.
+
+\begin{example}\label{example:AAIA}
+Let's show that $\forall x \, A \vdash A$ for $A$ an arbitrary formula.
+The complete $\FO$-proof can be written out explicitly as the sequence of
+formulas
+\begin{twocolproof}
+$\forall x\, A \limplies A$ & Axiom UI, with $x$ as the term $t$  \\
+$\forall x\, A$ & Hypothesis (since $\Gamma = \{\forall x\, A \}$) \\
+$A$ & Modus Ponens
+\end{twocolproof}
+\end{example}
+
+\begin{example}\label{example:AAAAIBAB}
+Now we show that $\forall x\, A , \, \forall x\, (A\limplies B) \vdash \forall x\, B$.
+Let $y$ be any variable that does not appear free in~$B$.
+The $\FO$-proof can be written out explicitly as:
+\begin{twocolproof}
+$\forall x\, (A\limplies B) \limplies (A \limplies B)$ & Axiom UI  \\
+$\forall x\, (A \limplies B)$ & Hypothesis  \\
+$A \limplies B$ & Modus Ponens \\
+$\forall x\, A \limplies A$ & Axiom UI  \\
+$\forall x\, A$ & Hypothesis  \\
+$A$ & Modus Ponens \\
+$B$ & Modus Ponens \\
+$B \limplies y=y \limplies B$ & Axiom PL1 \\
+$y=y \limplies B$ & Modus Ponens \\
+$y=y \limplies \forall x\, B$ & Generalization (since $x$ is not free in~$y=y$) \\
+$y=y$ & Axiom EQ1 \\
+$\forall x \, B$ & Modus Ponens
+\end{twocolproof}
+The last five lines derive $\forall x\, B$ from~$B$ with the aid of
+Generalization. The only purpose of the formula $y=y$ is to serve as the
+hypothesis~$C$ for the Generalization rule.
+\end{example}
+
+\begin{example}\label{example:Eqyzfxyfxz}
+We show that $\vdash y=z \limplies f(x,y) = f(x,z)$.
+The $\FO$-proof is:
+\begin{twocolproof}
+$ x=x \limplies y=z \limplies f(x,y) = f(x,z)$ & Axiom EQ${}_f$ \\
+$x=x$ & Axiom EQ1 \\
+$y=z \limplies f(x,y) = f(x,z)$ & Modus Ponens
+\end{twocolproof}
+\end{example}
+
+\begin{theorem}\label{thm:AAequivDerivA}
+Let $A$ be a formula. Then
+\begin{itemize}
+\item[(a)] $\forall x\, A \vdash A$
+\item[(b)] $A \vdash \forall x\, A$
+\end{itemize}
+\end{theorem}
+\begin{proof}
+Part (a) was already shown in Example~\ref{example:AAIA}.
+For part~(b), let $B$ be any $\FO$ axiom such that $x$~is not
+free in~$B$. For instance, we can always take $B$ to be
+$\forall x\, A \limplies \forall x\, A \limplies \forall x \, A$.
+Alternatively, assuming that equality is
+in the language~$L$,
+we can let $B$ be $y=y$ as was done in Example~\ref{example:AAAAIBAB}.
+Then an $\FO$-proof of $\forall x\, A$ from~$A$ is:
+\begin{twocolproof}
+$ A $ & Hypothesis \\
+$ A \limplies B \limplies A$ & Axiom PL1 \\
+$ B \limplies A$ & Modus Ponens \\
+$ B \limplies \forall x\, A$ & Generalization, since $x$ is not free in $B$ \\
+$ B $  & By choice of $B$ as a axiom \\
+$ \forall x\, A$ & Modus Ponens \qedhere
+\end{twocolproof}
+\end{proof}
+
+Part~(b) of the theorem means that a
+simplified form of the Generalization\index{Generalization (Rule)} rule
+can be used as a derived (admissible) rule of inference:
+\begin{equation}\label{eq:simpleGenRule}
+\AxiomC{$A$}
+\RightLabel{{Generalization (simplified version)}}
+\UnaryInfC{$\forall x\, A$}
+\DisplayProof \index{Generalization (Rule)}
+\end{equation}
+We thus have two possible forms of Generalization\index{Generalization (Rule)}.
+The first is the original rule of~$\FO$ with the hypothesis~$C$ present;
+the second is the simplified version~(\ref{eq:simpleGenRule}). The latter is
+a \idxnm{derived rule}; it is not an actual $\FO$ inference rule, but it can be simulated
+by multiple steps in an $\FO$-proof.
+
+Another useful derived rule of inference for $\FO$ is\index{universal instantiation}
+\begin{center}
+\AxiomC{$\forall x A(x)$}
+\RightLabel{\quad Universal Instantiation (UI) Rule}
+\UnaryInfC{$A(t)$}
+\DisplayProof \index{universal instantiation}\index{universal instantiation!UI Rule}
+\end{center}
+This inference can be simulated in~$\FO$ using the UI~axiom $\forall x A(x) \limplies A(t)$
+and Modus Ponens.
+
+Combining the Generalization rule~(\ref{eq:simpleGenRule}) and
+the UI rule gives the Substitution rule:
+\begin{center}
+\AxiomC{$A(x)$}
+\RightLabel{\quad Substitution Rule}
+\UnaryInfC{$A(t)$}
+\DisplayProof \index{Substitution Rule}
+\end{center}
+This is also a derived rule of inference for~$\FO$.
+
+
+\begin{figure}[t]
+\begin{center}
+\setlength{\fboxrule}{1pt}
+\setlength{\fboxsep}{10pt}
+\fbox{\begin{minipage}{0.92\textwidth}
+\raggedright
+%\vspace*{0.0em}
+\index{FO, proof system!axioms}\index{FO, proof system!rules}
+\begin{center}
+{\bf Axioms and Inference Rules for $\FO$-proofs}
+\end{center}
+
+\begin{description}[font=\bf,nosep,itemsep=3pt]
+\item[PL1:] $A \limplies B \limplies A$
+\item[PL2:] $(A \limplies B\limplies C) \limplies (A\limplies B) \limplies (A\limplies C)$
+\item[PL3:] $\lnot A \limplies A \limplies B$
+\item[PL4:] $(\lnot A \limplies A) \limplies A$
+
+\kern 3pt
+\item[EQ1:] $x=x$
+\item[EQ2:] $x=y\limplies y=x$
+\item[EQ3:] $x=y \limplies y=z \limplies x=z$
+\item[EQ${}_f$:] $y_1 = z_1 \limplies \cdots \limplies y_k = z_k \limplies f(y_1,\ldots,y_k)=f(z_1,\ldots,z_k)$
+\item[EQ${}_P$:] $y_1 = z_1 \limplies \cdots \limplies y_k = z_k \limplies P(y_1,\ldots,y_k)\limplies P(z_1,\ldots,z_k)$
+
+\kern 3pt
+\item[Universal Instantiation (UI):] $\forall x\, A(x) \limplies A(t)$.
+
+\kern 3pt
+\item[Modus Ponens:] \AxiomC{$A$}\AxiomC{$A\limplies B$}\BinaryInfC{$B$}\DisplayProof.
+\item[Generalization (Gen):]
+\AxiomC{$C \limplies A$}
+\RightLabel{~~~provided $x$ not free in $C$}
+\UnaryInfC{$C \limplies \forall x\, A$}
+\DisplayProof
+\end{description}
+
+\medskip
+
+$A\lor B$, $A\land B$, and $\exists x \, A$ abbreviate $\lnot A \limplies B$, $\lnot(A\limplies \lnot B)$
+and $\lnot \forall x\, \lnot A$.
+
+\end{minipage}
+} % End of \fbox
+\end{center}
+\label{page:definingFO}
+\end{figure}
+
+
+\subsection{Generalization and tautological implication}\label{sec:generalizationTaut}
+
+\paragraph*{Generalization and the meaning of free variables.}
+There is an important difference between
+the logical implication
+$\Gamma \vDash A$ and $\FO$-provabilty $\Gamma \vdash A$ in
+the way that free variables in~$\Gamma$ are interpreted.
+Namely, for $\Gamma \vdash A$, any free variables that
+appear in~$\Gamma$ are interpreted as being universally quantified.
+On the other hand, for $\Gamma \vDash A$, the values of the free variables
+are interpreted as being fixed by some object assignment.
+
+An illustrative example is the meanings of $P(x_1) \vDash P(x_2)$ versus
+$P(x_1) \vdash\penalty10000 P(x_2)$.  The logical implication $P(x_1) \vDash P(x_2)$
+is false. For instance, we can choose $\mathfrakA$ and~$\sigma$ with
+$|\mathfrakA| = \{0,1\}$, $P^\mathfrakA = \{0\}$,  $\sigma(x_1)=0$
+and $\sigma(x_2)=1$. On the other hand, $P(x_1)\vdash P(x_2)$ is true,
+as shown by the following:
+\begin{twocolproof}
+$P(x_1)\vdash P(x_1)$ & Hypothesis  \\
+$P(x_1)\vdash \forall x_1\, P(x_1)$ & Generalization (\ref{eq:simpleGenRule}) \\
+$P(x_1)\vdash \forall x_1\, P(x_1) \limplies P(x_2)$ & UI \\
+$P(x_1)\vdash P(x_2)$ & Modus Ponens
+\end{twocolproof}
+or even more succinctly by
+\begin{twocolproof}
+$P(x_1)\vdash P(x_1)$ & Hypothesis  \\
+$P(x_1)\vdash P(x_2)$ & Substitution Rule
+\end{twocolproof}
+
+Recall from Definition~\ref{def:generalization} that a \idxem{generalization}
+of~$A$ is formed by adding universal quantifiers to the front of~$A$.  The
+\idxnm{universal closure} of~$A$ is obtained by adding universal quantifiers
+for those variables which appear free in~$A$. We let $\forall(A)$ be the
+universal closure $\forall x_1,\,\ldots,x_{i_k}\, A$ 
+as shown in Equation~(\ref{eq:generalizationDef}),
+where $x_{i_1},\ldots, x_{i_k}$ are the free variables of~$A$ taken (say)
+in order of increasing subscripts.
+For $\Gamma$ a set of formulas, we let $\forall(\Gamma)$ denote the set of
+sentences $\{\forall(B) : B\in \Gamma\}$.
+
+\begin{theorem}\label{thm:proofGeneralizations}
+Let $\Gamma$ be a set of formulas and $A$~be a formula.
+\begin{itemize}
+\item[(a)] $\Gamma \vdash A$ if and only if $\forall(\Gamma) \vdash A$.
+\item[(b)] $\Gamma \vdash A$ if and only if $\Gamma \vdash \forall(A)$.
+\item[(c)] $\Gamma \vdash A$ if and only if $\forall(\Gamma) \vdash \forall(A)$.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+Part~(b) is immediate from Theorem~\ref{thm:AAequivDerivA}.
+Part~(a) follows almost as easily from the same theorem.
+Namely, any formula in $\Gamma$ can be derived with an $\FO$-proof from its universal
+closure in $\forall(\Gamma)$; conversely, any sentence in~$\forall(\Gamma)$ can
+be derived from the corresponding formula in~$\Gamma$. It follows that
+$\Gamma \vdash A$ holds if and only if $\forall(\Gamma) \vdash A$ holds.
+
+Part~(c) follows immediately from parts (a) and~(b).
+\end{proof}
+
+As a consequence of the last theorem, when we consider questions about
+whether $\Gamma \vdash A$, we may assume in general that
+$\Gamma$ is a set of sentences.  This is because if $\Gamma$ is
+not a set of sentences, then we may use $\forall(\Gamma)$ in place of~$\Gamma$,
+and consider whether $\forall(\Gamma) \vdash A$.
+Furthermore, the Soundness and Completeness theorems below will state that if $\Gamma$ is
+a set of sentences, then $\Gamma \vDash A$ holds exactly when $\Gamma \vdash A$ holds.
+
+\paragraph*{Side remark:} The reader is warned that many introductory textbooks and other expository
+texts define $\Gamma \vDash A$ and $\Gamma \vdash A$ to handle
+free variables differently. It is fairly common, for instance in the textbooks of
+Shoenfield~\cite{Shoenfield:MathematicalLogic},
+Mendelson~\cite{Mendelson:mathlogic}
+Manin~\cite{Manin:MathLogic}, Monk~\cite{Monk:MathLogic}, and Hodel~\cite{Hodel:MathLogic}, to define
+the logical implication $\Gamma \vDash A $ differently than us; in effect treating
+free variables in $\Gamma$ and~$A$ as being universally quantified. They define
+a formula to be \idxnm{valid in a model}~$\mathfrakA$ provided it is satisfied
+by $\mathfrakA$ with all possible truth assignments; they then define
+$\Gamma \vDash A$ to mean that, for all~$A$, if every member of~$\Gamma$ is
+valid in~$\mathfrakA$, then $A$~is valid in~$\mathfrakA$. Under this definition,
+$\Gamma \vDash A$ turns out to be equivalent to $\Gamma \vdash A$ (via the
+Soundness and Completeness theorems).  Other authors, such as
+Enderton~\cite{Enderton:logicbook},
+instead define $\Gamma \vdash A$ differently from us; they treat
+free variables similarly to constant symbols, and do not allow
+the Generalization rule.
+
+Yet other authors, e.g., the model theory textbooks
+of Chang and Keisler~\cite{ChangKeisler:ModelTheory},
+Marker~\cite{Marker:ModelTheory}, and the Wikipedia entry for the Completeness Theorem\footnote{%
+{\em G{\"o}del's Completeness Theorem}, Wikipedia, The Free Encyclopedia, Retrieved November 28, 2021, 15:23 UTC.}
+sidestep this issue by defining
+the notion of $\Gamma\vDash A$ only for the case
+where $A$ is a sentence and $\Gamma$ is a set of sentences.
+Their versions of the Soundness and Completeness Theorems
+for $\Gamma\vDash A$ and $\Gamma\vdash A$ are stated only
+for the case where $A$~is a sentence and $\Gamma$~is a set of sentences.
+
+On the other hand, the textbook of Hinman~\cite{Hinman:MathLogic}
+uses the same conventions
+about the meanings of $\Gamma \vDash A$ and $\Gamma \vdash A$ as we do,
+and states the Soundness and Completeness Theorems in the same way.
+We adopt this convention since it gives both
+``$\Gamma \vDash A$'' and ``$\Gamma \vdash A$''
+their most natural meanings; our versions of the Soundness and Completeness
+Theorems state that $\Gamma \vDash A$ and $\Gamma \vdash A$ are equivalent
+provided that $\Gamma$ is a set of sentences.
+
+\paragraph*{Tautologies.}
+
+First-order tautologies and first-order tautological implication
+were defined in Definitions \ref{def:tautologyFO} and~\ref{def:tautImplyFO}.
+Since $\FO$ contains the four axioms PL1-PL4 for propositional logic,
+and since the propositional proof system~$\PL$ is complete and can prove
+all propositional tautologies, it follows that $\FO$-proofs can
+establish all first-order tautologies and first-order tautological implications:
+
+\begin{theorem}
+Let $A$ be a formula, and $\Gamma$ a set of formulas.
+\begin{enumerate}
+\item If $A$ is a tautology, then $\vdash A$.
+\item If $\Gamma$ tautologically implies~$A$, then $\Gamma \vdash A$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Assume $A$ is a tautology. This means that there is a tautological
+propositional formula $B(p_1,\ldots,p_\ell)$ and first-order formulas
+$C_1,\ldots, C_\ell$ so that $A$~is $B(C_1,\ldots, C_\ell/p_1\ldots,p_\ell)$.
+By the Completeness Theorem for propositional logic, 
+the tautology~$B$ has a $\PL$-proof
+\[
+D_1, \, D_2, \, \ldots, D_m ,
+\]
+where $D_m$ is~$B$ of course. Substituting the formulas~$C_i$ for the variables~$p_i$
+yields an $\FO$-proof
+\[
+D_1(\vec C/ \vec p), \, D_2(\vec C/ \vec p), \, \ldots, D_m(\vec C/ \vec p)
+\]
+of~$A$, since $A$ is the same as $D_m(\vec C/ \vec p)$, i.e.,
+$B(\vec C / \vec p)$. That proves~(a).
+
+
+For part~(b), suppose
+$\Gamma$ tautologically implies~$A$. This means that there is a finite
+subset $\{B_1,\ldots, B_k\}$ of $\Gamma$ such that
+\[
+B_1\limplies B_2 \limplies \cdots \limplies B_k \limplies A
+\]
+is a tautology. By part~(a), this has an $\FO$-proof. Introducing
+the $B_i$'s as hypotheses from~$\Gamma$ and using Modus Ponens $k$~times,
+ gives $\Gamma \vdash A$.
+\end{proof}
+
+\begin{corollary}\label{coro:tautRulesFO}
+\idxnm{Modus Tollens}, \idxnm{Hypothetical Syllogism}, and
+the tautological implication rule {\rm TAUT}\index{Tautological Implication (TAUT)}
+are admissible rules of inference for $\FO$.
+\end{corollary}
+
+\begin{example}
+We show that $ x=y \limplies g(f(x),z))=g(f(y),z)$ has an $\FO$-proof:
+\begin{twocolproof}
+$\vdash x=y \limplies f(x) = f(y)$ & Axiom EQ${}_f$ \\
+$\vdash u=v \limplies z=z \limplies g(u,z) = g(v,z)$ & Axiom EQ${}_g$ \\
+$\vdash (f(x)=f(y) \limplies z=z \limplies g(f(x),z) = g(f(y),z))$ 
+     & Substitution Rule (twice) \\
+$\vdash z=z$ & Axiom EQ1 \\
+$\vdash x=y \limplies g(f(x),z))=g(f(y),z)$ & TAUT
+\end{twocolproof}
+The final step uses the TAUT rule based on the first, third, and fourth lines.
+\end{example}
+
+\begin{example}\label{example:AEA}
+Let $A(x)$ be a formula.\footnote{As a reminder, when we use the relaxed notation
+for substitution to discuss the formulas $A(x)$ and $A(t)$, this means that $A=A(x)$ is
+a formula, $t$~is
+substitutable for~$x$ in~$A$, and $A(t)$ is the formula $A(t/x)$.}
+We claim that $A(t) \limplies \exists x\, A(x)$ has an $\FO$-proof.
+
+To prove this, recall that $\exists x \, A(x)$ is an abbreviation
+for the formula $\lnot \forall x\, \lnot A(x)$. Thus,
+$A(t) \limplies \exists x\, A(x)$ is a shorthand notation
+for $A(t) \limplies \lnot \forall x\, \lnot A(x)$
+This formula is tautologically equivalent to the UI axiom
+$\forall x\, \lnot A(x) \limplies \lnot A(t)$.  Thus, by
+the TAUT rule (see Corollary~\ref{coro:tautRulesFO}),
+$A(t) \limplies \exists x\, A(x)$
+has an $\FO$-proof.
+\end{example}
+
+This example gives another useful derived rule of inference for~$\FO$.
+Let $A(x)$ be a formula.
+The Existential Introduction\index{existential introduction} rule (EI) is:
+\begin{center}
+\AxiomC{$A(t)$}
+\RightLabel{\quad Existential Introduction (EI) Rule}
+\UnaryInfC{$\exists x\, A(x)$}
+\DisplayProof \index{existential introduction}\index{existential introduction!EI Rule}
+\end{center}
+
+
+\subsection{The Deduction theorem and (in)consistency}\label{sec:deductionInconsisFO}
+
+\index{Deduction Theorem|(}
+The Deduction Theorem formalizes the intuition that, when trying to
+prove an implication $A\limplies B$, it is sufficient to prove~$B$ under
+the assumption of
+$A$ as an additional hypothesis. However, it is not the the case
+that $\Gamma, A \vDash B$ always implies $\Gamma \vDash A\limplies B$ when
+$A$ is a formula. It does work, however, when $A$ is a sentence.
+
+\begin{theorem}[Deduction Theorem for $\FO$]\label{thm:deductionSyntacticFO}
+Let $A$~be a sentence, $B$~be a formula, and $\Gamma$~be a set of sentences.
+Then
+\[
+\Gamma , A \vdash B
+\qquad \hbox{if and only if} \qquad
+\Gamma \vdash A \limplies B.
+\]
+\end{theorem}
+
+The problem with $A$ being a formula instead of a sentence is that
+a proof of $B$ from $\Gamma \cup \{A\}$ might use the Generalization
+rule (GEN) with a variable~$x$ that is free in~$A$. If we assume that
+there is no such use of Generalization, then the Deduction Theorem
+can still hold:
+
+\begin{theorem}[Refined Deduction Theorem for $\FO$]
+\index{Deduction Theorem}\label{thm:refinedDeductionSyntacticFO}
+Let $A$ and $B$~be formulas, and $\Gamma$~be a set of formulas.
+\begin{enumerateLoose}
+\item If $\Gamma \vdash A\limplies B$, then $\Gamma, A \vdash B$.
+\item Suppose $\Gamma, A \vdash B$ so there is an $\FO$-proof~$P$
+of~$B$ from~$\Gamma\cup\{A\}$. Also, suppose that
+no variable~$x$ that appears free in~$A$ is
+used as an eigenvariable for
+a Generalization inference in the $\FO$-proof~$P$.
+Then $\Gamma \vdash A\limplies B$.
+\end{enumerateLoose}
+\end{theorem}
+
+\begin{proof}
+Since there are no free variables in a sentence~$A$,
+Theorem~\ref{thm:deductionSyntacticFO} is a special case
+of Theorem~\ref{thm:refinedDeductionSyntacticFO}.
+The proof of part~(a) of Theorem~\ref{thm:refinedDeductionSyntacticFO}
+is immediate by Modus Ponens.  To prove part~(b), suppose that
+\[
+C_1,\, C_2,\, C_3, \ldots,\, C_\ell
+\]
+is an $\FO$-proof of~$B$ from $\Gamma, A$ so that $C_\ell$ is the formula~$B$.
+Each $C_i$ is an axiom, a member of~$\Gamma$ or the formula~$A$, or is
+inferred by Modus Ponens or by Generalization.
+We prove by induction on~$i$ that $\Gamma \vdash A\limplies C_i$ for each~$i$.
+The proof by induction splits into four cases. (The first three cases
+are essentially the same as in the proof
+of the propositional Deduction Theorem~\ref{thm:deduction};
+Case~4 is the only new case.)
+\begin{description}
+\item[Case 1:] Suppose that $C_i$ is either an axiom or a member of~$\Gamma$.
+Then, certainly $\Gamma \vdash C_i$, and by TAUT, $\Gamma \vdash A \limplies C_i$
+as desired.
+\item[Case 2:] Suppose $C_i$ is~$A$ so that $A\limplies C_i$ is
+the same as $A \limplies A$. This is a tautology and thus
+has an $\FO$-proof.
+\item[Case 3:] Suppose $C_i$ is inferred from Modus Ponens from
+$C_j$ and~$C_k$ with $j,k <i$ and with
+$C_k$ equal to $C_j\limplies C_i$. The two induction hypotheses
+give that $\Gamma \vdash A \limplies C_j$ and
+$\Gamma \vdash A \limplies C_j \limplies C_i$. From these,
+$\Gamma \vdash A \limplies  C_i$ by the TAUT rule.
+\item[Case 4:] Suppose $C_i$ is the formula $D\limplies \forall x\, B$ and
+was inferred by Generalization
+from a formula~$C_j$, $j<i$, which is equal to $D\limplies B$ with
+$x$ not free in~$D$.
+The induction hypothesis is that $\Gamma \vdash A \limplies C_j$;
+i.e., that $\Gamma \vdash A \limplies (D\limplies B)$.  By TAUT, this
+implies that $\Gamma \vdash A\land D \limplies B$. Since neither $A$ nor~$D$
+contains a free occurrence of~$x$, an application of the
+Generalization Rule gives that $\Gamma \vdash A \land D \limplies \forall x\, B$.
+A final use of TAUT gives that $\Gamma \vdash A \limplies D \limplies \forall x\, B$.
+In other words, $\Gamma \vdash A \limplies C_i$.
+\end{description}
+That completes the proof by induction and the proof of the Deduction Theorem.
+\end{proof}
+
+\index{Deduction Theorem|)}
+
+We next discuss consistency and inconsistency. Their definition and
+their properties in first-order logic are almost identical to their
+properties in propositional logic.
+
+
+\begin{definition}
+A set $\Gamma$ of formulas is \idxem{inconsistent} if any only if
+there is some formula~$A$ such that $\Gamma \vdash A$ and $\Gamma \vdash \lnot A$.
+\end{definition}
+
+First-order inconsistency (in~$\FO$) enjoys many of the properties that were
+established early for propositional inconsistency (for~$\PL$). For example,
+Theorems \ref{thm:consistency} and~\ref{thm:finiteConsistEasy}---and their proofs---hold also for $\FO$:
+\begin{theorem}\label{thm:inconsistencyFO}
+Let $\Gamma$ be a set of formulas.
+\begin{enumerate}
+\item $\Gamma$ is inconsistent if and only if $\Gamma \vdash B$ for all formulas~$B$.
+\item $\Gamma$ is inconsistent if and only if
+there is a finite subset~$\Gamma_0$ of~$\Gamma$ which is inconsistent.
+\end{enumerate}
+\end{theorem}
+
+The next two theorems are the analogues of
+Theorems \ref{thm:proofbyContra1} and~\ref{thm:proofbyContra2}
+and Corollary~\ref{coro:byCases} about
+proofs by contradiction and proofs by cases.
+
+\begin{theorem}[Proof by Contradiction for~$\FO$]
+\index{proof by contradiction} \label{thm:ProofByContradictionFO}
+Let $A$~be a sentence and $\Gamma$~be a set of sentences.
+\begin{enumerate}
+\item $\Gamma \cup \{\lnot A\}$ is inconsistent if and only
+if $\Gamma \vdash A$.
+\item $\Gamma \cup \{A\}$ is inconsistent if and only
+if $\Gamma \vdash \lnot A$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Proof-by-cases for $\FO$]\label{thm:ProofByCasesFO}\index{proof-by-cases}
+Let $A$~be a sentence, $B$~be a formula, and $\Gamma$~be a set of sentences.
+Suppose that $\Gamma, A \vdash B$ and $\Gamma, \lnot A \vdash B$. Then
+$\Gamma \vdash B$.
+\end{theorem}
+
+The proofs of Theorems \ref{thm:ProofByContradictionFO} and~\ref{thm:ProofByCasesFO}
+are identical, word-for-word, to the proofs of 
+Theorems \ref{thm:proofbyContra1} and~\ref{thm:proofbyContra2} and Corollary~\ref{coro:byCases}. 
+The proofs
+do use the Deduction Theorem for $A$ and~$\lnot A$ however, and thus we need
+the assumption that $A$~is a sentence.
+
+Similarly, $\FO$ also satisfies the following theorem about finding
+a consistent extension of~$\Gamma$.
+
+\begin{theorem}\label{thm:extendConsisFO}
+Let $\Gamma$ be a consistent set of formulas and let $A$ be a sentence.
+Then at least one of $\Gamma \cup \{A\}$ and $\Gamma \cup \{\lnot A\}$
+is consistent.
+\end{theorem}
+
+The proof of Theorem~\ref{thm:extendConsisFO} is identical to the
+proofs used for Theorem~\ref{thm:extendConsis} and Corollary~\ref{coro:extendConsis}.
+Theorem~\ref{thm:extendConsisFO} will be useful in the proof
+of Lindenbaum's theorem below when proving the Completeness Theorem.
+
+One more simple, but useful, observation is that $\Gamma$ is consistent
+if and only if $\forall(\Gamma)$ is consistent. This is an immediate
+consequence of Theorem~\ref{thm:proofGeneralizations}.
+
+
+\subsection{Syntactic theorems on constants}
+
+The Generalization rule allows inferring $\forall x\, A$ from~$A$.
+There is also a form of generalization that allows
+inferring $\forall x\, A$ from $A(c/x)$ where $c$ is a constant.
+To get some intuition for this, suppose we are trying to prove
+$\forall x\, A(x)$ holds.
+A common proof technique is to introduce a new name~$d$ for
+an object, letting $d$ denote an arbitrary object, and then
+prove that $A(d)$ holds. Since $d$ was an arbitrary
+object, we conclude that $\forall x\, A(x)$ holds.
+
+A related intuition arises when trying to prove a formula~$B$
+from a hypothesis $\exists x\, A(x)$. A common proof technique
+for this is to introduce a new name~$d$ for an object
+that makes $A(d)$ true.  Such an object~$d$ must exist
+if $\exists x\, A(x)$ holds. Then we prove $B$ from the
+hypothesis that $A(d)$ holds.  From this, we conclude
+that $\exists x\, A(x)$ implies~$B$.
+
+These intuitions are formalized by parts (a) and~(b.i) of the next theorem.
+
+
+\begin{theorem}{\rm (\idxnm{Theorem on Constants})}\label{thm:constantsSyntactic}
+Let $\Gamma$ be a set of formulas, and $A(x)$ and~$B$ be formulas.
+Suppose that
+the constant symbol~$c$ does not appear in $A(x)$ or~$B$ or in
+any formula in~$\Gamma$. Then
+\begin{itemizeLoose}
+\item[(a)] $\Gamma \vdash A(c)$ if and only if $\Gamma \vdash \forall x\, A(x)$.
+\item[(b)]  Further suppose that $x$ is the only free variable in~$A(x)$, so
+that $\exists x\, A(x)$ and $A(c)$ are sentences. Then
+\begin{itemize}
+\item[(b.i)] $\Gamma\cup \{\exists x\, A(x)\} \vdash B$
+if and only if
+$\Gamma\cup \{A(c)\} \vdash B$.
+\item[(b.ii)] $\Gamma\cup \{\exists x\, A(x)\}$ is consistent
+if and only if
+$\Gamma\cup \{A(c)\}$ is consistent.
+\end{itemize}
+\end{itemizeLoose}
+\end{theorem}
+
+\begin{proof}
+We prove (a) first. If $\Gamma \vdash \forall x(x)\, A$, then $\Gamma \vdash A(c)$
+follows by Modus Ponens from the UI axiom $\forall x\, A(x) \limplies A(c)$.
+So suppose $\Gamma\vdash A(c)$; we need to prove $\Gamma \vdash \forall x\, A(x)$.
+The $\FO$-proof of $A(c)$ is a sequence of formulas $B_1, B_2,\ldots, B_\ell$.
+Let $x_n$ be a variable that does not appear in~$A(x)$ or in any formula~$B_i$ in the proof.
+For all~$i$, let $B_i^\prime$~be the result of replacing every occurrence of~$c$
+in~$B_i$ with~$x_n$.
+
+We claim that $B_1^\prime,\ldots, B_\ell^\prime$ is an
+$\FO$-proof of~$A(x_n)$. Note that $x_n$~is substitutable for $x$ in~$A(x)$,
+and $B_\ell^\prime$ is equal to $A(x_n)$. (This is because $x_n$ does not appear
+in $B_\ell$ and of course is not quantified in~$B_\ell$.) To show that each $B_i^\prime$
+is correctly introduced as an $\FO$-axioms or as a hypothesis or with an $\FO$ inference
+rule, we must show the following:
+\begin{itemizeInline}
+\item If $B_i \in \Gamma$ is a hypothesis, then $B_i^\prime$ is equal to~$B_i$
+by the assumption that $c$ does not appear in any formula in~$\Gamma$.
+\item Axioms PL1-PL4 remain correct PL1-PL4 axioms after replacing $c$ with~$x_n$.
+\item The constant $c$ is not even allowed to appear in an equality axiom.
+Thus if $B_i$ is an equality axiom, $B_i^\prime$ is equal to~$B_i$.
+\item If $B_i$ is a UI axiom, it has the form $\forall x_k\, D(x_k) \limplies D(t)$, with
+$k\neq n$ since $x_n$~does not appear in~$B_i$. Thus $B_i^\prime$ has the
+form $\forall x_k \, D^\prime(x_k) \limplies D^\prime(t^\prime)$ where $D^\prime$ and~$t^\prime$ are
+obtained from $D$ and~$t$ by replacing each occurrence of~$c$ with~$x_n$.
+In other words, $B_i^\prime$ is a UI axiom.
+\item If $B_i$ is inferred by Modus Ponens from $B_j$ and~$B_k$, then
+clearly $B_i^\prime$ is inferred by Modus Ponens from $B_j^\prime$ and~$B_k^\prime$.
+\item Suppose $B_i$ is inferred by the Generalization rule from $B_j$.
+Then $B_j$ has the form $C \limplies D$, and $B_i$~has the form $C \limplies \forall x_k\, D$,
+and $k\neq n$.  The formula $B_j^\prime$ and~$B_i^\prime$ have the forms
+$C^\prime \limplies D^\prime$ and $C^\prime \limplies \forall x_k\, D^\prime$
+where $C^\prime$ and $D^\prime$ are obtained from $C$ and~$D$ by replacing
+each occurrence of~$c$ with~$x_n$. Since $k \neq n$, this means $B_i^\prime$
+is inferred from~$B_j^\prime$ by a Generalization rule.
+\end{itemizeInline}
+That shows that $B_1^\prime, \ldots, B_\ell^\prime$ is a valid $\FO$-proof
+of~$A(x_n)$ from~$\Gamma$. Then by the
+simplified Generalization rule, $\Gamma \vdash \forall x_n\, A(x_n)$.
+If $x_n$ is the same as the variable~$x$, the proof of part~(a) is complete.
+However, it may not be possible to have picked $x_n$
+to be the same as~$x$, since $x$
+might appear in the $B_i$'s.
+In this case, since $\Gamma \vdash \forall x_n\, A(x_n)$,
+the UI rule gives $\Gamma \vdash A(x)$.
+From this, by the simplified Generalization rule again,
+$\Gamma \vdash \forall x\, A(x)$.
+That completes the proof of part~(a).
+
+With the aid of Theorem~\ref{thm:ProofByContradictionFO},
+part~(b.i) follows readily from part~(a). By Theorem~\ref{thm:proofGeneralizations}
+we can assume w.l.o.g.\ that $B$ is a sentence, by replacing $B$ with its
+universal closure $\forall(B)$. We have:
+\begin{implications}
+\multicolumn{3}{l}{$\Gamma \cup \{\exists x\, A \} \vdash B$} \\
+& $\Leftrightarrow$ & $\Gamma \cup \{\exists x\, A , \lnot B\}$ is inconsistent & Theorem~\ref{thm:ProofByContradictionFO}(a) \\
+& $\Leftrightarrow$ & $\Gamma \cup \{\lnot \forall x\, \lnot A , \lnot B\}$ is inconsistent & $\exists x$ is an abbreviation for $\lnot \forall x\, \lnot$ \\
+& $\Leftrightarrow$ & $\Gamma, \lnot B \vdash \forall x\, \lnot A$ & Theorem \ref{thm:ProofByContradictionFO}(a) \\
+& $\Leftrightarrow$ & $\Gamma, \lnot B \vdash \lnot A(c/x)$ & Part (a) \\
+& $\Leftrightarrow$ & $\Gamma , A(c/x) \vdash B$ & Two uses of Theorem \ref{thm:ProofByContradictionFO}
+\end{implications}
+
+Part (b.ii) follows immediately from part~(b.i) by taking $B$
+to be the negation of an $\FO$ axiom.
+\end{proof}
+
+\begin{example}
+We show that
+$\forall x\,(A(x)\limplies B(x)) \vdash \exists x\, A(x) \limplies \exists x\, B(x)$.
+By the Deduction Theorem~\ref{thm:refinedDeductionSyntacticFO},
+it will suffice to give an $\FO$-proof of
+\[
+\exists x\, A(x), \forall x\,(A(x)\limplies B(x)) \vdash \exists x\, B(x),
+\]
+provided the $\FO$-proof does not use any variable other than~$x$
+as an eigenvariable in any Generalization rule. (Note $A$ and $B$ are
+permitted to have free variables other than~$x$.)
+By Theorem~\ref{thm:constantsSyntactic}, it suffices to
+prove that
+\[
+A(c), \forall x\,(A(x)\limplies B(x)) \vdash \exists x\, B(x),
+\]
+where $c$ is a new constant symbol (i.e., $c$~does not appear in $A$ or~$B$).
+We have
+\begin{twocolproof}
+$A(c), \forall x\,(A(x)\limplies B(x)) \vdash A(c) \limplies B(c)$ & UI rule \\
+$A(c), \forall x\,(A(x)\limplies B(x)) \vdash B(c)$ & Modus Ponens \\
+$A(c), \forall x\,(A(x)\limplies B(x)) \vdash \exists x\, B(x)$ & Existential Introduction (EI) \qedhere
+\end{twocolproof}
+The $\FO$-proofs underlying the use of UI  and EI rules
+did not use the Generalization rule, so the condition that no free variable of
+$\exists x\, A(x)$ is used as an eigenvariable is trivially satisfied.
+\end{example}
+
+
+
+\begin{figure}[t]
+\begin{center}
+\setlength{\fboxrule}{1pt}
+\setlength{\fboxsep}{10pt}
+\fbox{\begin{minipage}{0.92\textwidth}
+\raggedright
+%\vspace*{0.0em}
+\index{FO, proof system!derived rules}
+\begin{center}
+{\bf Constructing $\FO$-proofs}
+\end{center}
+
+\vspace*{-0.5em}
+{\bf {Derived rules:}}
+
+~~~~{\bf Propositional rules:} Modus Tollens, Hypothetical Syllogism and \hfill \\
+~~~~~~~~~~~~~~~~~ more generally
+Tautological Implication (TAUT).
+
+\kern 0.5em
+
+~~~~
+\begin{tabular}{@{}r@{~}c@{\hspace*{2em}}r@{~}c}
+{\bf Generalization:} &
+\AxiomC{$A(x)$}
+\UnaryInfC{$\forall x\, A(x)$}
+\DisplayProof
+&
+{\bf EI Rule:} &
+\AxiomC{$A(t)$}
+\UnaryInfC{$\forall x\, A(x)$}
+\DisplayProof \\[1.4em]
+{\bf UI Rule:} &
+\AxiomC{$\forall x\,A(x)$}
+\UnaryInfC{$A(t)$}
+\DisplayProof &
+{\bf Substitution:} &
+\AxiomC{$A(x)$}
+\UnaryInfC{$A(t)$}
+\DisplayProof
+\end{tabular}
+
+\kern 0.5em
+
+For Deduction/Contradiction/Cases, $A$ is a sentence.
+
+\kern 5pt
+
+
+~~~~{\bf \idxnm{Deduction Theorem}:} $\Gamma \vdash A\limplies B$ iff $\Gamma, A \vdash B$.
+
+\kern -0.5em
+
+\begin{tabbing}
+~~~~{\bf Proof by Contradiction:} ~
+\= $\Gamma \vdash A$ iff $\Gamma \cup \{ \lnot A \}$ is inconsistent.  \\[0.25em]
+\> $\Gamma \vdash \lnot A$ iff $\Gamma \cup \{ A \}$ is inconsistent.
+\end{tabbing}
+
+\kern -0.5em
+
+~~~~{\bf Proof by Cases:} If $\Gamma, A \vdash B$ and $\Gamma,\lnot A \vdash B$, then $\Gamma \vdash B$.
+
+\kern 5pt
+
+{\bf Theorem on Constants.} $c$ is a new constant symbol not in $\Gamma$, $A$ or $B$. \hfill \\[0.25em]
+~~~~For $A(x)$ a formula, $\Gamma \vdash \forall x\, A(x)$ iff $\Gamma \vdash A(c)$.
+      \hfill \\[0.25em]
+~~~~If $\exists x\, A(x)$ is a sentence,
+   $\Gamma \cup\{ \exists x\, A(x) \} \vdash B$ iff $\Gamma \cup\{ A(c) \} \vdash B$
+
+\end{minipage}
+} % End of \fbox
+\end{center}
+\label{page:constructingFO}
+\end{figure}
+
+
+

@@ -1,0 +1,123 @@
+\section{Counterexamples
+to Validity and Implication}\label{sec:validExamples}
+\def\cursectionname{Counterexamples to Validity and Implication}
+
+This section gives examples of some very simple finite structures;
+we use them to show that formulas are not valid, or that logical
+implications do not hold. Another way to view these constructions
+is that they give structures that
+show the satisfiability of formulas.
+
+\begin{example}
+We show that
+\begin{equation}\label{eq:APAPexample}
+\nvDash \forall x_1 (P(x_1) \limplies \forall x_2 P(x_2)) ,
+\end{equation}
+or, equivalently, that $\lnot \forall x_1 (P(x_1) \limplies \forall x_2 P(x_2))$
+is satisfiable. The first-order language is
+$L_1 = \{ P \}$; it contains only the unary predicate symbol~$P$.\footnote{Unless otherwise
+specified, all languages are presumed to include the equality sign~$=$. However,
+this makes no difference in the present case since the
+formula~(\ref{eq:APAPexample}) does not use
+the equality sign.}\index{equality sign ($=$)}
+Define the structure $\mathfrakA_1$ to have
+universe $|\mathfrakA_1| = \{ 0,1 \}$, and
+$P^{\mathfrakA_1} = \{0 \}$.
+
+We claim that $\mathfrakA_1 \nvDash \forall x_1\,(P(x_1) \limplies \forall x_2 P(x_2))$.
+To see this, suppose $\sigma$ is an object assignment with $\sigma(x) = 0$.
+Then $\mathfrakA_1\vDash P(x)[\sigma]$ since
+$\sigma(x) = 0 \in P^{\mathfrakA_1}$. Suppose $\tau$ is an object assignment
+such that $\tau(x_2) = 1$. Then $\mathfrakA_1 \nvDash P(x_2) [\tau]$
+since $1 \notin P^\mathfrakA_1$. Therefore, $\mathfrakA_1\nvDash \forall x_2 P(x_2) [\pi]$
+for an arbitrary object assignment~$\pi$ (since $\tau$ can be taken as an $x_2$-variant
+of~$\pi$). We thus have $\mathfrakA_1\vDash P(x)[\sigma]$ and
+$\mathfrakA_1\nvDash \forall x_2 P(x_2) [\sigma]$. Applying the definition
+of truth, we get first that
+\hbox{$\mathfrakA_1 \nvDash (P(x_1) \limplies \forall x_2 P(x_2)) [\sigma]$},
+and second that
+\hbox{$\mathfrakA_1 \nvDash \forall x_1\,(P(x_1) \limplies \forall x_2 P(x_2)) [\sigma]$}.
+
+Therefore $\forall x_1 (P(x_1) \limplies \forall x_2 P(x_2))$ is not logically
+valid, and (\ref{eq:APAPexample}) holds.
+\end{example}
+
+\begin{example}\label{example:AEPEAP}
+We show that
+\begin{equation}\label{eq:AEPEAPexample}
+\forall x\,\exists y\, P(x,y) \nvDash \exists y \, \forall x \, P(x,y) ,
+\end{equation}
+or, equivalently, that $\{\forall x\,\exists y\, P(x,y),\lnot \exists y \, \forall x \, P(x,y) \}$
+is satisfiable. Now the language
+is $L = \{P\}$ with $P$ a binary predicate symbol.
+
+Consider the structure $\mathfrakA_2$ defined with
+$|\mathfrakA_2| = \{0,1\}$ and
+$P^{\mathfrakA_2} = \{ \langle 0,0 \rangle, \langle 1,1 \rangle \}$.
+Then (\ref{eq:AEPEAPexample}) follows from the facts that
+$\mathfrakA_2 \vDash \forall x\,\exists y\, P(x,y)$, but
+$\mathfrakA_2 \nvDash \exists y \, \forall x \, P(x,y)$.
+These two facts can be easily checked using the definition
+of truth.
+
+A good way to understand the meaning of (\ref{eq:AEPEAPexample} is to view $P(x,y)$
+as defining in the edge relation in a directed graph\index{graph!directed}. Then
+$\forall x\,\exists y\, P(x,y)$ expresses that there is no sink vertex, and
+$\exists y \, \forall x \, P(x,y)$ there is a ``strongly dominated'' vertex~$y$ 
+(i.e., with an incoming edge from every vertex~$x$).  
+Then (\ref{eq:AEPEAPexample}) states the non-existence of
+a sink vertex does not imply the existence of a strongly dominated vertex.
+\end{example}
+
+\begin{example}\label{example:withOneTuples}
+We show that
+\begin{equation}\label{eq:APQAPAQexample}
+\forall x\,( P(x) \lor Q(x) ) \nvDash \forall x\, P(x) \lor \forall x \, Q(x),
+\end{equation}
+or, equivalently, that
+$\{\forall x\,( P(x) \lor Q(x) ) ,\, \lnot (\forall x\, P(x) \lor \forall x \, Q(x)) \}$
+is satisfiable.  The language contains two unary predicate symbols $P$ and~$Q$.
+
+Let $\mathfrakA_3$ be the structure with
+$|\mathfrakA_3| = \{ 0,1 \}$, with $P^{\mathfrakA_3} = \{0\}$ and $Q^{\mathfrakA_3} = \{1\}$.
+It is easy to check that $\mathfrakA_3 \vDash \forall x\,( P(x) \lor Q(x) )$ and
+$\mathfrakA_3 \nvDash \forall x\, P(x) \lor \forall x \, Q(x)$.
+Thus, (\ref{eq:APQAPAQexample}) holds.
+\end{example}
+
+In the above example, we wrote $P^{\mathfrakA_3} = \{0\}$ and $Q^{\mathfrakA_3} = \{1\}$
+instead of $P^{\mathfrakA_3} = \{\langle 0\rangle \}$ and $Q^{\mathfrakA_3} = \{\langle 1\rangle \}$.
+This is because we identify a 1-tuple with the object in the 1-tuple. For instance,
+``$\langle 0 \rangle$'' is the same as ``$0$''.
+
+\begin{example}
+Working with the same language as the previous example,
+\begin{equation}\label{eq:EPEPEPQexample}
+\exists x \, P(x) \land \exists x\, Q(x) \nvDash \exists x\, (P(x) \land Q(x)).
+\end{equation}
+or, equivalently, that
+$\{ \exists x \, P(x) \land \exists x\, Q(x) ,\, \lnot \exists x\, (P(x) \land Q(x)) \}$
+is satisfiable.
+Let $\mathfrakA_3$ be the same structure as in the previous example.
+It is easy to check that $\mathfrakA_3 \vDash \exists x \, P(x) \land \exists x\, Q(x)$
+and $\mathfrakA_3 \nvDash \exists x\, (P(x) \land Q(x))$. Thus (\ref{eq:EPEPEPQexample})
+holds.
+\end{example}
+
+\begin{example}\label{example:PxPy}
+This is a redo of Example \ref{example:logicImpls}(b).
+Working with the same language again,
+\[
+P(x) \nvDash P(y),
+\]
+or, equivalently, $\{ P(x), \, \lnot P(y) \}$ is satisfiable.
+Since $P(x)$ and $P(y)$ have free occurrences of variables, a
+counterexample must involve an object assignment. Let $\mathfrakA_3$
+be the same structure as in the previous examples.
+Let $\sigma$ be an object assignment such that $\sigma(x) = 0$
+and $\sigma(y)=1$.  By the definition of truth for atomic formulas,
+$\mathfrakA_3 \vDash P(x) [\sigma]$ and $\mathfrakA_3 \nvDash P(y)[\sigma]$.
+Therefore $P(x) \nvDash P(y)$.
+\end{example}
+
+

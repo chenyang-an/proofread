@@ -1,0 +1,78 @@
+\section{Examples of Logical Principles}\label{sec:validExamplesBis}
+
+This section collects together some logical equivalences and
+logical implications that pertain to quantifiers.
+Some of the results below have been proven already. For many of the others,
+see Exercises \ref{exer:startQidentities}-\ref{exer:endQidentities}.
+
+\paragraph*{Some logical equivalences for quantifiers.}
+\begin{center}
+\begin{tabular}{c@{~~~-~}l}
+$\forall x\, \forall y\, A \tautEq \forall y\, \forall x\, A$ & Quantifier exchange \\
+$\exists x\, \exists y\, A \tautEq \exists y\, \exists x\, A$ & Quantifier exchange \\
+$\forall x\, (A \land B) \tautEq \forall x\, A \land \forall x\, B$ & Distributing $\forall$ over $\land$ \\
+$\exists x\, (A \lor B) \tautEq \exists x\, A \lor \exists x\, B$ & Distributing $\exists$ over $\lor$ \\
+$\exists x\, (A \limplies B) \tautEq \forall x\, A \limplies \exists x\, B$ & Distributing $\exists$ over $\limplies$ \\
+\end{tabular}
+\end{center}
+
+\paragraph*{Some logical implications for quantifiers.}
+\begin{center}
+\begin{tabular}{l@{~~~}l}
+$\vDash \forall x\, A \limplies \exists x\, A$ & -~Corollary \ref{coro:AimpliesE} \\
+$\vDash \exists x\, \forall y\, A \limplies \forall y\, \exists x\, A$ &  \\
+$\vDash \forall x\, A \limplies A$ \\
+$\vDash \forall x\, A \limplies A(t/x)$ & -~If $t$ is substitutable for $x$ in $A$ \\
+$\vDash A \limplies \exists x\, A$ & \\
+$\vDash A(t/x) \limplies \exists x\, A$ & -~If $t$ is substitutable for $x$ in $A$ \\
+$\vDash \forall x\, (A \limplies B) \limplies \exists x\, A \limplies \exists x\, B$ & \\
+$\vDash \forall x\, (A \limplies B) \limplies \forall x\, A \limplies \forall x\, B$ & \\
+$\vDash \forall x\, \forall y\, A \limplies \forall x \, A(x/y)$ & -~If $x$ is substitutable for~$y$ in $A$.
+\end{tabular}
+\end{center}
+
+The final logical validity may be a little confusing;
+it can be expressed more clearly with the relaxed notation
+for substitution as
+\[
+\vDash \forall x\, \forall y\, A(x,y) \limplies \forall x\, A(x,x) .
+\]
+The implications above in general do not reverse; for instance,
+$\vDash A \limplies \forall x \, A$ is not true in general.
+They do reverse in some special cases, notably when the quantifiers
+are ``vacuous''\index{vacuous quantifier} and do not actually bind any variables.
+For instance, the next two equivalences follow from
+Exercise~\ref{exer:QxNotFree}.
+\begin{center}
+\begin{tabular}{l@{~~~}l}
+$\vDash A \liff \forall x\, A $ \qquad  & -~If $x$ does not occur free in~$A$ \\
+$\vDash \exists x\, A \liff A$ & -~If $x$ does not occur free in~$A$ \\
+\end{tabular}
+\end{center}
+
+\paragraph*{Logical equivalences supporting prenex form.}
+
+In all of the below formulas, it is assumed that $x$ does not
+have any free occurrences in~$C$. Other than the first four equivalences,
+these are stated in Lemma~\ref{lem:prenexHelpers}.
+
+\begin{center}
+\begin{tabular}{c@{~~~}l}
+$\forall x\, A \tautEq \lnot \exists x\, \lnot A$ & -~Theorem \ref{thm:negQneg} \\
+$\exists x\, A \tautEq \lnot \forall x\, \lnot A$ & -~\hspace*{2em}$''$ \\
+$\lnot \forall x\, A \tautEq \exists x\, \lnot A$ & -~Theorem \ref{thm:negQnegBis} \\
+$\lnot \exists x\, A \tautEq \forall x\, \lnot A$ & -~\hspace*{2em}$''$  \\
+$C \land \exists x\, A \tautEq \exists x\,(C \land A)$  \\
+$C \land \forall x\, A \tautEq \forall x\,(C \land A)$ & \\
+$C \lor \forall x\, A \tautEq \forall x\,(C \lor A)$ & \\
+$C \lor \exists x\, A \tautEq \exists x\,(C \lor A)$ & \\
+$C \limplies \forall x\, A \tautEq \forall x\,(C \limplies A)$ & -~Example \ref{example:prenexACI} \\
+$C \limplies \exists x\, A \tautEq \exists x\,(C \limplies A)$ & \\
+$(\forall x\, A) \limplies C \tautEq \exists x\,(A \limplies C)$ & \\
+$(\exists x\, A) \limplies C \tautEq \forall x\,(A \limplies C)$ & \\
+\end{tabular}
+\end{center}
+\noindent
+To reiterate: it is assumed that $x$ is not free in~$C$
+in the above logical equivalences.
+

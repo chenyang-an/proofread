@@ -1,0 +1,34 @@
+\section{The Compactness Theorem for \texorpdfstring{$\PL$}{PL}}
+\label{sec:compactPL}\index{Compactness Theorem}
+
+The \idxem{Compactness Theorem} is one of the fundamental properties
+of both propositional and first-order logic. It is a direct consequence
+of the Soundness and Completeness Theorems.
+
+\begin{definition}
+A set $\Gamma$ of formula is \idxem{finitely satisfiable} if
+every finite subset~$\Pi$ of~$\Gamma$ is satisfiable.
+\end{definition}
+
+\begin{theorem}[Compactness Theorem]
+\label{thm:compactnessPL}\index{Compactness Theorem} ~~
+\begin{itemize}
+\item[\rm (a)] $\Gamma$ is satisfiable if and only if $\Gamma$ is finitely satisfiable.
+\item[\rm (b)] $\Gamma \vDash A$ if and only there is finite subset~$\Gamma_0$ of~$\Gamma$
+such that $\Gamma_0 \vDash A$.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+By the Soundness and Completeness Theorems, $\Gamma$~is satisfiable if and only if
+$\Gamma$~is consistent.  Likewise, $\Gamma$~is finitely satisfiable if and only if
+every finite subset of~$\Gamma$ is consistent.  Part~(a) is now immediate from
+the fact that $\Gamma$ is consistent if and only if every finite subset of~$\Gamma$
+is consistent. (See Theorem~\ref{thm:finiteConsistEasy}.)
+
+The proof of~(b) is similar. It follows from the fact that $\Gamma\vdash A$
+if and only if $\Gamma_0 \vdash A$ for some finite $\Gamma_0\subseteq \Gamma$. (See
+Theorem~\ref{thm:subsetHypsProp}(b).)
+\end{proof}
+
+

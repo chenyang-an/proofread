@@ -1,0 +1,160 @@
+\section{Intensional and Extensional Approaches}\label{sec:IntensionalExtensional}
+
+There are two traditional ways to prove the
+\idxnm{First Incompleteness Theorem}. The first way,
+sometimes called the ``\idxnm{intensional}'' approach,
+works with the first-order Peano Arithmetic
+theory~($\PA$). Peano Arithmetic is formalized over
+the language~$L_\PA$ with induction axioms as its
+primary axioms. Although Peano Arithmetic can talk
+only about integers, it can in fact formalize
+the metamathematical syntax of first-order logic.
+It does this by encoding metamathematical concepts
+such as ``first-order formula'' and ``$\FO$-proof''
+with G{\"o}del numbers, namely with integers.
+Via G{\"o}del numbers, Peano Arithmetic can formulate
+and reason about the syntactic properties of first-order
+formulas, sentences, proofs, and theorems; in particular,
+it can formulate the syntactic properties of $\FO$-proofs and
+theorems of~$\PA$ itself. This includes all the syntactic
+concepts developed in Chapters \ref{chap:FOsyntaxSemantics}
+and~\ref{chap:proofsFO}, including the concepts such
+as provability and consistency. This allows Peano Arithmetic
+to ``reason'' about its own consistency, and to formulate
+a sentence $\TCon_\PA$ expressing that Peano Arithmetic
+itself is consistent.
+
+The \idxnm{First Incompleteness Theorem} for Peano Arithmetic
+can be proved by using a diagonal construction similar
+to the Diagonal Theorem~\ref{thm:Diag} but now using a
+sentence~$A$ that expresses ``The sentence~$A$ does not have
+a $\PA$-proof'', or informally, the sentence~$A$ asserts
+``I am not $\PA$-provable''.  The First Incompleteness Theorem
+is proved by showing that (under the assumption that $\PA$ is consistent)
+this sentence~$A$ is true in~$\mathcal N$, but is not
+a theorem of Peano Arithmetic.
+The G{\"o}del \idxnm{Second Incompleteness Theorem}
+takes this further by
+showing that Peano Arithmetic (unless inconsistent) cannot
+prove the sentence $\TCon_\PA$ expressing the consistency
+of Peano Arithmetic. Thus $\TCon_\PA$ is an
+explicit and comprehensible example of a true sentence that
+cannot be proved by Peano Arithmetic.
+
+Peano Arithmetic is limited to dealing with finite
+objects and cannot reason directly with infinite sets.
+It can however reason indirectly about definable infinite sets.
+For instance, Peano Arithmetic can
+formalize the notions of Turing machines and
+computations of Turing machines. It can thus indirectly
+reason about Turing decidable sets and Turing enumerable
+sets in the sense that it can reason about the members of the sets (rather
+than about the sets themselves).\footnote{In fact, Peano Arithmetic can define
+many sets beyond decidable, c.e.\ and co-c.e.\ sets.} This permits Peano
+Arithmetic to formalize a version of the
+Completeness Theorem. However, Peano Arithmetic cannot
+formalize the definition of truth in a general way. Hence,
+it cannot even state the general form of the Soundness Theorem.
+
+\medskip
+
+The second traditional way to prove the
+\idxnm{First Incompleteness Theorem} is the ``\idxnm{extensional}''
+approach. For this, we use a very weak subtheory~$\TQ$ of~$\PA$
+(called ``\idxnm{Robinson's theory}~$\TQ$'').
+For stronger results, an even weaker
+subtheory called~$\TR$ can be used. The language of both $\TQ$ and~$\TR$
+is~$L_\PA$. The axioms of~$\TQ$ state simple
+defining properties of zero, successor, addition, and multiplication,
+but $\TQ$~has no induction axioms. The theory~$\TQ$ is quite weak;
+unlike $\PA$, it cannot even prove elementary things such
+as that addition is commutative,
+$\forall x\, \forall y\,(x+\penalty10000 y=\penalty10000 y+\penalty10000 x)$.
+In the {\em intensional}
+approach, $\PA$~does prove this.  In the {\em extensional} approach,
+we have only that $\TQ$ can prove particular instances of
+$x+y=y+x$; e.g., $\TQ$~can prove
+$\underline 3 + \underline 4 = \underline 4 + \underline 3$ where
+``$\underline 3$'' and ``$\underline 4$''~denote  the terms
+$S(S(S(0)))$ and $S(S(S(S(0))))$.
+
+We shall see later that $\TQ$~can ``\idxnm{represent}'' every Turing decidable
+set~$R$ in an extensional fashion. What this means is that there is
+a formula~$G_R(x)$ defining membership in~$R$ such that for any
+particular integer~$n$, $\TQ$~can prove either $G_R(\underline n)$ or
+$\lnot G_R(\underline n)$ depending on whether $n$~is in~$R$ or not.
+Similarly, every Turing computable function~$f$ can be represented by
+a formula~$G_f$ in~$\TQ$. This means that, for any $n\in\mathbb N$, if
+$f(n)=m$, then $\TQ$~can prove the sentence
+$\forall x \, (G_f(\underline n,x)\liff x=\underline m)$. (The precise
+definitions for ``represent'' are given below.)
+
+Perhaps surprisingly, the converse holds too and
+any set which is representable in~$\TQ$ is
+Turing decidable. This has a very general proof that has little to
+do with~$\TQ$ itself. Namely, since $\TQ$~is finitely axiomatized,
+its logical consequences~$\TCn Q$ are Turing enumerable. Thus, to
+decide whether $n\in R$, one can enumerate the consequences
+of~$\TQ$ until obtaining either $G_R(\underline n)$ or $\lnot G_R(\underline n)$.
+One of these must appear, and it tells us whether $n$ is in~$R$ or not.
+A similar proof shows that every representable function of~$\TQ$
+is Turing computable.
+
+From these results, it will follow
+that a set is representable in~$\TQ$ if and only
+it is Turing decidable. In light of the Church-Turing Thesis,
+we have that any~$R$ is decidable if and only if it
+is representable in~$\TQ$.
+
+The First Incompleteness Theorem will be proved from this
+fact.  Specifically, a diagonal construction rather
+similar to the Diagonal Theorem~\ref{thm:Diag} for
+decidable sets can be used to form an $L_\PA$-sentence~$D$
+that asserts it is not a consequence of~$\TQ$.  From the
+consistency of~$\TQ$, it will follow that neither $D$ nor~$\lnot D$
+is a consequence of~$\TQ$.
+
+Nearly all the claims just made about~$\TQ$ are also true for
+the weaker theory~$\TR$. In particular, $\TR$~also represents 
+precisely the relations that are decidable and the functions
+that are computable.  The First Incompleteness Theorem also applies
+to~$\TR$.
+
+In fact, the same arguments apply to any consistent, axiomatizable
+theory~$T$ containing~$\TR$. In particular,
+for any such theory~$T$, the sets representable in~$T$
+are precisely the Turing decidable sets. The diagonal
+method thus implies that
+there is no complete, consistent, axiomatizable theory~$T$
+containing~$\TR$. From this, it follows that $\TTh {\mathcal N}$
+is not axiomatizable and hence not (Turing) decidable.
+
+\bigskip
+
+This chapter will carry out the extensional approach
+in full detail. There are several reasons for using the
+extensional approach. The first, and most important
+reason, is that it is technically easier than
+the intensional approach. Second, it provides more
+justification for the Church-Turing Thesis, since it shows
+that the decidable sets can be robustly defined in
+terms of any consistent axiomatizable theory $T\supseteq R$.
+In other words, stronger theories do not give more
+decidable sets.
+Third, by working with $\TR$ and~$\TQ$, we delineate more-or-less
+exactly where undecidability
+kicks in.
+After carrying out the extensional
+approach, Section~\ref{sec:SecondIncomplete} will sketch a high-level proof
+of how the intensional approach proceeds. This high-level proof
+will be based on Peano Arithmetic~$\PA$.\footnote{%
+The best way to carry out the intensional approach is to base
+it on~$\TQ$, not~$\PA$. This is done by interpreting the bounded
+arithmetic theory $\PV$ or~$\Sonetwo$ into~$\TQ$ and carrying
+out the intensional proof of the Incompleteness Theorem in
+$\PV$ or~$\Sonetwo$. For this, see Cook [1975] and Buss [1986]
+for intensional formalizations of metamathematics in $\PV$ and~$\Sonetwo$, and see
+Pudl\'ak [1985] and Nelson [1986] for interpretations in~$\TQ$.  These
+developments are beyond the scope of the present textbook, however.}
+\nocite{Cook:PV}\nocite{Buss:bookBA}\nocite{Nelson:PredArith}\nocite{Pudlak:cuts}.
+

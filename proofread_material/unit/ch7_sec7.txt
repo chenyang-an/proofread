@@ -1,0 +1,432 @@
+\section{Representability of Sequence Coding}\label{sec:betaFunction}\index{sequence coding|(}
+
+We are still working towards proving
+Theorem~\ref{thm:decidableAreRepresentable} that all
+decidable relations and computable predicates are representable.
+This section takes a key step toward that proof
+by describing a method of assigning G{\"o}del numbers
+to variable-length sequences of integers and how to
+represent functions that manipulate these sequences.
+
+Consider a \idxnm{sequence} of integers $\langle n_1 \ldots, n_k \rangle$.
+Mathematically, we can formulate this as a function
+from $f:\{0,\ldots,k{-}1\} \rightarrow \mathbb N$, with
+$f(i) = a_{i+1}$. We wish to encode the sequence with a
+single integer, called a G{\"o}del number. Instead of
+using corner quote marks $\lgn \cdots \rgn$, we
+will instead write the G{\"o}del number of a sequence as
+$\langleBeta n_1,\ldots, n_k \rangleBeta$.
+
+Our goal is to define functions that manipulate
+G{\"o}del numbers of sequences in natural ways, and
+show that these functions are representable.  The functions
+we are interested include the binary G{\"o}del~$\beta$ function,
+the unary $\TLen$ (sequence length) function, and the
+binary function~$\seqConcatenate$ for sequence concatenation.
+\begin{itemizeLoose}
+\item $\beta(i, \langleBeta n_0,\ldots, n_{k-1} \rangleBeta) ~:=~ n_i $.
+\item $\TLen( \langleBeta n_0,\ldots, n_{k-1} \rangleBeta ) ~:=~ k$.
+\item $\langleBeta n_1,\ldots, n_k \rangleBeta \seqConcatenate \langleBeta m_1,\ldots, n_\ell \rangleBeta
+                      ~:=~ \langleBeta n_1,\ldots, n_k, m_1,\ldots, m_\ell \rangleBeta$ .
+\end{itemizeLoose}
+and the function $n \mapsto \langleBeta n \rangleBeta$, 
+where $\langleBeta n \rangleBeta$ is the G{\"o}del number of
+a sequence of length one.
+
+Composition allows defining further functions such as the binary function
+\[
+\langleBeta n_1,\ldots, n_k \rangleBeta * n_{k+1} ~:= ~
+     \langleBeta n_1,\ldots, n_k, n_{k+1} \rangleBeta \seqConcatenate \langleBeta n_{k+1} \rangleBeta
+     ~=~ \langleBeta n_1,\ldots, n_k, n_{k+1} \rangleBeta .
+\]
+and the unary function
+\[
+\TLast(\langleBeta n_1,\ldots,n_k\rangleBeta)
+    ~:=~ \beta(\TLen(\langleBeta n_1,\ldots,n_k\rangleBeta)\dotminus 1, \langleBeta n_1,\ldots,n_k\rangleBeta)
+    ~=~ n_k.
+\]
+The unary relation $\TIsSeq(w)$ will be true if $w$ is
+the G{\"o}del number of a sequence,
+\[
+\TIsSeq(w) ~\Leftrightarrow~ w = \langleBeta n_1, \ldots,n_k \rangleBeta \hbox{~for some $n_1,\ldots,n_k$}.
+\]
+The $\beta$~function is the
+crucial one of the above, but it will convenient to
+also use $\TIsSeq$, $\TLen$, and $\TLast$.
+
+There are several common ways to define the G{\"o}del number of a sequence.
+G{\"o}del's original
+definition used a generalization of the Chinese remainder theorem. Another
+common approach is to use the exponents in prime factorizations to code sequence
+elements; for instance, the sequence $\langle n_1,n_2,n_3,n_4\rangle$
+could have the integer with prime factorization
+$2^{n_1}3^{n_2} 5^{n_3} 7^{n_4} 11$ as its G{\"o}del number.
+
+A third
+popular approach, and the one we prefer, is to use a base~$w$ encoding
+with $w$~greater than the sequence elements. For convenience, we'll use
+a power of two as the base~$w$.  Specifically, a G{\"o}del number
+for the sequence $\langle n_0,\ldots, n_{k-1} \rangle$ will
+be equal to
+\begin{equation}\label{eq:godelNumOfSeq}
+n_0 + n_1 \cdot 2^p + n_2 \cdot 2^{2p} + n_3 \cdot 2^{3p} + \cdots +
+    n_{k-1} \cdot 2^{(k-1)\cdot p} + 2^{k\cdot p} + 2^{(k+1)\cdot p}.
+\end{equation}
+For this, it is necessary that $n_i < 2^p$ for all~$i$.
+Figure~\ref{fig:sequenceCode} illustrates this.
+
+\begin{definition}
+For any $p$ such that $2^p > n_i$ for all~$i$,
+the integer~(\ref{eq:godelNumOfSeq}) is called a G{\"o}del number of the sequence
+$\langle a_0,\ldots, a_{k-1} \rangle$. This value
+is not unique, as it is a G{\"o}del number as
+long as $p$~is sufficiently large.
+
+The notation $\langleBeta n_0,\ldots,n_{k-1}\rangleBeta$ denotes
+the least such G{\"o}del number of the sequence, namely
+the value~(\ref{eq:godelNumOfSeq}) where $p$ is chosen so that
+$\max_i\{n_i\} <2^p \le 2\cdot\max_i\{n_i\}$.
+\end{definition}
+
+\begin{example}
+Let's compute the G{\"o}del number for the sequence $\langle 7, 0, 11 \rangle$.
+The binary expansions of 7, 0, and 11 are 111, 0, and 1011. Thus, $2^p = 16$
+and $p=4$.  Therefore,  $\langleBeta 7,0, 11\rangleBeta$ has binary representation
+\[
+1\,0001\,1011\,0000\,0111
+\]
+In decimal form, this is $2^{16}+2^{12}+ 11\cdot 2^8 + 0\cdot 2^4 + 7 = 72455$.
+\end{example}
+
+We need to show that the $\beta$ function, the $\TLen$ function, etc. are
+representable. The primary difficulty turns out to be showing that the
+base~2 exponential function $i \mapsto 2^i$ is representable. But, pending
+showing this, we can work directly with powers of~2.
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=0.5,
+   >={Latex[length=4pt,width=4pt]}]
+\draw (-1,0) to (9.6,0);
+\draw (-1,1) to (9.6,1);
+\draw (11.4,0) to (18,0);
+\draw (11.4,1) to (18,1);
+\draw (0,0) to (0,1);
+\draw (-1,0) to (-1,1);
+\draw (3,0) to (3,1);
+\draw (6,0) to (6,1);
+\draw (9,0) to (9,1);
+\draw (12,0) to (12,1);
+\draw (15,0) to (15,1);
+\draw (18,0) to (18,1);
+\node at (-0. 5,0.5) {$1$};
+\node at (0.6,0.5){$00$};
+\node at (1.5,0.5){$\cdots$};
+\node at (2.4,0.5){$ 01 $};
+\node at (4.5,0.5){$n_k$};
+\node at (7.5,0.5){$n_{k-1}$};
+\node at (10.5,0.5){$\cdots$};
+\node at (13.5,0.5){$n_2$};
+\node at (16.5,0.5){$n_1$};
+
+\draw[decorate,decoration={calligraphic brace,raise=3pt,amplitude=8pt},thick] (2.8,0) to node[below=10pt]{$p$ bits} (0.2,0);
+\draw[decorate,decoration={calligraphic brace,raise=3pt,amplitude=8pt},thick] (5.8,0) to node[below=10pt]{$p$ bits} (3.2,0);
+\draw[decorate,decoration={calligraphic brace,raise=3pt,amplitude=8pt},thick] (8.8,0) to node[below=10pt]{$p$ bits} (6.2,0);
+\draw[decorate,decoration={calligraphic brace,raise=3pt,amplitude=8pt},thick] (14.8,0) to node[below=10pt]{$p$ bits} (12.2,0);
+\draw[decorate,decoration={calligraphic brace,raise=3pt,amplitude=8pt},thick] (17.8,0) to node[below=10pt]{$p$ bits} (15.2,0);
+%\begin{scope}
+%\clip(-5.0,-1.4) rectangle (12,1);
+%\draw[decorate,decoration={calligraphic brace,raise=3pt,amplitude=8pt,aspect=0.75},thick] (14,0) to %node[below=10pt,pos=0.75]{General data store} (-4.9,0);
+%\end{scope}
+\end{tikzpicture}
+\end{center}
+\caption{The binary representation of a G{\"o}del number
+of $\langle n_1,\ldots, n_k\rangle$
+has a leading~$1$ and then $k+1$ blocks, of $p$ bits, containing
+successively
+the binary representations of~1 and $n_k,\ldots, n_1$.
+The high order bits ``$100\cdots 01$'' serve to determine the
+value of~$2^p$ with the aid of the $\TTwoExpP$ function.}
+\label{fig:sequenceCode}
+\end{figure}
+
+As a first step, we define a function $\TTwoExpP(u)$ which,
+given a G{\"o}del number~$u$ of the form~(\ref{eq:godelNumOfSeq}),
+computes the value of~$2^p$ by
+\begin{eqnarray*}
+\TRMSB(u) &=& u - 2^{\lfloor\log_2 u\rfloor} \\[1ex]
+\TTwoExpP(u) &=& 2^{\lfloor\log_2 u\rfloor}
+                 / 2^{\lfloor\log_2 \TRMSB(u) \rfloor} .
+\end{eqnarray*}
+Here ``$\TRMSB$'' stands for ``remove most significant bit'', and
+$\TRMSB(u)$ is the value obtained from the binary representation of~$u$
+after removing its most significant bit. $\TTwoExpP(u)$ gives
+the power of two $2^p$ such that $u$ is equal to $(2^p+1)2^q + a$
+for some $a$ and~$q$ with $a<2^q$. ``$\TTwoExpP$'' stands
+for ``two exponent~$p$''.  The function $\TTwoExpP$ is used to
+locate the first two~$1$'s in the binary representation of~$u$.
+\begin{example}
+Suppose $u = 81$ with binary representation $101001$. 
+Then $\TRMSB(u) =\penalty10000 17$
+with binary representation $1001$.
+Also, $2^{\lfloor\log_2 u\rfloor}=64$ and 
+$2^{\lfloor\log_2 \TRMSB(u) \rfloor}=\penalty10000 16$
+with binary representations $100000$ and $1000$.
+From this, $\TTwoExpP(u)$ equals~$4$, with binary
+representation $100$.  This reflects the fact that the
+binary representation of~$u$ starts with $101 \cdots$.
+\end{example}
+
+The strategy for defining the $\beta$~function will be to
+set $\beta(i, u) = \TRem(\lfloor u/ 2^{i\cdot p} \rfloor, 2^p)$,
+where $2^p = \TTwoExpP(u)$.
+This will work, since the function  $u\mapsto \lfloor u/2^{i\cdot p}\rfloor$
+strips away $i\cdot p$ many low order bits of~$u$, and the
+remainder function $v \mapsto \TRem(v,2^p) $ extracts the $p$~many low order
+bits of~$v$.
+
+The difficulty is showing
+that $2^{i\cdot p}$ can be computed by a representable function.
+For this, the first step is to show that the set of powers of~$2^p$
+is representable.  We define the relation $\TPowPowTwo(w,y)$
+to be true if $w$~is a power of~$2$ and $y$~is a power of~$w$.
+(``$\TPowPowTwo$'' is short for ``power of a power of two''.)
+This is done with
+\[
+\TPowPowTwo(w,y) ~\Leftrightarrow~ \TPowerTwo(w) \,\land\, \TPowerTwo(y) \,\land\,
+     \exists z{\le} 2y \, ( \TRem(z,w) = 1 \land z = y + \lfloor z/w \rfloor ) .
+\]
+This definition works since $z$ can be taken to equal
+\[
+2^{i\cdot p} + 2^{(i-1)\cdot p} + \cdots + 2^{2p} + 2^p +1
+\]
+when $w=2^p$ and $y = (2^p)^i = 2^{i\cdot p}$. Conversely, it is easy to check that
+for $w$ and~$y$ powers of~2,
+there is a value~$z$ satisfying the conditions of $\TPowPowTwo(w,y)$ only
+if $y$~is a power of~$w$. This can be verified by considering the
+binary expansion of~$z$: The condition ``$\TRem(z,w) = 1$''
+forces the low order $p$~bits of~$z$ to be $0\cdots 0 1$, and
+the operation $z\mapsto \lfloor z/w \rfloor$ performs a ``shift-right'' by $p$~bits.
+
+For example, if $w=16$ with binary representation $1000$, and
+$y = 16^3 = 1024$ with binary representation $1\,000\,000\,000$,
+then $z = 16^3 + 16^2 + 16 +1$ with binary representation $1\,001\,001\,001$.
+This value for~$z$ shows that $y$ is a power of~$w$.
+
+As mentioned already, we shall define
+$\beta(i, u) = \TRem(\lfloor u/ 2^{i\cdot p} \rfloor, 2^p)$. As
+a preliminary definition, note that the 3-ary function
+\[
+\TbetaWY(w,y, u) ~=~ \TRem(\lfloor u/y \rfloor, w)
+\]
+is representable.
+If $w = \TTwoExpP(y) = 2^p$ and $y=w^i = 2^{i\cdot p}$, then
+$\beta(i,u) = \TbetaWY(w,y,u)$ and $\beta(i+1,u) = \TbetaWY(w,y\cdot w,u)$.
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[scale=0.5,
+   >={Latex[length=4pt,width=4pt]}]
+\draw (-1,0) to (9.6,0);
+\draw (-1,1) to (9.6,1);
+\draw (11.4,0) to (21,0);
+\draw (11.4,1) to (21,1);
+\draw (0,0) to (0,1);
+\draw (-1,0) to (-1,1);
+\draw (3,0) to (3,1);
+\draw (6,0) to (6,1);
+\draw (9,0) to (9,1);
+\draw (12,0) to (12,1);
+\draw (15,0) to (15,1);
+\draw (18,0) to (18,1);
+\draw (21,0) to (21,1);
+\node at (-0. 5,0.5) {$1$};
+\node at (0.6,0.5){$00$};
+\node at (1.5,0.5){$\cdots$};
+\node at (2.4,0.5){$ 01 $};
+\node at (4.5,0.5){$i$};
+\node at (7.5,0.5){$i-1$};
+\node at (10.5,0.5){$\cdots$};
+\node at (13.5,0.5){$2$};
+\node at (16.5,0.5){$1$};
+\node at (19.5,0.5){$0$};
+%%%
+\draw (-1,-2) to (9.6,-2);
+\draw (-1,-1) to (9.6,-1);
+\draw (11.4,-2) to (21,-2);
+\draw (11.4,-1) to (21,-1);
+\draw (0,-2) to (0,-1);
+\draw (-1,-2) to (-1,-1);
+\draw (3,-2) to (3,-1);
+\draw (6,-2) to (6,-1);
+\draw (9,-2) to (9,-1);
+\draw (12,-2) to (12,-1);
+\draw (15,-2) to (15,-1);
+\draw (18,-2) to (18,-1);
+\draw (21,-2) to (21,-1);
+\node at (-0. 5,-1.5) {$1$};
+\node at (0.6,-1.5){$00$};
+\node at (1.5,-1.5){$\cdots$};
+\node at (2.4,-1.5){$ 01 $};
+\node at (4.5,-1.5){$2^i$};
+\node at (7.5,-1.5){$2^{i-1}$};
+\node at (10.5,-1.5){$\cdots$};
+\node at (13.5,-1.5){$3$};
+\node at (16.5,-1.5){$2$};
+\node at (19.5,-1.5){$1$};
+%%%
+\node at (-2,0.5){$x$:};
+\node at (-2,-1.5){$v$:};
+\end{tikzpicture}
+\end{center}
+\caption{The values $x$ and $v$ needed for the
+formula~(\ref{eq:TwoPowerI}) representing the
+function $z=2^i$. The G{\"o}del numbers for
+these can use $p=i+1$ many bits per
+block, so the binary representations of $x$ and~$v$ can have length
+$(i+1)^2+i+1$, which is $\le 3i+3$ for all~$i$.
+Thus $x, v$ are less than $2^{3i+3} = 8 z^3$.}
+\label{fig:TwoPowerI}
+\end{figure}
+
+The graph of the exponentiation function~$2^i$
+can be defined with the aid of the $\TbetaWY$ function by:
+\begin{eqnarray}
+\nonumber
+\lefteqn{ z = 2^i ~\Leftrightarrow~} \\
+\nonumber
+&&
+   \exists x{\le} 8 z^3\, \exists v {\le} 8 z^3\, \exists w{\le}x \, \\
+\nonumber
+&&\quad\quad
+      [ w = \TTwoExpP(v) \land  \TbetaWY(w,1,x)=0 \land \TbetaWY(w,1,v)=1  \\
+\label{eq:TwoPowerI}
+&& \quad\quad\quad \land\,\,
+           \forall y{\le}z^3\, [\TPowPowTwo(w,y) \land y\cdot w^3 \le x \\
+\nonumber
+&& \quad\qquad\qquad\qquad
+              \limplies\, \TbetaWY(w,y\cdot w, x) = \TbetaWY(w,y, x)+1  \\
+\nonumber
+&& \quad\qquad\qquad\qquad \quad
+                  \land\, \TbetaWY(w,y\cdot w, v) = 2\cdot \TbetaWY(w,y, v) ] \\
+&& \quad\qquad
+      \land\,\, \TbetaWY(w, 2^{\lfloor x\rfloor}/w^2,x)=i \,
+              \land\, \TbetaWY(w, 2^{\lfloor x\rfloor}/w^2,v)=z~].
+\nonumber
+\end{eqnarray}
+As shown in Figure (\ref{fig:TwoPowerI}),
+the intent is that $v$ encodes a sequence containing successive
+powers of~2, namely that $v$~is the
+G{\"o}del number
+\[
+\langleBeta 1, 2, 4, \ldots, 2^{i-1}, 2^i \rangleBeta ~=~ 2^{(i+2)(i+1)} + 2^{(i+1)^2} + \sum_{j=0}^i 2^j\cdot 2^{j\cdot(i+1)}.
+\]
+The equalities ``$\TbetaWY(w,1,v)=1$'' and
+``$\TbetaWY(w,y\cdot w, v) = 2\cdot \TbetaWY(w,y, v)$'' in~(\ref{eq:TwoPowerI}) ensure
+that the sequence encoded by~$v$ starts with~1 and its successive
+values increase by a factor of~2.
+Since largest value in the sequence is $2^i$ and has $i+1$ bits, the
+block size $p$ can be as small as $i+1$; this allows
+$w = \TTwoExpP(v)$ to equal~$2^{i+1}$.
+
+Furthermore,
+$x$ is intended to be a G{\"o}del number for $\langle 0,1,2,\ldots, i{-}1, i \rangle$,
+using the same values for $w$ and~$p$:
+\[
+x ~=~ 2^{(i+2)(i+1)} + 2^{(i+1)^2} + \sum_{j=0}^i j \cdot 2^{j\cdot(i+1)} .
+\]
+The equalities ``$\TbetaWY(w,1,x)=0$'' and
+``$\TbetaWY(w,y\cdot w, x) = \TbetaWY(w,y, x)+1$'' in~(\ref{eq:TwoPowerI}) ensure
+that the sequence encoded by~$x$ starts with~0 and its successive
+values increment by~1.
+
+The conditions $\TbetaWY(w, 2^{\lfloor x\rfloor}/w^2,x)=i$ and
+$\TbetaWY(w, 2^{\lfloor x\rfloor}/w^2,v)=z$ ensure that the sequence
+encoded by $x$ ends with $i$ and the sequence encoded by~$v$ ends with~$z$.
+When all these conditions hold, $z$~must equal~$2^i$.
+
+Thus the graph of the exponentiation function
+is representable by~(\ref{eq:TwoPowerI}).
+Hence the exponentiation function is representable.
+
+Since the graph of the exponentiation function $i\mapsto 2^i$ is
+representable, so is the graph of the base~2 logarithm function
+$x \mapsto \lfloor \log_2 x \rfloor$.  Thus $\lfloor \log_2 x \rfloor$
+is representable as a function. (Recall that $\lfloor \log_2 0 \rfloor$
+is equal to~1 by convention.)
+
+We can now show that the $\beta$~function, the $\TLen$ function and the
+$\TIsSeq$ relation are representable.  First, $\TIsSeq$ is defined
+as
+\[
+\TIsSeq(u) ~\Leftrightarrow~ \TPowPowTwo(\TTwoExpP(u), 2^{\lfloor u \rfloor})
+\]
+which checks that $u$ has the form $2^{(k+1)}+2^k +a$ for some $a< 2^k$.
+The $\TLen$ function is defined by
+\[
+\TLen(u) = \lfloor \log_2 u \rfloor / \lfloor \log_2 \TTwoExpP(u) \rfloor - 1.
+\]
+and hence is representable.  Finally, the G{\"o}del $\beta$ function is defined
+by letting $\beta(i,u)=0$ if $\TIsSeq(u)$ is false or $\TLen(u)\le i$, and
+otherwise setting
+\[
+\beta(i,x) ~:=~ \TbetaWY(\TTwoExpP(u), 2^{i \cdot\lfloor\log_2\TTwoExpP(u) \rfloor},u) .
+\]
+Hence the G{\"o}del $\beta$ function is representable. We have shown:
+
+\begin{theorem}
+The following are representable:
+\begin{enumerate}
+\item The binary G{\"o}del $\beta$ function.
+\item The unary sequence length function $\TLen$.
+\item The unary relation $\TIsSeq$.
+\end{enumerate}
+\end{theorem}
+
+The other sequence functions mentioned earlier are also representable,
+e.g., see Exercise~\ref{exer:seqConcatenation}. Some useful ones
+include the unary function $\langleBeta n_0 \rangleBeta$,
+the binary function $\langleBeta n_0, n_1 \rangleBeta$, and the
+the 3-ary function $\langleBeta n_0, n_1, n_2 \rangleBeta$.
+For instance to see that the last one is representable, note
+that
+\[
+\langleBeta n_0, n_1, n_2 \rangleBeta ~=~ 2^{4p} + 2^{3p} + n_2 2^{2p} + n_12^p + n_0
+\]
+where $p = \lfloor \log_2 (\max\{ n_0,n_1,n_2 \}) \rfloor$.
+
+\begin{figure}
+\begin{center}
+\setlength{\fboxrule}{1pt}
+\setlength{\fboxsep}{10pt}
+\fbox{\begin{minipage}{0.92\textwidth}
+\begin{center}
+\begin{tabular}{cl}
+$\langle n_0, n_1,\ldots n_{\ell-1} \rangle$ &
+Informal notation for a sequence.\\[1.5ex]
+$\langleBeta n_0, n_1,\ldots n_{\ell-1} \rangleBeta$ &
+G{\"o}del number of a sequence. \\
+$\beta(i,\langleBeta n_0, n_1,\ldots n_{\ell-1} \rangleBeta) = n_i$ & G{\"o}del $\beta$ function. \\
+$\TLen(\langleBeta n_0, n_1,\ldots n_{\ell-1} \rangleBeta) = \ell$ & Length of the sequence. \\
+$\TLast(\langleBeta n_0, n_1,\ldots n_{\ell-1} \rangleBeta) = n_{\ell-1}$ & Last entry of the sequence \\
+$\TIsSeq(u)$ & $u$ is a G{\"o}del number of a sequence
+\end{tabular}
+\end{center}
+\end{minipage} }% End of \fbox
+\end{center}
+\caption{The important notations for \idxnm{sequence coding} functions.}
+\label{fig:tuplesNotation}
+\end{figure}
+
+Another useful representable function is the function $\TBit(i,x)$ which
+gives the value of the $i$-th in the binary representation of~$x$:
+\[
+\TBit(i,x) ~:=~ \TRem( \lfloor x / 2^i \rfloor , 2) .
+\]
+$\TBit(i,x)$ is equal to the $i$-th bit of~$x$, counting bits
+starting with the low order bit of~$x$ as bit number~0.
+For example, $\TBit(0,x) = 1$ if and only if $x$~is odd.
+
+\index{sequence coding|)}
+
+
