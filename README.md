@@ -4,7 +4,7 @@ An automated proofreading pipeline for LaTeX textbooks. The system uses Claude A
 
 ## Quick Start
 
-1. **Install [Claude Code](https://github.com/anthropics/claude-code)** and make sure `claude` is accessible from the command line. Also ensure **Python 3** and **jq** are installed.
+1. **Install [Claude Code](https://github.com/anthropics/claude-code)** and make sure `claude` is accessible from the command line. Also ensure **Python 3** and **jq** are installed. Set the model you intend to use by default. This model will be used in the agent loop.
 
 2. **Clone this repo:**
    ```bash
