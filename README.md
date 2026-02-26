@@ -17,8 +17,11 @@ An automated proofreading pipeline for LaTeX textbooks. The system uses Claude A
 
    **Important:** your LaTeX files must be structured with `\section{...}` commands. The pipeline splits on `\section` boundaries and proofreads per section — content without `\section` markers will be skipped.
 
+   Each `ch<N>.txt` must contain the **full LaTeX source** for that chapter in a single file. If your project splits content across multiple files with `\input{...}` or `\include{...}`, you need to merge them into one file per chapter first — the pipeline does not resolve LaTeX includes.
+
 4. **Run the pipeline:**
    ```bash
+   cd proofread
    ./run.sh <path-to-your-latex-directory>
    ```
 
