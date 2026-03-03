@@ -80,6 +80,14 @@ Produce a structured report in **exactly** the following format. If a category h
 - **Confidence**: {High / Medium / Low} — {brief note on whether you had enough context to check this section thoroughly}
 ```
 
+## General Rule: No Duplicate Reporting
+
+Each issue must be reported in exactly one category. Do not report the same issue in multiple sections (e.g., do not report a misspelled label in both A1 and A5, or a malformed formula in both A3 and B4). Choose the single most appropriate category for each issue. When in doubt:
+- If it is primarily a LaTeX syntax problem, put it in A3.
+- If it is primarily a reference/label problem, put it in A5.
+- If it is primarily a mathematical correctness problem, put it in B1–B5.
+- A typo inside a formula is A1 (spelling), not B4 (formula correctness), unless the typo changes the mathematical meaning.
+
 ## Rules for Task A (Typos, Grammar, LaTeX)
 
 1. **Line numbers are approximate.** Count from the start of the section file. Use `~` to indicate approximation (e.g., "Line ~45"). The purpose is to help the author locate the issue.
@@ -90,7 +98,22 @@ Produce a structured report in **exactly** the following format. If a category h
 
 4. **Flag inconsistent notation.** Use the chapter context index to check. If the context index says `\limplies` is used for implication but the section uses `\rightarrow` in a logical formula, flag it.
 
-5. **Flag broken references.** `\ref{...}` or `\label{...}` that look misspelled or inconsistent with the context index labels.
+5. **Systematically check every cross-reference.** This is a critical task — do not skim. Perform these checks:
+
+   **a. Extract all references.** Find every `\ref{...}`, `\eqref{...}`, and `\pageref{...}` in the section.
+
+   **b. Look up each reference in the Labels table.** The chapter context index contains a Labels section with every `\label{...}` in the chapter. For each `\ref{target}`, verify that `target` appears in the Labels table. If it does not, flag it — it is either a typo, a cross-chapter reference, or a label that was never defined.
+
+   **c. Check label-text consistency.** If the surrounding text says "Theorem~\ref{X}", verify that X is actually a theorem label (prefix `thm:`), not a definition or example. Common mismatches to flag:
+      - "Theorem~\ref{def:...}" — references a definition with the word "Theorem"
+      - "Definition~\ref{thm:...}" — references a theorem with the word "Definition"
+      - "Example~\ref{exer:...}" — references an exercise with the word "Example"
+      - "Exercise~\ref{example:...}" — references an example with the word "Exercise"
+      - "(\ref{...})" where `\eqref{...}` should be used for equations, or vice versa
+
+   **d. Check for duplicate labels.** If this section defines a `\label{X}`, verify that X does not already appear in the Labels table from a different section. Duplicate labels cause silent LaTeX errors.
+
+   **e. Check cross-chapter references.** If a `\ref{...}` target is not in the current chapter's Labels table, it may be a cross-chapter reference. Flag it with "[Cross-chapter]" so the author can verify it manually — you do not have access to other chapters' labels.
 
 6. **Flag mismatched delimiters.** Unmatched `{`, `}`, `$`, `$$`, `\[`, `\]`, `\begin{...}` without `\end{...}`, etc.
 

@@ -32,6 +32,7 @@ Check that the proofread report follows the required output format:
 - Each finding has an approximate line number
 - Each finding has a description and suggested fix (where applicable)
 - No sections are missing (even empty ones should say "None found.")
+- **No duplicate reports:** verify that no issue appears in more than one category. For example, the same problem should not be reported in both A1 and A5, or in both A3 and B4. If duplicates exist, record them as a format compliance issue and instruct the proofreader to keep only the most appropriate category for each.
 
 **Record:** List any missing or malformed sections.
 
@@ -46,6 +47,7 @@ For EACH flag in the proofread report, verify:
 - Confirm the flagged text actually exists (not a hallucination)
 - Confirm the issue is real (not a false positive)
 - Confirm the suggested fix is correct
+- **For A5 (Reference/Label) flags specifically:** verify the proofreader's claim by checking the Labels table in the context index yourself. If the proofreader says a `\ref{X}` is broken, confirm that `X` is indeed missing from the Labels table. If the proofreader says a label-text mismatch exists (e.g., "Theorem~\ref{def:...}"), confirm the prefix actually contradicts the surrounding text.
 
 #### 2b. Mathematical flags (Task B)
 - Verify the mathematical concern is legitimate
@@ -70,10 +72,21 @@ Independently scan the original section text for issues the proofreader may have
 - Pay special attention to:
   - Duplicated words ("the the", "is is")
   - Mismatched delimiters (`{`, `}`, `$`, `\begin`/`\end`)
-  - Wrong cross-references
   - Formulas with unbound variables or wrong connectives
   - Incorrect truth table entries
   - Incorrect examples
+
+#### 3a. Cross-Reference Audit (mandatory)
+
+This is a systematic check — not a skim. Perform all of the following:
+
+1. **Extract every reference command** from the section: `\ref{...}`, `\eqref{...}`, `\pageref{...}`. List them.
+2. **Look up each target** in the chapter context index's Labels table. If a target is missing from the table, check whether the proofreader flagged it in A5. If not, record it as a missed issue.
+3. **Check label-text consistency** for each reference. If the text says "Theorem~\ref{def:foo}", the label prefix (`def:`) contradicts the text ("Theorem"). Check whether the proofreader caught any such mismatches. Record any they missed.
+4. **Check labels defined in this section.** Extract every `\label{...}` in the section. Verify each one also appears in the context index Labels table (it should, since Phase 1 was supposed to capture all labels). If a label in the section is NOT in the context index, note it — this means Phase 1 missed it, and downstream references to this label cannot be verified.
+5. **Check for duplicate labels.** If a `\label{X}` in this section also appears in the context index from a *different* section, it is a duplicate. Check whether the proofreader caught it.
+
+Record any cross-reference issues the proofreader missed.
 
 **Record:** List any missed issues with line numbers and descriptions.
 
