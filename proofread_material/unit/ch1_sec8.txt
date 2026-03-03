@@ -1,0 +1,226 @@
+\section{Propositional Languages}\label{sec:adequate}
+
+\paragraph*{Languages and adequacy.}
+A set~$L$ of propositional connectives is called a
+\idxem{language}. So far, we have worked with
+the language $L = \{ \lnot, \land, \lor, \limplies, \liff \}$;
+however, we have already mentioned a few other connectives
+such as $\oplus$~(parity), $\top$~(the constant~$\True$)
+and~$\perp$~(the constant~$\False$).
+
+\begin{definition}\label{def:LformulaProp}
+Let $L$ be a (propositional) language. An
+$L$-formula is a propositional formula that
+uses only propositional connectives from~$L$.
+\end{definition}
+
+So far in this chapter, ``formula'' has always meant
+``$\{\lnot, \lor, \land, \limplies, \liff\}$-formula''. 
+Chapter~\ref{chap:PropProofs} will use
+a different convention; there ``formula'' will mean
+``$\{\lnot, \penalty10000 \limplies \penalty10000 \}$-formula''.
+
+\begin{definition}\label{def:adequate}
+A language~$L$ is \idxem{adequate} if every Boolean
+function is represented by some $L$-formula.
+\end{definition}
+
+We have already proved a couple of languages are adequate:
+
+\begin{theorem}\label{thm:adequateRecap}
+The languages $\{ \lnot, \lor, \land, \limplies, \liff\}$
+and $\{ \lnot, \lor, \land\}$ are both adequate.
+\end{theorem}
+
+\begin{proof}
+The first part of the theorem was already stated
+as Theorem~\ref{thm:adequateStd}. The second part is a consequence
+of Theorem \ref{thm:adequateStdDNF} or~\ref{thm:adequateStdCNF}.
+\end{proof}
+
+Note that if $L_1 \subseteq L_2$ and $L_1$~is adequate,
+then so is~$L_2$. This is immediate from the fact
+that every $L_1$-formula is an $L_2$-formula.
+
+The last theorem can be improved to:
+\begin{theorem}\label{thm:adequateRecapBis}
+The languages $\{ \lnot, \lor\}$
+and $\{ \lnot, \land\}$ are both adequate.
+\end{theorem}
+
+\begin{proof}
+Let $f$ be a Boolean function. We show that
+$f$ is represented by some $\{\lnot,\lor\}$-formula.
+By Theorem~\ref{thm:adequateStdCNF}, $f$~is represented
+by a CNF formula~$A$, which is a formula
+of the form $C_1 \land C_2 \land \cdots \land C_k$
+with the $C_i$'s all clauses and hence all $\{\lnot, \lor\}$-formulas.
+Using De Morgan's law\index{De Morgan's law}, $A$~is tautologically equivalent to
+$\lnot ( \lnot C_1 \lor \cdots \lor \lnot C_k )$. This
+is a $\{\lnot , \lor\}$-formula which represents~$f$.
+
+The fact that $f$ is also represented by a $\{\lnot, \land\}$-formula
+is proved similarly.
+\end{proof}
+
+\begin{theorem}\label{thm:notImpliesAdequate}
+The language $\{\lnot, \limplies\}$ is adequate.
+\end{theorem}
+
+\begin{proof}
+Since $\{\lnot, \lor\}$ is adequate, it suffices to show
+that every $\{\lnot, \lor\}$-formula~$A$ is tautologically
+equivalent to a $\{\lnot, \limplies \}$-formula. For this,
+we use the fact that $B \lor C$ is tautologically equivalent
+to $\lnot B \limplies C$ for any $B$ and~$C$.
+
+Specifically, transform the formula~$A$ by repeatedly choosing a subformula
+of the form $(B\lor C)$
+and replacing it with $(\lnot B \limplies C)$. Each such replacement
+removes one $\lor$~connective and adds a $\lnot$~connective
+and a $\limplies$~connective.
+Thus, the procedure ends with a $\{\lnot, \limplies \}$-formula
+that is tautologically equivalent to~$A$.\footnote{See Corollary \ref{coro:substituteTaut}.}
+\end{proof}
+
+Now we give examples of a couple of languages that are not adequate.
+
+\begin{theorem}\label{thm:notAdequate2}
+~~ \
+\begin{itemize}
+\item[(a)] $\{\lnot\}$ is not adequate.
+\item[(b)] $\{\land, \lor \}$ is not adequate.
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+For~(a), note that a $\{ \lnot \}$-formula~$A$
+must be of the form $\lnot \cdots \lnot p_i$,
+with zero or more $\lnot$'s applied to a variable.
+Since only one variable appears in~$A$, it cannot
+be tautologically equivalent to a formula
+such as $p_1\land p_2$ that depends on more than
+one variable. Hence, no $\{\lnot\}$-formula
+can represent $f_{p_1\land p_2}$ for instance.
+
+For~(b), let $A$~be any $\{\land, \lor\}$-formula.
+We claim that if $\varphi(p_i) =\True$ for all~$i$, then $\varphi(A)=\True$.
+The claim implies that $A$~cannot represent $f_{\lnot p_1}$, since
+$f_{\lnot p_1}(\True) = \False$.
+
+Fix $\varphi$ to be the assignment such that $\varphi(p_i) = \True$ for
+all~$i$.
+We need to prove the claim that for any $\{\land, \lor\}$-formula~$A$,
+$\varphi(A) = \True$. The proof is by induction on the complexity of~$A$.
+\begin{description}
+\item[Base case:] $A$~is a variable~$p_i$. Then $\varphi(A) = \True$
+by the choice of~$\varphi$.
+\item[Induction step:] $A$~is $(B\lor C)$ or $(B\land C)$.
+There are two induction hypotheses, one for $B$ and one for~$C$: they
+state that $\varphi(B) = \True$ and $\varphi(C) = \True$. Therefore,
+by the definitions of truth for $\lor$ and for $\land$, we must
+have $\varphi(A) = \True$.
+\end{description}
+That completes the proof of the claim, and of part~(b) of the theorem.
+\end{proof}
+
+\paragraph*{Other propositional connectives.}
+There are many other propositional connectives that
+can be used in addition to the standard ones
+of $\lnot$, $\lor$, $\land$, $\limplies$, and~$\liff$.
+
+The parity\index{parity@{parity ($\oplus$)}} connective,~$\oplus$, is defined so that
+\[
+\varphi(A \oplus B) ~=~ \left\{ \begin{array}{ll}
+\True ~~~ & \hbox{if $\varphi(A) \neq \varphi(B)$} \\
+\False ~~~ & \hbox{if $\varphi(A) = \varphi(B)$} \\
+\end{array}\right.
+\]
+The notation~``$\oplus$'' reflects the fact that
+when $\True$ and~$\False$ are identified with $1$ and~$0$ (respectively),
+then $\oplus$ is the same as addition modulo two.
+Another name for the parity connective~$\oplus$ is
+``\idxnm{exclusive or}'', since $\varphi(A \oplus B)$ is
+true if and only if exactly one of $\varphi(A)$ or~$\varphi(B)$ is true.
+Exercise~\ref{exer:oplusLiff} asks you to show that
+$A\oplus B \tautEq \lnot(A \liff B)$.
+
+Another very interesting connective is the \emph{nand}\index{nand@{nand ($\vert$)}} connective,
+denoted~``$|$''. This is also called the \idxem{Sheffer stroke} after its
+discoverer H.\ Sheffer.  ``Nand'' is short for ``not-and''.
+As the name indicates, $p | q$ has
+truth value equal to the negation of the conjunction of $p$ and~$q$, so that
+for all~$\varphi$,
+\[
+\varphi(A | B) ~=~ \varphi(\lnot (A \land B)).
+\]
+A remarkable aspect of the $|$ connective is that it is adequate all
+by itself:
+\begin{theorem}\label{thm:nandAdequate}
+$\{ | \}$ is adequate.
+\end{theorem}
+\begin{proof}
+It is easy to check that $\lnot A$ is tautologically equivalent
+to $A | A$. Furthermore, $A\land B$ is tautologically equivalent
+to $\lnot ( A | B)$, and hence to $(A|B)|(A|B)$.  Thus, any
+$\{\lnot, \land\}$-formula can be converted to a tautologically
+equivalent $\{|\}$-formula by repeatedly replacing subformulas
+of the form $\lnot A$ with $(A|A)$ and subformulas of the form $(A \land B)$
+with $((A|B)|(A|B))$.
+
+Theorem~\ref{thm:adequateRecapBis} showed that $\{\lnot, \land\}$ is adequate;
+therefore $\{ | \}$ is also adequate.
+\end{proof}
+
+Exercise~\ref{exer:nor} defines the dual \emph{nor}\index{nor@{nor ($\downarrow$)}} connective,~$\downarrow$,
+and asks for a proof that $\{\downarrow\}$ is adequate.
+
+Two very simple connectives are the constants
+$\top$\index{true, nullary connective@{true, nullary connective ($\top$)}} and
+$\perp$\index{false, nullary connective@{false, nullary connective ($\perp$)}}.
+These are 0-ary or ``\idxnm{nullary}'' connectives that do
+not take any arguments. Their truth values are defined
+by $\varphi(\top) = \True$ and $\varphi(\perp) = \False$.
+\begin{theorem}\label{thm:topLimplies}
+$\{\perp, \limplies \}$ is adequate.
+\end{theorem}
+
+\begin{proof}
+Any negated formula $\lnot A$ is tautologically equivalent to
+$A \limplies \perp$. Since $\{\lnot,\limplies\}$ is adequate
+(by Theorem~\ref{thm:notImpliesAdequate}), it follows that
+$\{\perp, \limplies\}$ is adequate.
+\end{proof}
+
+We have so far introduced examples of 0-ary, 1-ary, and 2-ary connectives.
+It is also possible to have $k$-ary connectives for $k>2$. One example
+is the 3-ary connective $\TCase(\cdot, \cdot, \cdot)$\index{case@{$\TCase$}}; this
+can also be called the ``if-then-else'' connective. The truth
+value of $\TCase(A, B, C)$ is defined by
+\[
+\varphi(\TCase(A, B, C)) ~=~ \left\{ \begin{array}{ll}
+\varphi(B) ~~~ & \hbox{if $\varphi(A) = \True$} \\
+\varphi(C) ~~~ & \hbox{if $\varphi(A) = \False$.}
+\end{array}\right.
+\]
+One can think of $\TCase(A,B,C)$ as meaning the
+same as ``If $A$ then $B$ else $C$''.
+It is easy to check that $\TCase(p,q,r)$ is tautologically
+equivalent to the DNF formula $(p\land q) \lor (\lnot p \land r)$.
+In view of the equivalence with ``If~$A$ then~$B$ else~$C$'',
+it is also tautologically equivalent to $(p\limplies q) \land (\lnot p \limplies\penalty10000 r)$.
+Hence it is tautologically equivalent to the CNF formula
+$(\lnot p \lor q) \land (p \lor r)$.
+
+Exercise~\ref{exer:caseAdequate} asks you to prove that
+$\{\lnot, \TCase \}$ is adequate but
+$\{\TCase\}$ is not.
+
+An example of a $k$-ary connective for arbitrary fixed $k\ge 1$
+is the \idxnm{majority} connective $\TMaj^k$.
+The semantics for majority connectives is defined by
+letting $\TMaj^k(A_1,\ldots, A_k)$ be
+true exactly when the number of true~$A_i$'s is $\ge k/2$.
+Exercise~\ref{exer:majorityAdequate} deals with the adequacy of
+$\TMaj^k$ together with~$\lnot$.
+

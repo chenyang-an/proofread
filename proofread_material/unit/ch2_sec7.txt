@@ -1,0 +1,165 @@
+\section{Proof of the Completeness Theorem}\label{sec:completePL}
+
+The proof of the \idxnm{Completeness Theorem}~\ref{thm:completePL} is harder than the
+proof just given for the Soundness Theorem.  The proof will be given in
+two parts. First, we state and prove \idxnm{Lindenbaum's Theorem} about the
+existence of a complete, consistent set~$\Pi$ of formulas extending~$\Gamma$.
+Then Lemma~\ref{lem:completePL} uses the set~$\Pi$
+to define a truth assignment~$\varphi$ that
+satisfies~$\Pi$, and hence satisfies~$\Gamma$.
+
+First, we give the definition of what it means for $\Gamma$ to
+be ``complete'':
+\begin{definition}\label{def:completePL}
+A set~$\Gamma$ of formulas is \idxem{complete} provided that, for every
+formula~$A$, either $A\in \Gamma$ or $\lnot A \in \Gamma$.
+\end{definition}
+It is trivial that, if $\Gamma$ is complete, then for every formula~$A$,
+either $\Gamma \vdash A$ or $\Gamma \vdash \lnot A$.
+The idea behind completeness is that $\Gamma$ is ``maximal'' in that there
+is no way to add another formula to~$\Gamma$ and still have a consistent
+set of formulas.
+
+\begin{theorem}[Lindenbaum's Theorem]
+\label{thm:lindenbaumPL}\index{Lindenbaum's Theorem}
+Suppose $\Gamma$ is a consistent set of formulas. Then there is
+a consistent, complete set~$\Pi$ of formulas such that $\Gamma \subseteq \Pi$.
+\end{theorem}
+
+\begin{proof}
+There are countably many propositional formulas, so the set of all
+propositional formulas can be enumerated in an infinite sequence
+\[
+A_1, \, A_2, \, A_3, \, A_4, \, \ldots .
+\]
+The crucial property is that {\em every} propositional
+formula appears in the sequence as one of the $A_i$'s.
+
+We define a sequence of sets $\Gamma_i$ of formulas for $i=0,1,2,\ldots$.
+Each $\Gamma_i$ will be consistent,
+and they satisfy $\Gamma_{i+1} \supseteq \Gamma_i$.
+To start the process, set $\Gamma_0 = \Gamma$.  Inductively
+define
+\[
+\Gamma_{i+1} ~=~ \left\{ \begin{array}{ll}
+\Gamma_i \cup \{ A_i \} & \hbox{if $\Gamma_i \cup\{A_i\}$ is consistent} \\[0.5ex]
+\Gamma_i \cup \{ \lnot A_i \} & \hbox{otherwise.}
+\end{array} \right.
+\]
+\vbox{ % Force no page break
+\begin{claim}
+For each $i$,
+\begin{itemize}
+\item[\rm (a)] $\Gamma_i \supseteq \Gamma_{i-1}$ (if $i>0$), and $\Gamma_i \supseteq \Gamma$.
+\item[\rm (b)] $\Gamma_i$ is consistent.
+\end{itemize}
+\end{claim}
+}  % End of force no page break
+\noindent
+Part~(a) of the claim is immediate from the definitions. Part~(b) is
+proved by induction on~$i$. For $i=0$, $\Gamma_0 = \Gamma$ is consistent
+by assumption. For the induction step, assume $\Gamma_i$ is consistent.
+Then $\Gamma_{i+1}$ is consistent since by Corollary~\ref{coro:extendConsis},
+if $\Gamma_i \cup \{ A_i\}$ is not consistent, then
+$\Gamma_i \cup \{\lnot A_i \}$ is consistent. \hfill $\qed$
+\medskip
+
+Now define $\Pi$ to equal the union $\bigcup_i \Gamma_i$. Every
+formula~$A$ is equal to some~$A_i$. This means that either $A$ or~$\lnot A$
+is a member of~$\Gamma_{i+1}$. Therefore, either $A\in \Pi$ or $\lnot A \in \Pi$.
+Hence, $\Pi$~is complete.
+
+To prove $\Pi$ is consistent, suppose to the contrary that $\Pi$~is
+inconsistent. By Theorem~\ref{thm:finiteConsistEasy}, there is
+a finite $\Pi_0\subseteq \Pi$ which is inconsistent. Since $\Pi_0$
+is finite and a subset of $\bigcup_i \Gamma_i$, and since the $\Gamma_i$'s are
+increasing, there is a single~$\Gamma_i$ such that $\Pi_0 \subseteq \Gamma_i$.
+But this gives a contradiction since $\Gamma_i$~is consistent and its subset~$\Pi_0$
+is inconsistent (contradicting Theorem~\ref{thm:consisSubset}). Therefore, $\Pi$~cannot
+be inconsistent.
+
+That completes the proof of Lindenbaum's Theorem.
+\end{proof}
+
+\begin{lemma}\label{lem:completePLconds}
+Suppose $\Pi$ is complete and consistent. Let $A$ and $B$ be any formulas.
+Then,
+\begin{itemizeLoose}
+\item[\rm (a)] $A\in \Pi$ if and only if $\lnot A \notin \Pi$.
+\item[\rm (b)] $(A \limplies B) \in \Pi$ if and only if $A\notin \Pi$ or $B\in \Pi$.
+\end{itemizeLoose}
+\end{lemma}
+
+\begin{proof}
+Since $\Pi$ is complete, at least one of $A$ and $\lnot A$ must be in $\Pi$.
+But since $\Pi$ is consistent, they cannot both be in~$\Pi$. Thus (a) must
+hold.
+
+Now we prove~(b). First suppose $A\limplies B$ is in~$\Pi$. Also suppose, for
+the sake of contradiction, that both $A\in \Pi$ and $B\notin\Pi$. By~(a),
+$\lnot B \in \Pi$.  This is a contradiction, since $\{A\limplies B, A, \lnot B\}$
+is inconsistent and is a subset of~$\Pi$.
+This shows that if $(A \limplies\penalty 10000 B)\in \Pi$, then $A\notin \Pi$ or
+$B\in \Pi$.
+
+Second, suppose $A\limplies B$ is not in~$\Pi$. By (a), $\lnot (A\limplies B)$
+is in~$\Pi$.  Then, since $\{\lnot(A\limplies B), \lnot A\}$ is inconsistent, $\lnot A$~cannot be in~$\Pi$.
+Therefore, by~(a), $A\in \Pi$.
+And, since $\{\lnot(A\limplies B), B\}$ is inconsistent, $B$~is not in~$\Pi$.
+Thus we have shown that if
+$A\limplies B$ is not in~$\Pi$, then $A\in \Pi$ and $B\notin \Pi$.
+That completes the proof of part~(b).
+\end{proof}
+
+\begin{lemma}\label{lem:completePL}
+Suppose $\Pi$ is complete and consistent. Then $\Pi$ is
+satisfiable.
+\end{lemma}
+
+\begin{proof}
+We must define a truth assignment~$\varphi$ satisfying~$\Pi$. For this,
+define $\varphi$'s truth values for variables~$p_i$ by:
+\[
+\varphi(p_i) ~=~ \left\{ \begin{array}{ll}
+\True \quad & \hbox{if $p_i \in \Pi$} \\
+\False & \hbox{otherwise.}
+\end{array} \right.
+\]
+To prove the lemma, it suffices to prove the claim that:
+\begin{claim}\label{claim:completenessPL}
+For every $A$, $\varphi(A) = \True$ if and only if $A\in \Pi$.
+\end{claim}
+The claim is proved by induction on the complexity of the formula~$A$.
+If $A$~is a variable~$p_i$, the claim holds immediately by the definition
+of~$\varphi$.  For the first induction step, suppose $A$ is $\lnot B$.
+The induction hypothesis tells us that the claim holds for~$B$. Thus,
+\begin{implicationsnarrow}
+$\lnot B \in \Pi$
+& $\Leftrightarrow$ & $B \notin \Pi$ & Lemma~\ref{lem:completePLconds}(a) \\
+& $\Leftrightarrow$ & $\varphi(B) = \False$ & Induction hypothesis \\
+& $\Leftrightarrow$ & $\varphi(\lnot B) = \True$ & Definition of truth
+\end{implicationsnarrow}
+For the second induction step, suppose $A$ is $B\limplies C$. Then
+\begin{implicationsnarrow}
+$(B\limplies C) \in \Pi$
+& $\Leftrightarrow$ & $B\notin\Pi$ or $C \in \Pi$ & Lemma~\ref{lem:completePLconds}(b) \\
+& $\Leftrightarrow$ & $\varphi(B) = \False$ or $\varphi(C) = \True$ & Induction hypotheses for $B$ and $C$ \\
+& $\Leftrightarrow$ & $\varphi(B\limplies C) = \True$ & Definition of truth
+\end{implicationsnarrow}
+That completes the proof of the claim.
+
+Since $\varphi(A)=\True$ for every $A\in \Pi$,
+the set $\Pi$~is satisfiable with satisfying assignment~$\varphi$.
+That finishes the proof of the lemma.
+\end{proof}
+
+\idxnm{Lindenbaum's Theorem} and Lemma~\ref{lem:completePL} together imply
+part~(a) of the Completeness Theorem~\ref{thm:completePL}. Lindenbaum's Theorem
+gives a complete, consistent~$\Pi$ extending the consistent set~$\Gamma$,
+and Lemma~\ref{lem:completePL} gives a truth assignment
+that satisfies~$\Pi$ and hence satisfies its subset~$\Gamma$.
+
+As argued in Section~\ref{sec:SoundCompletePL}, part~(a) of
+the Completeness Theorem implies part~(b). Thus we have finished
+the proof of the Completeness Theorem for~$\PL$.
+

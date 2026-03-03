@@ -1,0 +1,107 @@
+\section{Examples of Proofs by Induction}\label{sec:proofsByInduction}
+\index{proof by induction|(}
+
+This section gives some examples of proof by induction
+on the complexity of formulas. The proof of Theorem~\ref{thm:notAdequate2} already used a
+proof by induction. We have, in addition, already used some ``obvious'' properties
+of formulas that, strictly speaking, should have been proved by induction.
+Most prominently, this includes the unique readability property
+(which was needed to give definitions by recursion), as well
+as the fact that the truth of a formula~$A$ only depends on the truth values of
+the variables that actually appear in~$A$. The latter fact was used several
+times already;
+e.g.\ in Definition~\ref{def:defineBooleanFunction} and Theorem~\ref{thm:notAdequate2}(a),
+and even more importantly,
+to justify the fact that truth tables need only finitely many lines.
+
+We start by proving that the truth of~$A$ only depends on the truth values of
+the variables that appear in~$A$.
+\begin{theorem}\label{thm:varsDependOnProp}
+Let $A$ be a propositional formula. Suppose $\varphi$ and $\varphi^\prime$ are
+truth assignments such that for each~$p_i$ that appears in~$A$,
+$\varphi(p_i) = \varphi^\prime(p_i)$. Then $\varphi(A) = \varphi^\prime(A)$.
+\end{theorem}
+Another way to state the hypothesis is that $\varphi(p_i) \neq \varphi^\prime(p_i)$
+only if $p_i$~does not appear in~$A$.
+\begin{proof}
+We use induction on the complexity of~$A$.
+\begin{description}
+\item[Base case:] The base case is where $A$ is a variable~$p_i$.
+Of course $p_i$~appears in~$A$, so $\varphi(A) = \varphi^\prime(A)$ by
+the assumption on $\varphi$ and~$\varphi^\prime$.
+\item[Induction step \#1:] Suppose $A$ is $\lnot B$. Now any variable
+appearing in~$B$ also appears in~$A$. Thus $\varphi$ and~$\varphi^\prime$ have
+the same values for all variables in~$B$. Therefore, the induction hypothesis
+tells us that $\varphi(B) = \varphi^\prime(B)$. The definition of truth for~$\lnot$ thus
+implies that $\varphi(A) = \varphi^\prime(A)$.
+\item[Induction step \#2:] Suppose $A$ is $B \circ C$ where $\circ$ is one
+of the binary connectives $\lor$, $\land$, $\limplies$, or $\liff$. Now any variable
+appearing in either $B$ or~$C$ also appears in~$A$. Thus $\varphi$ and~$\varphi^\prime$ have
+the same values for all variables in~$B$ and all variables in~$C$.
+There are two induction hypotheses: the first states that $\varphi(B) = \varphi^\prime(B)$
+and the second states that $\varphi(C) = \varphi^\prime(C)$. The definition of truth
+for~$\circ$ thus implies that $\varphi(A) = \varphi^\prime(A)$. \qedhere
+\end{description}
+\end{proof}
+Notice how the base case and the induction steps of the proof by induction
+correspond exactly to the cases in the inductive definition of propositional
+formulas in Definition~\ref{def:propositionalFmla}.
+The proof uses only two induction cases: the second induction case manages
+to roll four separate cases into one argument by considering $\circ$ to
+be any of the four connectives $\lor$, $\land$, $\limplies$ or~$\liff$.
+
+The next theorem gives another simple example of a proof by induction.
+\begin{theorem}\label{thm:equalParens}
+Let $A$ be a formula. The number of open parentheses appearing in~$A$
+is equal to the number of close parentheses appearing in~$A$.
+\end{theorem}
+This theorem is obvious of course, just because the inductive
+definition of propositional formulas paired up
+open and close parentheses. A formal proof uses induction.
+\begin{proof}
+We will use $m_A$ and $n_A$ to denote the numbers of open
+parentheses and close parentheses in~$A$ (respectively). The
+proof proceeds by induction.
+\begin{description}
+\item[Base case:] Suppose $A$~is $p_i$.
+There are no parentheses, and $m_A = 0 = n_A$.
+\item[Induction step \#1:] Suppose $A$ is $\lnot B$.
+The induction hypothesis is that $m_B =\penalty10000 n_B$. Of course 
+$A$~has the same numbers of open and close parentheses as~$B$. Therefore
+$m_A = n_A$.
+\item[Induction step \#2:] Suppose $A$ is $(B \circ C)$ where $\circ$ is one
+of $\lor$, $\land$, $\limplies$, or $\liff$. There are two induction hypotheses:
+that $m_B = n_B$ and that $m_C = n_C$. There is one more pair of open and close parentheses
+in~$A$ than in $B$ and~$C$ combined.  Thus, $m_A = m_B+m_C+1$ and
+$n_A = n_B+n_C+1$; whence, $m_A = n_A$. \qedhere
+\end{description}
+\end{proof}
+
+The next theorem is less trivial, and it is also the basis for
+proving the unique readability property.
+Recall that a formula~$A$ is an \idxnm{expression}, namely a string of symbols.
+A {\em nonempty, proper initial subexpression of~$A$} means any prefix
+of the string of symbols in~$A$ that contains at least one symbol but is not
+all of~$A$. For example, ``$($'', ``$(p_1$'', ``$(p_1\land$'', and ``$(p_1\land p_2$'' are
+all of the nonempty proper initial subexpressions of ``$(p_1\land p_2)$''.
+
+\begin{theorem}\label{thm:moreOpensCloses}
+Let $A$ be a formula in which the first symbol is an open
+parenthesis.  Let $B$~be a nonempty, proper initial subexpression of~$A$.
+Then $B$ contains more open parentheses than close parentheses.
+Consequently, $B$~is not a propositional formula.
+\end{theorem}
+\noindent
+Exercises \ref{exer:moreOpensCloses}--\ref{exer:uniqueReadability}
+ask for proofs of Theorem~\ref{thm:moreOpensCloses} and
+unique readability.
+
+A final example of a theorem that can be proved by induction is:
+\begin{theorem}\label{thm:numVars}
+Let $A$ be a formula. Suppose $A$ has $m$ occurrences of binary
+connectives and $n$~occurrences of propositional variables.
+Then $n=m+1$.
+\end{theorem}
+Exercise~\ref{exer:numVars} asks for a proof of this theorem.
+\index{proof by induction|)}
+

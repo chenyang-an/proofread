@@ -12,7 +12,9 @@ You will receive:
 
 1. **Chapter number** (e.g., 3)
 2. **Chapter title** (e.g., "First-Order Logic: Syntax and Semantics")
-3. **All section files** for that chapter, in order (e.g., `ch3_sec1.txt` through `ch3_sec13.txt`, plus `ch3_exercises.txt`)
+3. **Path to the section files directory** (e.g., `/home/cyanz/lean/proofread/proofread_material/unit/`)
+
+**You must read the files yourself.** The section files for chapter N are named `ch{N}_sec1.txt`, `ch{N}_sec2.txt`, ..., plus `ch{N}_exercises.txt`. Read all of them from the given directory in order. Do not expect the file contents to be provided inline in the prompt.
 
 ## Output
 

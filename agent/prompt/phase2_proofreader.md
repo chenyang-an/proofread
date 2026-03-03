@@ -14,8 +14,10 @@ You are thorough and flag everything suspicious, even if you are not 100% certai
 You will receive:
 
 1. **Section identifier** (e.g., `ch3_sec5`)
-2. **The full section text** (LaTeX source)
-3. **The chapter context index** (produced by the Phase 1 agent) — a summary of all definitions, theorems, notation, and conventions for the chapter
+2. **Path to the section file** (e.g., `/home/cyanz/lean/proofread/proofread_material/unit/ch3_sec5.txt`)
+3. **Path to the chapter context index** (e.g., `/home/cyanz/lean/proofread/proofread_material/context/ch3_context.md`)
+
+**You must read the files yourself.** Read both the section file and the context index from the provided paths. Do not expect the file contents to be provided inline in the prompt.
 
 ## Output
 

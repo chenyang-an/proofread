@@ -1,0 +1,476 @@
+\section*{Exercises}
+\addcontentsline{toc}{section}{Exercises}
+\nonumSectionmark{Exercises}
+
+\begin{exercise}
+Which of the following are true statements? Assume that the statements
+such as ``cats have wings'' have their usual true/false value.
+Use the ``logical''/``mathematical'' interpretation of the connectives
+such as ``if'', ``if-then'', and ``only if''.
+\begin{itemize}
+\item[(a)] Cats have wings only if dogs have wings.
+\item[(b)]
+Parrots have wings only if dogs have wings.
+\item[(c)]
+Parrots have wings if dogs have wings.
+\item[(d)]
+If dogs have wings then parrots have wings.
+\item[(e)]
+If cats have wings and dogs have wings,
+then cats have wings or dogs have wings.
+\item[(f)]
+If cats have wings or dogs have wings,
+then cats have wings and dogs have wings.
+\end{itemize}
+Then, rewrite (a)-(c) as statements in the form ``If $\cdots$, then $\cdots$.''
+\end{exercise}
+
+\begin{exercise}\label{exer:concertEighteen}
+Recall the formulas $e \limplies c$ and $c\limplies e$ discussed
+on page~\pageref{table:concertEighteen}.
+Explain what the difference is between the meanings
+of $e \limplies c$ and $c\limplies e$. Is it possible for $e\limplies c$
+to be true when $c\limplies e$ is false? If so, how?
+\end{exercise}
+
+\begin{exercise}\label{exer:porpoisesTF}
+Characterize each of the following sentences as being either true or false.
+Use the ``logical''/``mathematical'' interpretation of the connectives
+such as ``if-then'', ``only if'', ``unless'', etc.
+\begin{enumerate}
+\item If porpoises have wings then seagulls can fly.
+\item Porpoises have wings if seagulls can fly.
+\item Porpoises have wings only if seagulls can fly.
+\item Porpoises have wings if and only if seagulls can fly.
+\item Porpoises have wings unless seagulls can fly.
+\item Porpoises have wings but seagulls can fly.
+\item If porpoises have wings then seagulls cannot fly.
+\item Porpoises have wings if seagulls cannot fly.
+\item Porpoises have wings only if seagulls cannot fly.
+\item Porpoises have wings if and only if seagulls cannot fly.
+\item Porpoises have wings unless seagulls cannot fly.
+\item Porpoises have wings but seagulls cannot fly.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Use the variables
+\begin{center}
+\begin{tabular}{c@{~-~}l}
+$p$ & ``Porpoises have wings'' \\[0.25ex]
+$s$ & ``Seagulls can fly''
+\end{tabular}
+\end{center}
+to reexpress the English sentences (a)-(l) of Exercise~\ref{exer:porpoisesTF} as propositional formulas.
+\end{exercise}
+
+\begin{exercise}\label{exer:mirror}
+Use the variables
+\begin{center}
+\begin{tabular}{c@{~-~}l}
+$b$ & ``The mirror will break'' \\[0.25ex]
+$g$ & ``The mirror is made of glass'' \\[0.25ex]
+$s$ & ``The mirror is made of silver'' \\[0.25ex]
+$w$ & ``The mirror is high on the wall''
+\end{tabular}
+\end{center}
+to reexpress the sentences (a)-(g) as propositional formulas.
+You do not need to include all the parentheses required in the formal
+definition of formulas. However, as always, you should
+use parentheses when necessary to clarify the meaning of the propositional formulas.
+\begin{itemize}
+\item[(a)] The mirror will break if it is made of glass.
+\item[(b)] The mirror will break only if it is made of glass.
+\item[(c)] If the mirror is high on the wall, it will break.
+\item[(d)] Unless it is made of glass, the mirror will not break.
+\item[(e)] The mirror is made of either glass or silver, but not both.
+\item[(f)] The mirror will break unless it is made of silver or glass.
+\item[(g)] The mirror is high on the wall, but it will not break unless it is made of glass.
+(Note the placement of the comma.)
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}\label{exer:coffeePot}
+Use the variables
+\begin{center}
+\begin{tabular}{c@{~-~}l}
+$f$ & ``The coffee pot falls'' \\[0.25ex]
+$b$ & ``The coffee pot breaks'' \\[0.25ex]
+$g$ & ``The coffee pot is made of glass'' \\[0.25ex]
+$t$ & ``The coffee pot is made of titanium''
+\end{tabular}
+\end{center}
+and propositional connectives $\lnot,\lor, \land, \limplies, \liff$ to
+express the sentences (a)-(g) as propositional formulas.
+When necessary, use parentheses to clarify the meaning of the propositional formulas.
+(You do not need to include all the parentheses required in the formal definition of formulas.)
+\begin{itemize}
+\item[(a)] The coffee pot breaks only if it is made of glass.
+\item[(b)] The coffee pot breaks if it is made of glass and falls.
+\item[(c)] The coffee pot is made of titanium or glass, but not both.
+\item[(d)] The coffee pot falls if and only if it is made of glass.
+\item[(e)] The coffee pot falls but does not break.
+\item[(f)] The coffee pot does not break unless it is made of glass.
+\item[(g)] The coffee pot falls, but it does not break unless it is made of glass.
+\end{itemize}
+Again, watch the placement of the comma in~(g).
+\end{exercise}
+
+\begin{exercise}
+Give the actual formulas (with correct parenthesization) corresponding to the
+following informal abbreviations.  If the informal abbreviation is already
+an actual formula, please state this.
+\begin{itemize}
+\item[(a)] $\lnot p_1 \limplies p_2 \limplies \lnot p_3$.
+\item[(b)] $p_1 \lor p_3 \limplies \lnot p_1 \limplies p_4 \limplies \lnot p_1$.
+\item[(c)] $p_1 \lor p_3 \liff \lnot p_1 \land p_4 \liff \lnot p_1$.
+\item[(d)] $\lnot p_1 \lor p_2 \lor \lnot p_3$.
+\item[(e)] $(p_1 \limplies p_2) \limplies p_3$.
+\item[(f)] $(\lnot p_1) \limplies p_2$.
+\item[(g)] $\lnot p_1\limplies p_2$.
+\item[(h)] $\lnot (p_1 \limplies p_2)$.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+Suppose $\varphi(p) = \True$ and $\varphi(q) = \False$.  What are the truth
+values that $\varphi$ gives to the following formulas?
+\begin{itemize}
+\item[(a)] $p \lor q$.
+\item[(b)] $p\land q$.
+\item[(c)] $p \limplies q$.
+\item[(d)] $q \limplies p$.
+\item[(e)] $p \liff q$.
+\item[(f)] $(q \limplies p) \liff q$.
+\item[(g)] $q \limplies (p \liff q)$.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+For each of $\Gamma_1$ and $\Gamma_2$, state whether it is satisfiable or not.
+If it is satisfiable, describe all of its satisfying assignments.
+\begin{itemize}
+\item[(a)] $\Gamma_1 := \{ p_{i+1} \limplies p_i : i \ge 1 \}$.
+\item[(b)] $\Gamma_2 := \{ p_i\liff \lnot p_{i+2} : i\ge 1 \} \cup \{ p_i\liff \lnot p_{i+3} : i\ge 1 \}$.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+Show that $\nvDash (p \limplies q) \limplies (q\limplies p)$.
+\end{exercise}
+
+\begin{exercise}
+For each formula (a)-(e) on the left, which formula or formulas on
+the right is it tautologically equivalent to?
+\begin{itemizeMultiCol}
+\begin{multicols}{2}
+\item[(a)] $p \oplus q$
+\item[(b)] $\lnot (p \land q)$
+\item[(c)] $p \land q \limplies p \lor q$
+\item[(d)] $p \lor q \limplies p \land q$
+\item[(e)] $(q\limplies p) \land (\lnot p \limplies q)$
+\item[(i)] $p\liff q$
+\item[(ii)] $p \liff \lnot q$
+\item[(iii)] $p\liff p$
+\item[(iv)] $q \liff p \liff q$
+\item[(v)] None of the above.
+\end{multicols}
+\end{itemizeMultiCol}
+\end{exercise}
+
+\begin{exercise}
+Use truth tables or reduced truth tables to
+prove the two De Morgan's laws\index{De Morgan's law}:
+\[
+\begin{array}{rcl}
+\lnot ( p \lor q ) & \tautEq  & (\lnot p \land \lnot q) \\
+\lnot ( p \land q ) & \tautEq  & (\lnot p \lor \lnot q) .
+\end{array}
+\]
+\end{exercise}
+
+\begin{exercise}
+Use reduced truth tables to
+prove the two \idxnm{distributivity} laws:
+\[
+\begin{array}{rcl}
+p \land (q \lor r) & \tautEq  & (p \land q) \lor ( p \land r ) \\
+p \lor (q \land r) & \tautEq  & (p \lor q) \land ( p \lor r ) .
+\end{array}
+\]
+\end{exercise}
+
+\begin{exercise}\label{exer:byCasesSemantic}
+Show $\vDash (A\limplies B) \limplies (\lnot A \limplies B) \limplies B$,
+where $A$ and~$B$ are arbitrary propositional formulas.
+\end{exercise}
+
+\begin{exercise}\label{exer:liffAssociative}
+Use the method of truth tables to show that
+$\liff$ is associative.
+\end{exercise}
+
+\begin{exercise}
+(Non-distributivity for $\land$ over $\liff$.) For each
+of the following, either prove that it is true or give a truth assignment~$\varphi$
+which shows it is false.  (To prove it is true, you may argue
+informally or use truth tables or reduced truth tables.)
+\begin{enumerate}
+\item $p \land (q \liff r) \vDash (p\land q) \liff (p \land r)$.
+\item $(p\land q) \liff (p \land r) \vDash p \land (q \liff r)$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+(Non-distributivity for $\liff$ over $\land$.) For each
+of the following, either prove that it is true or give a truth assignment~$\varphi$
+which shows it is false.  (To prove it is true, you may argue
+informally or use truth tables or reduced truth tables.)
+\begin{enumerate}
+\item $p \liff (q \land r) \vDash (p\liff q) \land (p \liff r)$.
+\item $(p\liff q) \land (p \liff r) \vDash p \liff (q \land r)$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let $\Gamma$ be a set of formulas.
+\begin{enumerate}
+\item Suppose $\Gamma$ is finite. Prove that there exists a
+formula~$A$ such that $\Gamma \vDash A$ and $A\vDash \Gamma$.
+(The latter means that for all $B\in \Gamma$, $A\vDash B$.)
+\item Give an example of an infinite, satisfiable~$\Gamma$ for which
+there does not exist a satisfiable formula~$A$ such that
+$A\vDash \Gamma$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Is there a formula that uses at least three
+variables and is in {\em both} a CNF formula and a DNF formula?
+If so, give an example. If not, explain why not.
+\end{exercise}
+
+\begin{exercise}
+Let $A$ be the formula $(p\limplies q) \land(q \limplies r)$.
+\begin{enumerate}
+\item Give a CNF formula that is tautologically equivalent to~$A$.
+\item Give a DNF formula that is tautologically equivalent to~$A$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Now let $A$ be the formula $p\liff(q\limplies r\land p)$.
+\begin{enumerate}
+\item Give a CNF formula that is tautologically equivalent to~$A$.
+\item Give a DNF formula that is tautologically equivalent to~$A$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exer:fourNotAdequate}
+Recall the function $f_{p_1 \oplus p_2 \oplus p_3}$
+from Example~\ref{example:BooleanFunction}.
+\begin{itemize}
+\item[(a)] Give a DNF formula that
+represents $f_{p_1 \oplus p_2 \oplus p_3}$.
+\item[(b)] Give a CNF formula that
+represents $f_{p_1 \oplus p_2 \oplus p_3}$.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+Let $f$ be the Boolean function defined by
+$f(x_1,x_2,x_3,x_4)=\True$ if and only if at least three of $x_1,x_2,x_3, x_4$
+are equal to $\True$. Give a propositional formula
+that represents~$f$.
+\end{exercise}
+
+\begin{exercise}
+Prove that $\{ \lnot,\limplies \}$ is adequate.
+\end{exercise}
+
+\begin{exercise}
+Prove that $\{ \lor, \land, \limplies, \liff\}$ is not adequate.
+\end{exercise}
+
+\begin{exercise}\label{exer:nor}
+The binary ``nor''\index{nor@{nor ($\downarrow$)}} connective is denoted~``$\downarrow$''.
+Its truth is defined so that $\varphi(A\downarrow B)$ is
+equal to $\varphi(\lnot (A \lor B))$. (``Nor'' means ``not-or''.) Show that
+$\{ \downarrow \}$ is adequate. Give $\{\downarrow\}$-formulas which
+are tautologically equivalent to $\lnot p$, to $p \lor q$, and to $p \land q$.
+\end{exercise}
+
+\begin{exercise}\label{exer:liff}
+Consider a formula
+\[
+p_1 \liff p_2 \liff p_3 \liff \cdots \liff p_k.
+\]
+Give a simple characterization of when
+$\varphi(p_1 \liff p_2 \liff p_3 \liff \cdots \liff p_k) = \True$.
+Your answer should be in terms of the number of~$i$'s such
+that $\varphi(p_i)$ is equal to $\True$ or~$\False$.
+[Hint: Recall that $\liff$ is associative.]
+\end{exercise}
+
+\begin{exercise}\label{exer:oplusLiff}
+Use the method of truth tables to show that $\lnot(p_1 \oplus p_2)$
+is tautologically equivalent to $p_1 \liff p_2$.
+\end{exercise}
+
+\begin{exercise}
+~~\
+\begin{itemize}
+\item[(a)] Show that $\{ \oplus, \liff \}$ is not adequate.
+\item[(b)] Show that $\{ \lnot, \oplus, \liff \}$ is not adequate.
+\item[(c)] Show that $\{\limplies, \oplus \}$ is adequate.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}\label{exer:caseAdequate}
+Recall that $\TCase$\index{case@{$\TCase$}} is the 3-ary
+``if-then-else'' connective.
+\begin{itemize}
+\item [(a)] Show that $\{\TCase\}$ is not adequate.
+\item [(b)] Show that $\{\lnot,\TCase\}$ is adequate.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}\label{exer:majorityAdequate}
+Fix $k \ge 2$. Recall $\TMaj^k$ is the $k$-ary \idxnm{majority} connective.
+\begin{itemize}
+\item[(a)] Prove that $\{ \TMaj^k \}$ is not adequate.
+\item[(b)] Suppose that $k$ is even.  Prove that $\{ \lnot, \TMaj^k \}$ is adequate.
+[Hint: Try the $k=2$ case first. What Boolean function is represented by $\TMaj^2(p_1,p_2)$?]
+\item[(c)] Suppose that $k$ is odd.  Prove that $\{ \lnot, \TMaj^k \}$ is not adequate.
+% [Hint: show that any $\{ \lnot, \TMaj^k \}$-formula involving only the two variables
+% $p_1$ and~$p_2$, must be tautologically equivalent to one of the four
+% formulas $p_1$, $\lnot p_1$, $p_2$ or $\lnot p_2$.]
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+Theorem~\ref{thm:nandAdequate} and Exercise~\ref{exer:nor}
+showed that the singleton sets $\{\vert\}$ and $\{\downarrow\}$ (that is, ``nand'' and ``nor'')
+are both adequate. Prove that there is no other binary
+connective~$\circ$ such that $\{\circ\}$ is adequate. (See also Exercise~\ref{exer:numConnectives}.)
+\end{exercise}
+
+\begin{exercise}
+Prove that
+$\{\TMaj^3, \oplus \}$ is not an adequate set of propositional connectives.
+\end{exercise}
+
+\begin{exercise}  \hspace*{1ex}
+\begin{enumerate}
+\item Let $\circledast$ be a new binary connective defined
+by letting the truth value of $p\,\circledast\, q$ be the same as
+the truth value of $\TCase(p, p|q, p\limplies q)$. Is $\{\circledast\}$ adequate?
+If so, give $\{\circledast\}$-formulas that are tautologically equivalent to $\lnot p$ and
+to $p \lor q$. If not, explain why it is not adequate.
+\item Let $\circledcirc$ be a new binary connective defined
+by letting the truth value of $p\,\circledcirc\, q$ be the same as
+the truth value of $\TCase(p, p|q, p{\downarrow} q)$. Is $\{\circledcirc\}$ adequate?
+If so, give $\{\circledcirc\}$-formulas that are tautologically equivalent to $\lnot p$ and
+to $p \lor q$. If not, explain why it is not adequate.
+\item Let $f$ be a new 3-ary connective defined
+by letting the truth value of $f(p,q,r)$ be the same as
+the truth value of $\TCase(p, p\limplies q, q\limplies r)$. Is $\{f\}$ adequate?
+If so, give $\{f\}$-formulas that are tautologically equivalent to $\lnot p$ and
+to $p \lor q$. If not, explain why it is not adequate.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Let $A$ be $p_1 \limplies (p_1\lor p_2)$ and let $B$~be
+$p_1 \lor p_3$.  Write out the following formulas explicitly:
+\begin{enumerate}
+\item $A(B/p_1)$.
+\item $A(B/p_2)$.
+\item $A(B/p_3)$.
+\item $B(A/p_1)$.
+\item $B(A/p_2)$.
+\item $B(A/p_3)$.
+\item $B(A,B/p_1,p_3)$.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+Prove the two following assertions. Your answers should use proof by induction
+on the complexity of formulas.
+\begin{enumerate}
+\item If $A$ is an $\{\land,\lor,\limplies,\liff\}$-formula then $A$ is satisfiable.
+\item If $A$ is an $\{\land,\lor\}$-formula, then $A$ is not a tautology.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}\label{exer:numConnectives}
+There are two nullary (0-ary) Boolean
+functions, represented by $\top$ and~$\perp$ (the
+constants $\True$ and~$\False$). There are four
+unary (1-ary) Boolean functions; namely, the two constant functions
+$\True$ and~$\False$ (also represented by $\top$ and~$\perp$),
+the identity function~$f_{p_1}$, and the negation function~$f_{\lnot p_1}$.
+How many binary (2-ary) Boolean functions are there?
+In general, how many $k$-ary Boolean functions are there?
+Justify your answers.
+[Hint: Consider how many lines there are in a truth table
+over $k$ variables.]
+\end{exercise}
+
+\begin{exercise}\label{exer:moreOpensCloses}
+Prove Theorem~\ref{thm:moreOpensCloses}. Suppose that $A$
+is a formula with first symbol a parenthesis. Prove that
+any nonempty, proper initial subexpression of~$A$ has
+more open parentheses than close parentheses.
+
+[A suggested way to work this problem is to prove the following using
+induction on the complexity of~$A$. Suppose
+that $A$ is a formula --- not necessarily starting with
+an open parenthesis. Also suppose $B$ is a nonempty,
+proper initial subexpression of~$A$. Prove that
+either $B$~is all $\lnot$~signs or $B$~has more
+open parentheses than close parentheses.]
+\end{exercise}
+
+\begin{exercise}\label{exer:prefixNotFmla}
+Suppose $A$ is a formula, and $B$~is a
+nonempty, proper initial subexpression of~$A$.
+Prove that $B$ is not a formula.
+[Suggestion: use induction on the length of formulas
+to handle the case where $A$ and~$B$ start with
+a negation symbol~($\lnot$); use the previous exercise
+to handle the case where they start with a parenthesis.]
+\end{exercise}
+
+\begin{exercise}\label{exer:uniqueReadability}
+(Unique Readability.) Work with fully parenthesized formulas
+as specified in the inductive definition of propositional formulas.
+\begin{itemize}
+\item[(a)] Suppose that a formula $A$ can be written in both the
+form $(B\circ C)$ and the form $(D\circ'E)$ where $B,C, D, E$
+are formulas, and $\circ$ and $\circ'$ are binary connectives.
+Prove that these two forms must be identical, with $B=D$ and $C=E$ and
+$\circ = \circ'$. [Hint: One of $B$ or~$D$ must be a nonempty
+initial subexpression of the other. Then use the previous exercise.]
+\item[(b)] Prove the \idxnm{unique readability} property for propositional formulas.
+\end{itemize}
+\end{exercise}
+
+\begin{exercise}\label{exer:numVars}
+Prove Theorem~\ref{thm:numVars} about the numbers of binary connectives
+and propositional variables appearing in a formula.
+\end{exercise}
+
+\begin{exercise}\label{exer:decisionTreeDnfCnf}
+(Converting a decision tree to a DNF or CNF formula.)
+Suppose you are given a decision tree~$\mathcal T$. It
+represents a Boolean function~$f$.
+Describe an easy method that uses~$\mathcal T$ to construct a DNF formula that
+represents the same~$f$. As a hint, consider the paths that
+lead from the root of~$\mathcal T$ to leaves labeled with~``$\True$''.
+
+Also, describe an easy method to construct a CNF formula that
+represents~$f$. For this, you should consider paths from the root
+to leaves labeled~``$\False$''.
+\end{exercise}
+

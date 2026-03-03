@@ -1,0 +1,9 @@
+
+=== Phase 1: Building context index for Chapter 1 ===
+  ERROR: Context index for Chapter 1 was not created!
+
+=== Phase 1: Building context index for Chapter 1 ===
+  ERROR: Context index for Chapter 1 was not created!
+
+=== Phase 1: Building context index for Chapter 1 ===
+  ERROR: Context index for Chapter 1 was not created!

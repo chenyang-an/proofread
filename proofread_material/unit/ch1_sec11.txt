@@ -1,0 +1,47 @@
+\section{Algorithms for Propositional Logic}\label{sec:PropositionalAlgorithms}
+As mentioned on several occasions, the common operations on 
+propositional formulas are all capable of being carried out with
+algorithms\index{algorithm}.  We summarize the algorithms that 
+are available.
+
+\bigskip 
+
+As will be discussed in Section~\ref{sec:AlgorithmInformal}, 
+an algorithm is informally called \emph{feasible}\index{feasible algorithm}
+if it is efficient enough to be carried out in practice.
+There are feasible algorithms for the following:
+\begin{itemize}
+\item Determining whether an expression is a well-formed formula.
+\item Determining the order of operations in a formula which has been
+informally written with some of the parentheses omitted.
+\item Given a formula~$A$ and a (non-reduced) truth table, determining whether 
+the truth table is correct for~$A$ and whether $A$ is a tautology.
+\item Determining whether $C$ follows from the formulas $A$ and~$B$ by a Modus Ponens inference.
+\item Given $A$, $\vec B$ and~$\vec p$, forming $A(\vec B / \vec p)$.
+\item Determining whether $A$ is an instance of~$B$.
+\end{itemize}
+
+\bigskip
+
+Any algorithm is \idxnm{effective} in that it can be computed by 
+a specific procedure (see again Section~\ref{sec:AlgorithmInformal}).
+There are effective algorithms for:
+\begin{itemize}
+\item Determining whether a given propositional formula is a tautology.
+\item Determining whether a given propositional formula is satisfiable.
+\item Converting a formula to an equivalent DNF formula.
+\item Converting a formula to an equivalent CNF formula.
+\end{itemize}
+
+\bigskip
+
+The problem of determining whether a formula is a tautology (or, is satisfiable)
+is $\NP$-hard, i.e.\ hard for the computational complexity class $\NP$
+(\idxnm{nondeterministic polynomial time}).  The best known
+algorithms for these two problems are exponential time. However,
+it is a famous open question whether $\Ptime = \NP$\index{polynomial time}; if so, there
+could be feasible algorithms for checking whether a given formula
+is a tautology, or is satisfiable. However, it is generally suspected that
+no such feasible algorithms exist for these problems.
+
+

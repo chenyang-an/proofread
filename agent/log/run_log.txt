@@ -1,0 +1,57 @@
+
+============================================
+Proofread Run Started at 2026-03-03 22:29:01
+Raw data: /home/cyanz/lean_test/proofread/source_document
+Max Iterations per section: 3
+============================================
+
+=== Step 0: Splitting book into sections ===
+=== Splitting complete ===
+Found chapters: 1
+2
+Total sections to proofread: 21
+
+========================================================
+=== CHAPTER 1: Propositional Logic: Syntax and Semantics ===
+========================================================
+
+=== Phase 1: Building context index for Chapter 1 ===
+  ERROR: Context index for Chapter 1 was not created!
+
+============================================
+Proofread Run Started at 2026-03-03 22:29:17
+Raw data: /home/cyanz/lean_test/proofread/source_document
+Max Iterations per section: 3
+============================================
+
+=== Step 0: Splitting book into sections ===
+=== Splitting complete ===
+Found chapters: 1
+2
+Total sections to proofread: 21
+
+========================================================
+=== CHAPTER 1: Propositional Logic: Syntax and Semantics ===
+========================================================
+
+=== Phase 1: Building context index for Chapter 1 ===
+  ERROR: Context index for Chapter 1 was not created!
+
+============================================
+Proofread Run Started at 2026-03-03 22:31:19
+Raw data: /home/cyanz/lean_test/proofread/source_document
+Max Iterations per section: 3
+============================================
+
+=== Step 0: Splitting book into sections ===
+=== Splitting complete ===
+Found chapters: 1
+2
+Total sections to proofread: 21
+
+========================================================
+=== CHAPTER 1: Propositional Logic: Syntax and Semantics ===
+========================================================
+
+=== Phase 1: Building context index for Chapter 1 ===
+  ERROR: Context index for Chapter 1 was not created!

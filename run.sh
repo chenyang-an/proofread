@@ -170,22 +170,6 @@ build_context_index() {
     local PHASE1_INSTRUCTIONS
     PHASE1_INSTRUCTIONS=$(cat "$PROMPTS/phase1_context_builder.md")
 
-    # Gather all section files for this chapter dynamically
-    local PHASE1_SECTIONS=""
-    for f in $(ls "$UNIT"/ch${ch_num}_sec*.txt 2>/dev/null | sort -V); do
-        local fname=$(basename "$f")
-        PHASE1_SECTIONS="${PHASE1_SECTIONS}
-========== File: ${fname} ==========
-$(cat "$f")
-"
-    done
-    if [ -f "$UNIT/ch${ch_num}_exercises.txt" ]; then
-        PHASE1_SECTIONS="${PHASE1_SECTIONS}
-========== File: ch${ch_num}_exercises.txt ==========
-$(cat "$UNIT/ch${ch_num}_exercises.txt")
-"
-    fi
-
     local PHASE1_PROMPT="${PHASE1_INSTRUCTIONS}
 
 ---
@@ -194,10 +178,9 @@ $(cat "$UNIT/ch${ch_num}_exercises.txt")
 
 Process **Chapter ${ch_num}: ${ch_title}**
 Chapter number: ${ch_num}
+Section files directory: ${UNIT}/
 
-Here are all the section files in order:
-
-${PHASE1_SECTIONS}
+Read all section files for this chapter from the directory above (ch${ch_num}_sec1.txt, ch${ch_num}_sec2.txt, ..., and ch${ch_num}_exercises.txt if it exists).
 
 Write the context index to $CONTEXT/ch${ch_num}_context.md following the output format specified above."
 
@@ -243,10 +226,6 @@ proofread_section() {
 
         local PHASE2_INSTRUCTIONS
         PHASE2_INSTRUCTIONS=$(cat "$PROMPTS/phase2_proofreader.md")
-        local CH_CONTEXT
-        CH_CONTEXT=$(cat "$CONTEXT/ch${ch_num}_context.md")
-        local SEC_CONTENT
-        SEC_CONTENT=$(cat "$UNIT/${section}.txt")
 
         local FEEDBACK=""
         if [ -f "$verif_dir/${section}_check.md" ]; then
@@ -254,9 +233,9 @@ proofread_section() {
 
 ### Previous Verification Feedback
 
-The previous proofread attempt was reviewed and found issues. Read the verification report below carefully and address all problems identified — fix false positives, catch missed issues, and correct line numbers.
+The previous proofread attempt was reviewed and found issues. Read the verification report at the path below carefully and address all problems identified — fix false positives, catch missed issues, and correct line numbers.
 
-$(cat "$verif_dir/${section}_check.md")"
+Verification report: ${verif_dir}/${section}_check.md"
         fi
 
         local PHASE2_PROMPT="${PHASE2_INSTRUCTIONS}
@@ -266,17 +245,12 @@ $(cat "$verif_dir/${section}_check.md")"
 ## Your Task
 
 Proofread section: **${section}**
+
+Section file: ${UNIT}/${section}.txt
+Context index: ${CONTEXT}/ch${ch_num}_context.md
 ${FEEDBACK}
 
-### Chapter Context Index
-
-${CH_CONTEXT}
-
-### Section Content (${section}.txt)
-
-${SEC_CONTENT}
-
-Write the proofread report to ${result_dir}/${section}.md following the output format specified above."
+Read the section file and context index from the paths above, then write the proofread report to ${result_dir}/${section}.md following the output format specified above."
 
         run_claude "$PHASE2_PROMPT"
 
