@@ -15,9 +15,9 @@ You will receive:
 
 ## Files to Read
 
-- Original section: `/home/cyanz/lean/proofread/proofread_material/unit/{section_id}.txt`
-- Context index: `/home/cyanz/lean/proofread/proofread_material/context/ch{N}_context.md`
-- Proofread report: `/home/cyanz/lean/proofread/result/proofread/ch{N}/{section_id}.md`
+- Original section: `{section_files_directory}/{section_id}.txt`
+- Context index: `{context_directory}/ch{N}_context.md`
+- Proofread report: `{result_directory}/ch{N}/{section_id}.md`
 
 ## Verification Tasks
 
@@ -104,10 +104,7 @@ Spot-check at least 5 flags (or all, if fewer than 5):
 
 ## Output
 
-Write the verification result to:
-```
-/home/cyanz/lean/proofread/result/verification/ch{N}/{section_id}_check.md
-```
+Write the verification result to the path specified in the task prompt below.
 
 Use this format:
 
@@ -116,7 +113,7 @@ Use this format:
 
 **Verification Date:** [date]
 **Section:** {section_id}
-**Proofread Report:** /home/cyanz/lean/proofread/result/proofread/ch{N}/{section_id}.md
+**Proofread Report:** {result_directory}/ch{N}/{section_id}.md
 
 ---
 

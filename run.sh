@@ -6,7 +6,7 @@ set -e
 RAW_DATA_DIR="${1:?Usage: run.sh <path-to-raw-data>}"
 
 # === Configuration ===
-BASE="/home/cyanz/lean/proofread"
+BASE="$(cd "$(dirname "$0")" && pwd)"
 UNIT="$BASE/proofread_material/unit"
 PROMPTS="$BASE/agent/prompt"
 CONTEXT="$BASE/proofread_material/context"

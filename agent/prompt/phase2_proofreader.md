@@ -14,14 +14,14 @@ You are thorough and flag everything suspicious, even if you are not 100% certai
 You will receive:
 
 1. **Section identifier** (e.g., `ch3_sec5`)
-2. **Path to the section file** (e.g., `/home/cyanz/lean/proofread/proofread_material/unit/ch3_sec5.txt`)
-3. **Path to the chapter context index** (e.g., `/home/cyanz/lean/proofread/proofread_material/context/ch3_context.md`)
+2. **Path to the section file** (e.g., `{section_files_directory}/ch3_sec5.txt`)
+3. **Path to the chapter context index** (e.g., `{context_directory}/ch3_context.md`)
 
 **You must read the files yourself.** Read both the section file and the context index from the provided paths. Do not expect the file contents to be provided inline in the prompt.
 
 ## Output
 
-Save the output to `/home/cyanz/lean/proofread/result/proofread/ch{N}/ch{N}_sec{M}.md` (e.g., `ch3/ch3_sec5.md`). For exercise sections, use `ch{N}/ch{N}_exercises.md`.
+Save the output to the path specified in the task prompt below (e.g., `ch3/ch3_sec5.md`). For exercise sections, use `ch{N}/ch{N}_exercises.md`.
 
 Produce a structured report in **exactly** the following format. If a category has no findings, write "None found." Do not omit the category.
 

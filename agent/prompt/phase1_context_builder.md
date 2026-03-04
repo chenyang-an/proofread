@@ -12,13 +12,13 @@ You will receive:
 
 1. **Chapter number** (e.g., 3)
 2. **Chapter title** (e.g., "First-Order Logic: Syntax and Semantics")
-3. **Path to the section files directory** (e.g., `/home/cyanz/lean/proofread/proofread_material/unit/`)
+3. **Path to the section files directory** (e.g., `{section_files_directory}/`)
 
 **You must read the files yourself.** The section files for chapter N are named `ch{N}_sec1.txt`, `ch{N}_sec2.txt`, ..., plus `ch{N}_exercises.txt`. Read all of them from the given directory in order. Do not expect the file contents to be provided inline in the prompt.
 
 ## Output
 
-Save the output to `/home/cyanz/lean/proofread/proofread_material/context/ch{N}_context.md` (e.g., `ch3_context.md` for Chapter 3).
+Save the output to the path specified in the task prompt below (e.g., `ch3_context.md` for Chapter 3).
 
 Produce a single structured document in **exactly** the following format. Be concise — each entry should be one or two lines, not a full reproduction of the definition.
 

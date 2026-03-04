@@ -1,9 +1,6 @@
 # Phase 4: Verdict
 
-Read the verification result file at:
-```
-/home/cyanz/lean/proofread/result/verification/ch{N}/{section_id}_check.md
-```
+Read the verification result file at the path specified below.
 
 ## Decision Criteria
 
