@@ -62,7 +62,11 @@ run_claude() {
                 echo "--- Stats: ${duration_min}m${duration_sec}s | \$${cost} | in:${input_tokens} out:${output_tokens} ---"
                 ;;
         esac
-    done | tee -a "$LOG_FILE"
+    done | if [ "$LOG_FILE" != "$GLOBAL_LOG" ]; then
+        tee -a "$LOG_FILE" >> "$GLOBAL_LOG"
+    else
+        tee -a "$LOG_FILE"
+    fi
 
     rm -f "$tmpfile"
 }
@@ -97,7 +101,11 @@ run_claude_capture() {
                 echo "--- Stats: ${duration_min}m${duration_sec}s | \$${cost} | in:${input_tokens} out:${output_tokens} ---"
                 ;;
         esac
-    done | tee -a "$LOG_FILE" >&2
+    done | if [ "$LOG_FILE" != "$GLOBAL_LOG" ]; then
+        tee -a "$LOG_FILE" >> "$GLOBAL_LOG"
+    else
+        tee -a "$LOG_FILE"
+    fi >&2
 
     # Extract result to stdout for capture
     local result=$(grep '"type":"result"' "$tmpfile" 2>/dev/null | jq -r '.result // empty')
