@@ -58,6 +58,7 @@ run_claude() {
                 local cost=$(echo "$line" | jq -r '.total_cost_usd // "N/A"')
                 local input_tokens=$(echo "$line" | jq -r '.usage.input_tokens // "N/A"')
                 local output_tokens=$(echo "$line" | jq -r '.usage.output_tokens // "N/A"')
+                echo "$result"
                 echo "--- Stats: ${duration_min}m${duration_sec}s | \$${cost} | in:${input_tokens} out:${output_tokens} ---"
                 ;;
         esac
