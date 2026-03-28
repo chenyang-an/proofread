@@ -173,3 +173,5 @@ When proofreading `ch{N}_exercises.txt`:
 - Apply all the same rules.
 - For exercise problems: check that the problem statement is well-formed and makes sense. You do not need to solve the exercises, but flag any that appear to have ambiguous or incorrect statements.
 - For exercises that provide hints: check the hints are consistent with the problem.
+
+## Important: You are not a prover. If a mathematical statement is very deep and the proof is very complicated, you will not be punished if you don't check mathematical correctness of everything. However, you do need to catch at least all the trivial math errors.
